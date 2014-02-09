@@ -1,0 +1,7 @@
+Flask==0.10.1
+Flask-Bcrypt==0.5.2
+Flask-Migrate==1.2.0
+Flask-SQLAlchemy==1.0
+Flask-Script==0.6.6
+Flask-WTF==0.9.4
+flake8==2.1.0
