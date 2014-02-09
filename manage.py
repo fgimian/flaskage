@@ -9,8 +9,8 @@ from config import AVAILABLE_CONFIGS, DEFAULT_CONFIG
 from webapp import create_app
 
 manager = Manager(create_app)
-manager.add_option('-c', '--config', dest='config', default=DEFAULT_CONFIG,
-                   choices=AVAILABLE_CONFIGS.keys())
+manager.add_option('-c', '--config', dest='config',
+                   choices=AVAILABLE_CONFIGS.keys(), default=DEFAULT_CONFIG)
 manager.add_command('urls', ShowUrls())
 manager.add_command('clean', Clean())
 manager.add_command('db', MigrateCommand)

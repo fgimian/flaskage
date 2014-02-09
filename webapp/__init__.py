@@ -21,6 +21,19 @@ def create_app(config):
     migrate.init_app(app, db)
     bcrypt.init_app(app)
 
+    # Setup app logging if necessary
+    # app.logger.setLevel(logging.INFO)
+
+    # Setup app hooks if necessary
+    # @app.before_request
+    # def before_request():
+    #     pass
+
+    # Setup app error handlers if necessary
+    # @app.errorhandler(404)
+    # def not_found(error):
+    #     return render_template("404.html"), 404
+
     # Import and register Blueprints
     # from .views import module1
     # from .views import module2
