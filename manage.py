@@ -20,7 +20,7 @@ manager.add_command("assets", ManageAssets())
 
 @manager.command
 def flake8():
-    """Validates all Python source files using PEP8 and Pyflakes."""
+    """Validates all Python source files using Flake8"""
     import flake8.main
     for dirpath, _, filenames in os.walk('.'):
         for filename in filenames:
