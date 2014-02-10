@@ -1,7 +1,7 @@
 # Flaskage #
 *A complete and carefully designed template for use with the Flask web framework*
 
-![Flaskage Logo](https://raw.github.com/fgimian/flaskage/master/flaskage.png)
+![Flaskage Logo](https://raw.github.com/fgimian/flaskage/master/webapp/static/img/flaskage.png)
 
 Awesome artwork provided courtesy of [Open Clip Art Library](http://openclipart.org/detail/168585/knight-sheep-by-dodger2)
 
@@ -77,7 +77,6 @@ rm bootstrap-3.1.0-src.tar.gz
 
 This project is a work in progress and will be improved over time as I begin to use it further for building websites.  The remaining tasks on my list at present are as follows:
 
-* Provide a Twitter Bootstrap template which is ready to use
 * Determine the best way to integrate Flask-WTF for forms
 * Determine if Flask-Login is worth integrating as an auth system
 * Write tests and integrate them into the template

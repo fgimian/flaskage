@@ -42,8 +42,10 @@ def create_app(config):
     #     return render_template("404.html"), 404
 
     # Import and register Blueprints
+    from .views import flaskage
     # from .views import module1
     # from .views import module2
+    app.register_blueprint(flaskage.mod)
     # app.register_blueprint(module1.mod)
     # app.register_blueprint(module2.mod)
 
