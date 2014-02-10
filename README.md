@@ -1,7 +1,7 @@
 # Flaskage #
 *A complete and carefully designed template for use with the Flask web framework*
 
-![Flaskage Logo](https://raw.github.com/fgimian/flaskage/master/logo/flaskage.png)
+![Flaskage Logo](https://raw.github.com/fgimian/flaskage/master/flaskage.png)
 
 Awesome artwork provided courtesy of [Open Clip Art Library](http://openclipart.org/detail/168585/knight-sheep-by-dodger2)
 
@@ -27,6 +27,22 @@ So what makes Flaskage unique?  A few little things :smile:
 * **Full integration of Flask-Assets**: This template has been designed for use with Coffeescript, LESS (in particular Twitter's Bootstrap CSS framework) or any other pre-processor you may have in mind.  Furthermore, Flaskage keeps all such uncompiled files neatly in an assets directory.
 * **Database migrations**: Flaskage integrates Flask-Migrate and is ready for database migrations which can be invoked via management commands.
 * **Switchable configurations**: With a simple command line switch, you can run the development server under any environment you wish (development, production or testing).  Further to this, you can set a default environment for your app to run in via a variable in the config module.
+
+## Project Structure ##
+
+Flaskage is structured as shown below:
+
+```
+├── config.py         : Configuration for each development, production and test
+├── manage.py         : Management interface and command registrations
+├── requirements.txt  : Python package requirements
+└── webapp            : Main web application directory
+    ├── assets        : Pre-compiled script and stylsheet assets
+    ├── models        : Database model definitions
+    ├── static        : Static files such as CSS, Javascript and images
+    ├── templates     : Jinja2 templates for presentation
+    └── views         : Views that provide business logic for each page
+```
 
 ## Adding jQuery and Twitter Bootstrap ##
 
