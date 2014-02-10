@@ -11,11 +11,13 @@ DEFAULT_CONFIG = 'development'
 
 class Config(object):
     DEBUG = False
+    ASSETS_LOAD_PATH = [os.path.join(PROJECT_ROOT, 'webapp', 'assets')]
 
 
 class ProductionConfig(Config):
     SECRET_KEY = 'prodkey'
     SQLALCHEMY_DATABASE_URI = 'mysql://user@localhost/foo'
+    ASESTS_AUTO_BUILD = False
 
 
 class DevelopmentConfig(Config):

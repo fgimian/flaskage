@@ -4,6 +4,7 @@ import os
 from flask.ext.script import Manager
 from flask.ext.script.commands import ShowUrls, Clean
 from flask.ext.migrate import MigrateCommand
+from flask.ext.assets import ManageAssets
 
 from config import AVAILABLE_CONFIGS, DEFAULT_CONFIG
 from webapp import create_app
@@ -14,6 +15,7 @@ manager.add_option('-c', '--config', dest='config',
 manager.add_command('urls', ShowUrls())
 manager.add_command('clean', Clean())
 manager.add_command('db', MigrateCommand)
+manager.add_command("assets", ManageAssets())
 
 
 @manager.command

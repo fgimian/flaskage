@@ -1,13 +1,15 @@
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.migrate import Migrate
-from flaskext.bcrypt import Bcrypt
+from flask.ext.bcrypt import Bcrypt
+from flask.ext.assets import Environment
 
 from config import AVAILABLE_CONFIGS
 
 db = SQLAlchemy()
 migrate = Migrate()
 bcrypt = Bcrypt()
+assets = Environment()
 
 
 def create_app(config):
@@ -20,6 +22,11 @@ def create_app(config):
     db.init_app(app)
     migrate.init_app(app, db)
     bcrypt.init_app(app)
+    assets.init_app(app)
+
+    # Little workaround to allow custom asset load path
+    # https://github.com/miracle2k/flask-assets/issues/35
+    assets.url = app.static_url_path
 
     # Setup app logging if necessary
     # app.logger.setLevel(logging.INFO)
