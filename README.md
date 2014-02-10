@@ -9,7 +9,7 @@ Awesome artwork provided courtesy of [Open Clip Art Library](http://openclipart.
 
 At the current time, [Flask](http://flask.pocoo.org/) is my favourite web framework in Python.  It's beautifully designed and every bit as powerful as the full-stack frameworks once you plug in the required components.
 
-Unfortunately, there are currently only a few templates available to get you started with Flask.  All the existing templates are well worth checking out but didn't quite fit my needs and requirements, so I designed my owns.
+Unfortunately, there are currently only a few templates available to get you started with Flask.  All the existing templates are well worth checking out but didn't quite fit my needs and requirements, so I designed my own.
 
 Some of the existing templates and projects which inspired and influenced this project are:
 
@@ -20,23 +20,24 @@ Some of the existing templates and projects which inspired and influenced this p
 
 ## Features ##
 
-So what makes Flaskage unique?  A few little things :smile:
+So what makes Flaskage unique?  A few little things:
 
-* **Clean and simple**: Although I'm designing Flaskage for medium te larger sized projects, I wanted to ensure that the boilerplate code was kept to a minimum.  Instead, I've opted for comments which provide examples of what you can do rather than starting to write an application in the template.
-* **One directory per function**: It seems that most templates are inspired by the way that Django separates apps, whereby each component of the larger web application has its own models, views and potentially templates and static files.  I personally feel that this layout doesn't make sense.  Instead, I prefer a structure more similar to the [Play Framework](http://www.playframework.com/documentation/2.0/Anatomy) which keeps views in one directory, models in one directory and so on.  The ability to split views and models into multiple files is an absolute must which is also part of Flaskage's design.
+* **Clean and simple**: Although I'm designing Flaskage for medium to larger sized projects, I wanted to ensure that the boilerplate code was kept to a minimum.  Instead, I've opted for comments which provide examples of what you can do rather than starting to write an application in the template.
+* **One directory per function**: It seems that most templates are inspired by the way that Django separates apps, whereby each component of the larger web application has its own models, views, templates and static files.  I personally feel that this layout doesn't make sense.  Instead, I prefer a structure more similar to the [Play Framework](http://www.playframework.com/documentation/2.0/Anatomy) which keeps views in one directory, models in one directory and so on.  The ability to split views and models into multiple files is an absolute must which is also part of Flaskage's design.
 * **Full integration of Flask-Assets**: This template has been designed for use with Coffeescript, LESS (in particular Twitter's Bootstrap CSS framework) or any other pre-processor you may have in mind.  Furthermore, Flaskage keeps all such uncompiled files neatly in an assets directory.
-* **Database migrations**: Flaskage integrates Flask-Migrate and is ready for database migrations which can be invoked via management commands.
+* **Database migrations**: Flaskage integrates [Flask-Migrate](https://github.com/miguelgrinberg/Flask-Migrate) and is ready for database migrations which can be invoked via management commands.
 * **Switchable configurations**: With a simple command line switch, you can run the development server under any environment you wish (development, production or testing).  Further to this, you can set a default environment for your app to run in via a variable in the config module.
+* **Flake8 integration**: You can check that your syntax is valid and that your coding style follows the PEP8 standard with a simple management command.
 
 ## Project Structure ##
 
 Flaskage is structured as shown below:
 
 ```
-├── config.py         : Configuration for each development, production and test
+├── config.py         : Configuration for development, production and test environments
 ├── manage.py         : Management interface and command registrations
 ├── requirements.txt  : Python package requirements
-└── webapp            : Main web application directory
+└── webapp            : Main web application directory with app initialisation
     ├── assets        : Pre-compiled script and stylsheet assets
     ├── models        : Database model definitions
     ├── static        : Static files such as CSS, Javascript and images
@@ -48,10 +49,15 @@ Flaskage is structured as shown below:
 
 To use these libraries, you'll need to add them into the project yourself.  Naturally, you can add other libraries like [Foundation](http://foundation.zurb.com/) and use SCSS instead or add Javascript libraries like [Backbone.js](http://backbonejs.org/).
 
-### jQuery ###
+Please ensure you start in the **webapp** directory:
 
 ``` bash
 cd flaskage/webapp
+```
+
+### jQuery ###
+
+``` bash
 curl -o ./static/js/jquery.js http://code.jquery.com/jquery-latest.js
 curl -o ./static/js/jquery.min.js http://code.jquery.com/jquery-latest.min.js
 ```
