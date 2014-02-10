@@ -7,7 +7,7 @@ from flask.ext.migrate import MigrateCommand
 from flask.ext.assets import ManageAssets
 
 from config import AVAILABLE_CONFIGS, DEFAULT_CONFIG
-from webapp import create_app
+from application import create_app
 
 manager = Manager(create_app)
 manager.add_option('-c', '--config', dest='config',

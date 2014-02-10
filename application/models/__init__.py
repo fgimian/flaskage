@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-    flaskage.webapp.models
-    ~~~~~~~~~~~~~~~~~~~~~~
+    flaskage.application.models
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     Here you can create a number of files each containing model definitions
     via the SQLAlchemy ORM.

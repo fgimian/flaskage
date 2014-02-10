@@ -11,7 +11,7 @@ DEFAULT_CONFIG = 'development'
 
 class Config(object):
     DEBUG = False
-    ASSETS_LOAD_PATH = [os.path.join(PROJECT_ROOT, 'webapp', 'assets')]
+    ASSETS_LOAD_PATH = [os.path.join(PROJECT_ROOT, 'application', 'assets')]
 
 
 class ProductionConfig(Config):

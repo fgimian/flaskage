@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-    flaskage.webapp.views
-    ~~~~~~~~~~~~~~~~~~~~~
+    flaskage.application.views
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     Here you can create a number of files each containing a set of views
     which are grouped by Flask Blueprints.  Each set of views may be
