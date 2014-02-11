@@ -7,7 +7,7 @@
     <title>{% block title %}{% endblock %}</title>
 
     <!-- Bootstrap -->
-    {% assets filters="less,cssmin", output="css/bootstrap-custom.css",
+    {% assets filters="less,cleancss", output="css/bootstrap-custom.css",
               depends="less/bootstrap/*.less", "less/bootstrap-custom.less" %}
         <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}" />
     {% endassets %}

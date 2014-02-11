@@ -50,12 +50,12 @@ Flaskage is structured as shown below:
 
 ## Adding Node.js Compilers and Minifiers ##
 
-In order to use LESS, Coffeescript and UglifyJS, we need to install the necessary modules on our system via Node.js.
+In order to use LESS, Clean CSS, Coffeescript and UglifyJS, we need to install the necessary modules on our system via Node.js.
 
 Firstly, ensure that your system has the latest [Node.js and NPM](http://nodejs.org/) installed and then run the following:
 
 ``` bash
-sudo npm install -g less coffee-script uglify-js
+sudo npm install -g less clean-css coffee-script uglify-js
 ```
 
 ## Adding jQuery and Twitter Bootstrap ##
