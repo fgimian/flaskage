@@ -24,10 +24,6 @@ def create_app(config):
     bcrypt.init_app(app)
     assets.init_app(app)
 
-    # Little workaround to allow custom asset load path
-    # https://github.com/miracle2k/flask-assets/issues/35
-    assets.url = app.static_url_path
-
     # Setup app logging if necessary
     # app.logger.setLevel(logging.INFO)
 
