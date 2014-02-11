@@ -17,6 +17,7 @@ Some of the existing templates and projects which inspired and influenced this p
 * [overholt](https://github.com/mattupstate/overholt)
 * [flask_website](https://github.com/mitsuhiko/flask/tree/website)
 * [beancounter](https://bitbucket.org/audriusk/beancounter)
+* [cookiecutter-flask](https://github.com/sloria/cookiecutter-flask)
 
 ## Features ##
 
@@ -47,6 +48,16 @@ Flaskage is structured as shown below:
 └── requirements.txt  : Python package requirements
 ```
 
+## Adding Node.js Compilers and Minifiers ##
+
+In order to use LESS, Coffeescript and UglifyJS, we need to install the necessary modules on our system via Node.js.
+
+Firstly, ensure that your system has the latest [Node.js and NPM](http://nodejs.org/) installed and then run the following:
+
+``` bash
+sudo npm install -g less coffee-script uglify-js
+```
+
 ## Adding jQuery and Twitter Bootstrap ##
 
 To use these libraries, you'll need to add them into the project yourself.  Naturally, you can add other libraries like [Foundation](http://foundation.zurb.com/) and use SCSS instead or add Javascript libraries like [Backbone.js](http://backbonejs.org/).
@@ -54,7 +65,7 @@ To use these libraries, you'll need to add them into the project yourself.  Natu
 Please ensure you start in the **application** directory:
 
 ``` bash
-cd flaskage/application
+cd flaskage/application/
 ```
 
 ### jQuery ###
@@ -75,6 +86,28 @@ tar xvfz bootstrap-3.1.0-src.tar.gz --directory ./assets/less/bootstrap/ --strip
 rm bootstrap-3.1.0-src.tar.gz
 ```
 
+## Using the Template ##
+
+Ensure that you are in the **flaskage** directory:
+
+``` bash
+cd flaskage/
+```
+
+You may now run your server as follows:
+
+``` bash
+./manage.py runserver -t 0.0.0.0
+```
+
+You may validate all your code using Flaka8 like this:
+
+``` bash
+./manage.py flake8
+```
+
+Furthermore, you have access to management commands that list URLs and their view functions, start a shell, manage assets, perform database migrations and clean up *.pyc and *.pyo files.  Simply run the **./manage.py** script to see further details.
+
 ## Remaining Tasks ##
 
 This project is a work in progress and will be improved over time as I begin to use it further for building web applications.  The remaining tasks on my list at present are as follows:
@@ -82,4 +115,3 @@ This project is a work in progress and will be improved over time as I begin to 
 * Determine the best way to integrate Flask-WTF for forms
 * Determine if Flask-Login is worth integrating as an auth system
 * Write tests and integrate them into the template
-* Investigate Backbone.js and decide whether or not it is worth integrating
