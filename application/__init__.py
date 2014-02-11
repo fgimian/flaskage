@@ -3,6 +3,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.migrate import Migrate
 from flask.ext.bcrypt import Bcrypt
 from flask.ext.assets import Environment
+from flask.ext.login import LoginManager
 
 from config import AVAILABLE_CONFIGS
 
@@ -10,6 +11,7 @@ db = SQLAlchemy()
 migrate = Migrate()
 bcrypt = Bcrypt()
 assets = Environment()
+login_manager = LoginManager()
 
 
 def create_app(config):
@@ -23,6 +25,12 @@ def create_app(config):
     migrate.init_app(app, db)
     bcrypt.init_app(app)
     assets.init_app(app)
+    login_manager.init_app(app)
+
+    # Provide the Flask-Login user loader function
+    # @login_manager.user_loader
+    # def load_user(id):
+    #     return User.query.get(id)
 
     # Setup app logging if necessary
     # app.logger.setLevel(logging.INFO)
