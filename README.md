@@ -100,13 +100,19 @@ You may now run your server as follows:
 ./manage.py runserver -t 0.0.0.0
 ```
 
+All unit tests may be run using:
+
+``` bash
+./manage.py test
+```
+
 You may validate all your code using Flaka8 like this:
 
 ``` bash
 ./manage.py flake8
 ```
 
-Furthermore, you have access to management commands that list URLs and their view functions, start a shell, manage assets, perform database migrations and clean up *.pyc and *.pyo files.  Simply run the **./manage.py** script to see further details.
+Furthermore, you have access to management commands that list URLs and their view functions, start a shell, manage assets, perform database migrations and clean up \*.pyc and \*.pyo files.  Simply run the **./manage.py** script to see further details.
 
 ## Remaining Tasks ##
 
