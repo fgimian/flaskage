@@ -3,6 +3,7 @@ git+https://github.com/miracle2k/webassets.git
 git+https://github.com/miracle2k/flask-assets.git
 Flask-Bcrypt==0.5.2
 Flask-Migrate==1.2.0
+Flask-Testing==0.4
 Flask-SQLAlchemy==1.0
 git+https://github.com/techniq/flask-script.git
 Flask-WTF==0.9.4

@@ -113,4 +113,3 @@ Furthermore, you have access to management commands that list URLs and their vie
 This project is a work in progress and will be improved over time as I begin to use it further for building web applications.  The remaining tasks on my list at present are as follows:
 
 * Determine if Flask-Login is worth integrating as an auth system
-* Write tests and integrate them into the template

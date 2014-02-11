@@ -33,5 +33,13 @@ def flake8():
                     os.path.join(dirpath, filename))
 
 
+@manager.command
+def test(verbosity=2):
+    """Runs all application unit tests"""
+    import unittest
+    tests = unittest.TestLoader().discover('.')
+    unittest.TextTestRunner(verbosity=verbosity).run(tests)
+
+
 if __name__ == '__main__':
     manager.run()
