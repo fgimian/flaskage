@@ -20,9 +20,15 @@
     SQLAlchemy New Mexico Tech Quick Reference:
     http://infohost.nmt.edu/tcc/help/pubs/db/sqlalchemy/
 
-    An example can be found below to get you started:
+    Some suggested imports are as follows:
 
     from flask import Blueprint, render_template, current_app
+    from flask.ext.wtf import Form
+    from wtforms import TextField, BooleanField, PasswordField, validators
+
+    An example can be found below to get you started:
+
+    from flask import Blueprint, render_template
 
     from .. import db
     from ..models.user import Model1, Model2, Model3

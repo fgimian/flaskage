@@ -40,7 +40,7 @@ Flaskage is structured as shown below:
 │   ├── models        : Database model definitions
 │   ├── static        : Static files such as CSS, Javascript and images
 │   ├── templates     : Jinja2 templates for presentation
-│   └── views         : Views that provide business logic for each page
+│   └── views         : Views and related forms that provide business logic for each page
 ├── libraries         : Supporting libraries you have developed for your web application
 ├── tests             : Unit tests for testing your web application
 ├── config.py         : Configuration for development, production and test environments
@@ -112,6 +112,5 @@ Furthermore, you have access to management commands that list URLs and their vie
 
 This project is a work in progress and will be improved over time as I begin to use it further for building web applications.  The remaining tasks on my list at present are as follows:
 
-* Determine the best way to integrate Flask-WTF for forms
 * Determine if Flask-Login is worth integrating as an auth system
 * Write tests and integrate them into the template
