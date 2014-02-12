@@ -13,7 +13,7 @@
 
     from datetime import datetime
 
-    from sqlalchemy.ext.hybrid import hybrid_property
+    from flask.ext.login import UserMixin
 
     from .. import db, bcrypt
 
@@ -28,7 +28,7 @@
     }
 
 
-    class User(db.Model):
+    class User(db.Model, UserMixin):
         # Optionally override the table name (default is user anyway)
         __tablename__ = 'user'
 
@@ -42,19 +42,19 @@
         # Column with custom name
         active = db.Column('is_active', db.Boolean, default=False)
 
-        def __init__(self, username, email, password, active):
-            self.username = username
-            self.email = email
-            self.password = password
-            self.active = active
-
-        @hybrid_property
-        def password(self):
+        def _get_password(self):
             return self._password
 
-        @password.setter
-        def password(self, value):
-            self._password = bcrypt.generate_password_hash(value)
+        def _set_password(self, password):
+            self._password = bcrypt.generate_password_hash(password)
+
+        password = db.synonym(
+            '_password', descriptor=property(_get_password, _set_password))
+
+        def check_password(self, password):
+            if self.password is None:
+                return False
+            return bcrypt.check_password_hash(self.password, password)
 
         @property
         def sex(self):
