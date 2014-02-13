@@ -5,7 +5,7 @@ python:
 
 install:
   # Install all required Node.js packages
-  - sudo npm install -g bower less clean-css coffee-script uglify-js
+  - npm install -g bower less clean-css coffee-script uglify-js
   # Install client-side libraries via bower
   - bower install
   # Install all required Python packages
