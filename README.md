@@ -40,9 +40,11 @@ Flaskage is structured as shown below:
 │   ├── models        : Database model definitions
 │   ├── static        : Static files such as CSS, Javascript and images
 │   ├── templates     : Jinja2 templates for presentation
+│   ├── vendor        : Vendor provided script and stylesheet assets
 │   └── views         : Views and related forms that provide business logic for each page
 ├── libraries         : Supporting libraries you have developed for your web application
 ├── tests             : Unit tests for testing your web application
+├── bower.json        : Vendor provided client-side package requirements
 ├── config.py         : Configuration for development, production and test environments
 ├── manage.py         : Management interface and command registrations
 └── requirements.txt  : Python package requirements
@@ -55,35 +57,21 @@ In order to use LESS, Clean CSS, Coffeescript and UglifyJS, we need to install t
 Firstly, ensure that your system has the latest [Node.js and NPM](http://nodejs.org/) installed and then run the following:
 
 ``` bash
-sudo npm install -g less clean-css coffee-script uglify-js
+sudo npm install -g bower less clean-css coffee-script uglify-js
 ```
 
 ## Adding jQuery and Twitter Bootstrap ##
 
-To use these libraries, you'll need to add them into the project yourself.  Naturally, you can add other libraries like [Foundation](http://foundation.zurb.com/) and use SCSS instead or add Javascript libraries like [Backbone.js](http://backbonejs.org/).
-
-Please ensure you start in the **application** directory:
+Please ensure you start in the **flaskage** directory:
 
 ``` bash
-cd flaskage/application/
+cd flaskage/
 ```
 
-### jQuery ###
+And now install all the client-side libraries using bower:
 
 ``` bash
-curl -o ./static/js/jquery.js http://code.jquery.com/jquery-latest.js
-curl -o ./static/js/jquery.min.js http://code.jquery.com/jquery-latest.min.js
-```
-
-### Twitter Bootstrap ###
-
-``` bash
-mkdir ./static/fonts/ ./assets/less/bootstrap/
-curl -L -o bootstrap-3.1.0-src.tar.gz https://github.com/twbs/bootstrap/archive/v3.1.0.tar.gz
-tar xvfz bootstrap-3.1.0-src.tar.gz --directory ./static/fonts/ --strip 3 bootstrap-3.1.0/dist/fonts/
-tar xvfz bootstrap-3.1.0-src.tar.gz --directory ./static/js/ --strip 3 bootstrap-3.1.0/dist/js/
-tar xvfz bootstrap-3.1.0-src.tar.gz --directory ./assets/less/bootstrap/ --strip 2 --wildcards bootstrap-3.1.0/less/*.less
-rm bootstrap-3.1.0-src.tar.gz
+bower install
 ```
 
 ## Using the Template ##
