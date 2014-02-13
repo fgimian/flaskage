@@ -1,0 +1,11 @@
+language: python
+python:
+  - "2.6"
+  - "2.7"
+  - "3.3"
+
+install
+  - "npm install less clean-css coffee-script uglify-js"
+  - "pip install -r requirements.txt --use-mirrors"
+
+script: python manage.py test
