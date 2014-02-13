@@ -7,4 +7,4 @@ install:
   - "npm install less clean-css coffee-script uglify-js"
   - "pip install -r requirements.txt"
 
-script: "export PATH=$PATH:$(pwd)/node_modules/.bin python manage.py test"
+script: "PATH=$PATH:$(pwd)/node_modules/.bin python manage.py test"
