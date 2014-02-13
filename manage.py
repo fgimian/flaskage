@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os
+import fnmatch
 
 from flask.ext.script import Manager
 from flask.ext.script.commands import ShowUrls, Clean
@@ -26,17 +27,22 @@ manager.add_command("assets", ManageAssets())
 def flake8():
     """Validates all Python source files using Flake8"""
     import flake8.main
-    for dirpath, _, filenames in os.walk('.'):
-        for filename in filenames:
-            if filename.endswith('.py'):
-                flake8.main.check_file(os.path.join(dirpath, filename))
+    project_root = os.path.dirname(os.path.relpath(__file__)) or '.'
+    ignore_paths = ['/.git', '/application/vendor', '/migrations/versions']
+    for dirpath, subdirs, filenames in os.walk(project_root, topdown=True):
+        if any([dirpath.endswith(d) for d in ignore_paths]):
+            subdirs[:] = []
+            continue
+        for filename in fnmatch.filter(filenames, '*.py'):
+            flake8.main.check_file(os.path.join(dirpath, filename))
 
 
 @manager.command
 def test(verbosity=2):
     """Runs all application unit tests"""
     import unittest
-    tests = unittest.TestLoader().discover('.')
+    project_root = os.path.dirname(os.path.relpath(__file__)) or '.'
+    tests = unittest.TestLoader().discover(project_root)
     result = unittest.TextTestRunner(verbosity=verbosity).run(tests)
     exit(int(not result.wasSuccessful()))
 
