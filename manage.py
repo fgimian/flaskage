@@ -28,13 +28,8 @@ def flake8():
     import flake8.main
     for dirpath, _, filenames in os.walk('.'):
         for filename in filenames:
-            if (
-                filename.endswith('.py') and
-                not dirpath.endswith('/migrations/versions') and
-                not dirpath.endswith('/migrations')
-            ):
-                flake8.main.check_file(
-                    os.path.join(dirpath, filename))
+            if filename.endswith('.py'):
+                flake8.main.check_file(os.path.join(dirpath, filename))
 
 
 @manager.command
