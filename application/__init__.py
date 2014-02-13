@@ -1,3 +1,16 @@
+# -*- coding: utf-8 -*-
+"""
+    flaskage.application
+    ~~~~~~~~~~~~~~~~~~~~
+
+    This module initialises all required Flask extensions and provides
+    the create_app using application factory function.  See the page at
+    http://flask.pocoo.org/docs/patterns/appfactories/ for further details
+    relating to Flask application factories.
+
+    :copyright: (c) 2014 Fotis Gimian.
+    :license: MIT, see LICENSE for more details.
+"""
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.migrate import Migrate

@@ -1,4 +1,16 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+    flaskage.manage
+    ~~~~~~~~~~~~~~~
+
+    The main script used to manage all aspects relating to the application
+    including configuration, database migration, assets, running the
+    development server and so on.
+
+    :copyright: (c) 2014 Fotis Gimian.
+    :license: MIT, see LICENSE for more details.
+"""
 import os
 import fnmatch
 import sys
@@ -39,7 +51,7 @@ def flake8():
 
 
 @manager.command
-def test(verbosity=2):
+def tests(verbosity=2):
     """Runs all application unit tests"""
     if sys.version_info < (2, 7):
         import unittest2 as unittest

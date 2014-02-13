@@ -116,5 +116,5 @@
             return '<Post %r>' % self.title
 
     :copyright: (c) 2014 Fotis Gimian.
-    :license: Apache 2.0, see LICENSE for more details.
+    :license: MIT, see LICENSE for more details.
 """

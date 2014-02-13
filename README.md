@@ -31,6 +31,8 @@ So what makes Flaskage unique?  A few little things:
 * **Database migrations**: Flaskage integrates [Flask-Migrate](https://github.com/miguelgrinberg/Flask-Migrate) and is ready for database migrations which can be invoked via management commands.
 * **Switchable configurations**: With a simple command line switch, you can run the development server under any environment you wish (development, production or testing).  Further to this, you can set a default environment for your app to run in via a variable in the config module.
 * **Flake8 integration**: You can check that your syntax is valid and that your coding style follows the PEP8 standard with a simple management command.
+* **Clean client-side library integration**: Flaskage uses Bower and symlinks to cleanly integrate Twitter Bootstrap and jQuery with the ability to seamlessy upgrade these components when necessary and avoid duplication of the original source code in your Git repository.
+* **Travis Integration**: Test case integration with Travis is provided out of the box.
 
 ## Project Structure ##
 
@@ -75,25 +77,19 @@ If you're on Python 2.6, you'll also need to install some extra packages:
 pip install -r requirements-2.6.txt
 ```
 
-## Adding Node.js Compilers and Minifiers ##
+## Installing Node.js Components ##
 
-In order to use LESS, Clean CSS, Coffeescript and UglifyJS, we need to install the necessary modules on our system via Node.js.
+In order to use Bower, LESS, Clean CSS, Coffeescript and UglifyJS, we need to install the necessary modules on our system via Node.js.
 
-Firstly, ensure that your system has the latest [Node.js and NPM](http://nodejs.org/) installed and then run the following:
+Firstly, ensure that your system has the latest [Node.js](http://nodejs.org/) installed and then run the following:
 
 ``` bash
 sudo npm install -g bower less clean-css coffee-script uglify-js
 ```
 
-## Adding jQuery and Twitter Bootstrap ##
+## Installing jQuery and Twitter Bootstrap with Bower ##
 
-Please ensure you start in the **flaskage** directory:
-
-``` bash
-cd flaskage/
-```
-
-And now install all the client-side libraries using bower:
+From the project root directory, install the client-side libraries as follows:
 
 ``` bash
 bower install
@@ -101,13 +97,7 @@ bower install
 
 ## Using the Template ##
 
-Ensure that you are in the **flaskage** directory:
-
-``` bash
-cd flaskage/
-```
-
-You may now run your server as follows:
+From the project root directory, you may now run your server as follows:
 
 ``` bash
 ./manage.py runserver -t 0.0.0.0
@@ -127,8 +117,18 @@ You may validate all your code using Flaka8 like this:
 
 Furthermore, you have access to management commands that list URLs and their view functions, start a shell, manage assets, perform database migrations and clean up \*.pyc and \*.pyo files.  Simply run the **./manage.py** script to see further details.
 
-## Remaining Tasks ##
+## Suggested Additional Libraries ##
 
-This project is a work in progress and will be improved over time as I begin to use it further for building web applications.  The remaining tasks on my list at present are as follows:
+Depending on the circumstances, you may wish to integrate the following additional Flask libraries:
 
-* Determine if Flask-Login is worth integrating as an auth system
+* [Flask-Principal](http://pythonhosted.org/Flask-Principal/): For more fine tuned granularity of user account types and permissions.
+* [Flask-Cache](http://pythonhosted.org/Flask-Cache/): Caching for chosen items in your application.
+* [Flask-Mail](http://pythonhosted.org/Flask-Mail/): When your application needs to send emails to users.
+* [Flask-Babel](http://pythonhosted.org/Flask-Babel/): Internationalisation support for your application.
+
+In addition, you may consider plugging in a client-side Javascript framework for a more dynamic page.  Some popular examples of these are:
+
+* [AngularJS](http://angularjs.org/)
+* [Backbone.js](http://backbonejs.org/)
+* [Ember.js](http://emberjs.com/)
+* [knockout](http://knockoutjs.com/)

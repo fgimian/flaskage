@@ -1,3 +1,13 @@
+# -*- coding: utf-8 -*-
+"""
+    flaskage.config
+    ~~~~~~~~~~~~~~~
+
+    Configuration for the various environments where the application may run.
+
+    :copyright: (c) 2014 Fotis Gimian.
+    :license: MIT, see LICENSE for more details.
+"""
 import os
 
 AVAILABLE_CONFIGS = {
