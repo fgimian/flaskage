@@ -13,7 +13,7 @@ install:
   # Install all required Python packages
   - pip install -r requirements.txt
   # Install all required Python 2.6 packages if necessary
-  [ $TRAVIS_PYTHON_VERSION == 2.6 ] && pip install -r requirements-2.6.txt
+  - if [[ $TRAVIS_PYTHON_VERSION == '2.6' ]]; then pip install -r requirements-2.6.txt; fi
 
 script:
   # Run all application tests
