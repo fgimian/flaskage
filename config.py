@@ -1,6 +1,5 @@
 import os
 
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 AVAILABLE_CONFIGS = {
     'production': 'config.ProductionConfig',
     'development': 'config.DevelopmentConfig',
@@ -10,6 +9,7 @@ DEFAULT_CONFIG = 'development'
 
 
 class Config(object):
+    PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
     DEBUG = False
     ASSETS_LOAD_PATH = [os.path.join(PROJECT_ROOT, 'application', 'assets')]
 
@@ -24,7 +24,7 @@ class DevelopmentConfig(Config):
     DEBUG = True
     SECRET_KEY = 'devkey'
     SQLALCHEMY_DATABASE_URI = (
-        'sqlite:///' + os.path.join(PROJECT_ROOT, 'data.db'))
+        'sqlite:///' + os.path.join(Config.PROJECT_ROOT, 'data.db'))
     SQLALCHEMY_ECHO = True
 
 
