@@ -9,6 +9,10 @@ from flask.ext.assets import ManageAssets
 from config import AVAILABLE_CONFIGS, DEFAULT_CONFIG
 from application import create_app
 
+# Import all models so that they are visible to Flask-Migrate.  We also
+# issue a noqa command to avoid flake8's unused import warning.
+# import application.models.<name>  # noqa
+
 manager = Manager(create_app)
 manager.add_option('-c', '--config', dest='config',
                    choices=AVAILABLE_CONFIGS.keys(), default=DEFAULT_CONFIG)
