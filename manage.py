@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import os
 import fnmatch
+import sys
 
 from flask.ext.script import Manager
 from flask.ext.script.commands import ShowUrls, Clean
@@ -40,7 +41,10 @@ def flake8():
 @manager.command
 def test(verbosity=2):
     """Runs all application unit tests"""
-    import unittest
+    if sys.version_info < (2, 7):
+        import unittest2 as unittest
+    else:
+        import unittest
     project_root = os.path.dirname(os.path.relpath(__file__)) or '.'
     tests = unittest.TestLoader().discover(project_root)
     result = unittest.TextTestRunner(verbosity=verbosity).run(tests)

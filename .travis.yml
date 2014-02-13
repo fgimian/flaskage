@@ -1,5 +1,6 @@
 language: python
 python:
+  - 2.6
   - 2.7
   - 3.3
   - pypy
@@ -11,10 +12,12 @@ install:
   - bower install
   # Install all required Python packages
   - pip install -r requirements.txt
+  # Install all required Python 2.6 packages if necessary
+  [ $TRAVIS_PYTHON_VERSION == 2.6 ] && pip install -r requirements-2.6.txt
 
 script:
   # Run all application tests
-  - python manage.py test
+  - ./manage.py test
 
 notifications:
   # Disable email notifications if something fails

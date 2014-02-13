@@ -52,6 +52,29 @@ Flaskage is structured as shown below:
 └── requirements.txt  : Python package requirements
 ```
 
+## Preparing Your Python Environment ##
+
+Flaskage supports the following Python versions:
+
+* CPython 2.6
+* CPython 2.7
+* CPython 3.3
+* PyPy 2.2
+
+Create a virtualenv and install the required Python packages:
+
+``` bash
+virtualenv ~/.virtualenv/flaskage
+source ~/.virtualenv/flaskage/bin/activate
+pip install -r requirements.txt
+```
+
+If you're on Python 2.6, you'll also need to install some extra packages:
+
+``` bash
+pip install -r requirements-2.6.txt
+```
+
 ## Adding Node.js Compilers and Minifiers ##
 
 In order to use LESS, Clean CSS, Coffeescript and UglifyJS, we need to install the necessary modules on our system via Node.js.
