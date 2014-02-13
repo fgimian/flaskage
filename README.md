@@ -1,6 +1,8 @@
 # Flaskage #
 *A complete and carefully designed template for use with the Flask web framework*
 
+[![Build Status](https://travis-ci.org/fgimian/flaskage.png?branch=master)](https://travis-ci.org/fgimian/flaskage)
+
 ![Flaskage Logo](https://raw.github.com/fgimian/flaskage/master/application/static/img/flaskage.png)
 
 Awesome artwork provided courtesy of [Open Clip Art Library](http://openclipart.org/detail/168585/knight-sheep-by-dodger2)
