@@ -1,10 +1,20 @@
 language: python
 python:
-  - "2.7"
-  - "3.3"
+  - 2.7
+  - 3.3
 
 install:
-  - "npm install less clean-css coffee-script uglify-js"
-  - "pip install -r requirements.txt"
+  # Install all required Node.js packages
+  - sudo npm install -g bower less clean-css coffee-script uglify-js
+  # Install client-side libraries via bower
+  - bower install
+  # Install all required Python packages
+  - pip install -r requirements.txt
 
-script: "PATH=$PATH:$(pwd)/node_modules/.bin python manage.py test"
+script:
+  # Run all application tests
+  - python manage.py test
+
+notifications:
+  # Disable email notifications if something fails
+  email: false
