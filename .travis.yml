@@ -1,6 +1,5 @@
 language: python
 python:
-  - "2.6"
   - "2.7"
   - "3.3"
 
@@ -8,4 +7,4 @@ install:
   - "npm install less clean-css coffee-script uglify-js"
   - "pip install -r requirements.txt"
 
-script: python manage.py test
+script: "export PATH=$PATH:$(pwd)/node_modules/.bin python manage.py test"

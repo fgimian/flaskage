@@ -37,8 +37,8 @@ def test(verbosity=2):
     """Runs all application unit tests"""
     import unittest
     tests = unittest.TestLoader().discover('.')
-    unittest.TextTestRunner(verbosity=verbosity).run(tests)
-
+    result = unittest.TextTestRunner(verbosity=verbosity).run(tests)
+    exit(int(not result.wasSuccessful()))
 
 if __name__ == '__main__':
     manager.run()
