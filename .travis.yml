@@ -17,7 +17,7 @@ install:
 
 script:
   # Run all application tests
-  - ./manage.py test
+  - ./manage.py tests
 
 notifications:
   # Disable email notifications if something fails
