@@ -86,7 +86,7 @@ In order to use Bower, LESS, Clean CSS, Coffeescript and UglifyJS, we need to in
 Firstly, ensure that your system has the latest [Node.js](http://nodejs.org/) installed and then run the following:
 
 ``` bash
-sudo npm install -g bower less clean-css coffee-script uglify-js
+npm install -g bower less clean-css coffee-script uglify-js
 ```
 
 ## Installing jQuery and Twitter Bootstrap with Bower ##
