@@ -8,7 +8,7 @@ python:
 install:
   # Install all required Node.js packages
   - npm install -g bower less clean-css coffee-script uglify-js
-  # Install client-side libraries via bower
+  # Install client-side libraries via Bower
   - bower install
   # Install all required Python packages
   - pip install -r requirements.txt

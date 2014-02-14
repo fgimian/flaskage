@@ -13,6 +13,6 @@ from . import BaseTestCase
 
 class TestFlaskage(BaseTestCase):
 
-    def test_flaskage(self):
+    def test_index(self):
         response = self.client.get("/")
         assert b'Flaskage' in response.data

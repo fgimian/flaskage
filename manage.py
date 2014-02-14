@@ -42,7 +42,7 @@ def flake8():
     import flake8.main
     project_root = os.path.dirname(os.path.relpath(__file__)) or '.'
     ignore_paths = ['/.git', '/application/vendor', '/migrations/versions']
-    for dirpath, subdirs, filenames in os.walk(project_root, topdown=True):
+    for dirpath, subdirs, filenames in os.walk(project_root):
         if any([dirpath.endswith(d) for d in ignore_paths]):
             subdirs[:] = []
             continue

@@ -26,19 +26,19 @@ class Config(object):
 
 class ProductionConfig(Config):
     SECRET_KEY = 'prodkey'
-    SQLALCHEMY_DATABASE_URI = 'mysql://user@localhost/foo'
     ASESTS_AUTO_BUILD = False
+    SQLALCHEMY_DATABASE_URI = 'postgresql://user:pass@host/dbname'
 
 
 class DevelopmentConfig(Config):
-    DEBUG = True
     SECRET_KEY = 'devkey'
+    DEBUG = True
     SQLALCHEMY_DATABASE_URI = (
         'sqlite:///' + os.path.join(Config.PROJECT_ROOT, 'data.db'))
     SQLALCHEMY_ECHO = True
 
 
 class TestingConfig(Config):
-    TESTING = True
     SECRET_KEY = 'testkey'
+    TESTING = True
     SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'

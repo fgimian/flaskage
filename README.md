@@ -29,10 +29,11 @@ So what makes Flaskage unique?  A few little things:
 * **One directory per function**: It seems that most templates are inspired by the way that Django separates apps, whereby each component of the larger web application has its own models, views, templates and static files.  I personally feel that this layout doesn't make sense.  Instead, I prefer a structure more similar to the [Play Framework](http://www.playframework.com/documentation/2.0/Anatomy) which keeps views in one directory, models in one directory and so on.  The ability to split views and models into multiple files is an absolute must which is also part of Flaskage's design.
 * **Full integration of Flask-Assets**: This template has been designed for use with Coffeescript, LESS (in particular Twitter's Bootstrap CSS framework) or any other pre-processor you may have in mind.  Furthermore, Flaskage keeps all such uncompiled files neatly in an assets directory.
 * **Database migrations**: Flaskage integrates [Flask-Migrate](https://github.com/miguelgrinberg/Flask-Migrate) and is ready for database migrations which can be invoked via management commands.
-* **Switchable configurations**: With a simple command line switch, you can run the development server under any environment you wish (development, production or testing).  Further to this, you can set a default environment for your app to run in via a variable in the config module.
+* **Switchable configurations**: With a simple command line switch, you can run the development server under any environment you wish (development, production or testing).  Further to this, you can set a default environment for your app to run in via a variable in the config module or define your own custom config environments.
 * **Flake8 integration**: You can check that your syntax is valid and that your coding style follows the PEP8 standard with a simple management command.
 * **Clean client-side library integration**: Flaskage uses Bower and symlinks to cleanly integrate Twitter Bootstrap and jQuery with the ability to seamlessy upgrade these components when necessary and avoid duplication of the original source code in your Git repository.
 * **Travis Integration**: Test case integration with Travis is provided out of the box.
+* **Python 3 ready**: I have ported incompatible extensions (Flask-Bcrypt and Flask-Testing) to work across Python 2.6, 2.7 and 3.3 so that you're future-proof if and when you decide to move to a Python 3 environment.
 
 ## Project Structure ##
 
@@ -66,6 +67,7 @@ Flaskage supports the following Python versions:
 Create a virtualenv and install the required Python packages:
 
 ``` bash
+mkdir ~/.virtualenv
 virtualenv ~/.virtualenv/flaskage
 source ~/.virtualenv/flaskage/bin/activate
 pip install -r requirements.txt
@@ -103,10 +105,16 @@ From the project root directory, you may now run your server as follows:
 ./manage.py runserver -t 0.0.0.0
 ```
 
+You may optionally run the server in a chosen configuration environment:
+
+``` bash
+./manage.py runserver -t 0.0.0.0 -c production
+```
+
 All unit tests may be run using:
 
 ``` bash
-./manage.py test
+./manage.py tests
 ```
 
 You may validate all your code using Flaka8 like this:
@@ -119,12 +127,12 @@ Furthermore, you have access to management commands that list URLs and their vie
 
 ## Suggested Additional Libraries ##
 
-Depending on the circumstances, you may wish to integrate the following additional Flask libraries:
+Depending on the circumstances, you may wish to integrate the following additional Flask libraries into your application:
 
-* [Flask-Principal](http://pythonhosted.org/Flask-Principal/): For more fine tuned granularity of user account types and permissions.
-* [Flask-Cache](http://pythonhosted.org/Flask-Cache/): Caching for chosen items in your application.
-* [Flask-Mail](http://pythonhosted.org/Flask-Mail/): When your application needs to send emails to users.
-* [Flask-Babel](http://pythonhosted.org/Flask-Babel/): Internationalisation support for your application.
+* [Flask-Babel](http://pythonhosted.org/Flask-Babel/): Internationalisation support
+* [Flask-Cache](http://pythonhosted.org/Flask-Cache/): Caching for chosen items in your application
+* [Flask-Mail](http://pythonhosted.org/Flask-Mail/): When your application needs to send emails to users
+* [Flask-Principal](http://pythonhosted.org/Flask-Principal/): For more fine-tuned granularity of user account types and permissions
 
 In addition, you may consider plugging in a client-side Javascript framework for a more dynamic page.  Some popular examples of these are:
 
