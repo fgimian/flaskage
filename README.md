@@ -32,6 +32,7 @@ So what makes Flaskage unique?  A few little things:
 * **Switchable configurations**: With a simple command line switch, you can run the development server under any environment you wish (development, production or testing).  Further to this, you can set a default environment for your app to run in via a variable in the config module or define your own custom config environments.
 * **Flake8 integration**: You can check that your syntax is valid and that your coding style follows the PEP8 standard with a simple management command.
 * **Clean client-side library integration**: Flaskage uses Bower and symlinks to cleanly integrate Twitter Bootstrap and jQuery with the ability to seamlessy upgrade these components when necessary and avoid duplication of the original source code in your Git repository.
+* **More robust development server**: Using my own slimmed down fork of [flask-failsafe](https://github.com/mgood/flask-failsafe), the development server won't crash each time small errors are made while coding.
 * **Travis Integration**: Test case integration with Travis is provided out of the box.
 * **Python 3 ready**: I have ported incompatible extensions (Flask-Bcrypt and Flask-Testing) to work across Python 2.6, 2.7 and 3.3 so that you're future-proof if and when you decide to move to a Python 3 environment.
 

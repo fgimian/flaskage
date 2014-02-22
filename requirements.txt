@@ -2,6 +2,7 @@ Flask==0.10.1
 git+https://github.com/miracle2k/flask-assets.git
 webassets==0.9
 git+https://github.com/fgimian/flask-bcrypt.git@python3
+git+https://github.com/fgimian/flask-failsafe.git@cleanup
 Flask-Login==0.2.9
 Flask-Migrate==1.2.0
 git+https://github.com/fgimian/flask-testing.git@python3

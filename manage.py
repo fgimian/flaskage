@@ -15,6 +15,7 @@ import os
 import fnmatch
 import sys
 
+from flask.ext.failsafe import failsafe
 from flask.ext.script import Manager
 from flask.ext.script.commands import ShowUrls, Clean
 from flask.ext.migrate import MigrateCommand
@@ -27,7 +28,7 @@ from application import create_app
 # issue a noqa command to avoid flake8's unused import warning.
 # import application.models.<name>  # noqa
 
-manager = Manager(create_app)
+manager = Manager(failsafe(create_app))
 manager.add_option('-c', '--config', dest='config',
                    choices=AVAILABLE_CONFIGS.keys(), default=DEFAULT_CONFIG)
 manager.add_command('urls', ShowUrls())
