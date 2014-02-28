@@ -32,7 +32,7 @@ So what makes Flaskage unique?  A few little things:
 * **Switchable configurations**: With a simple command line switch, you can run the development server under any environment you wish (development, production or testing).  Further to this, you can set a default environment for your app to run in via a variable in the config module or define your own custom config environments.
 * **Flake8 integration**: You can check that your syntax is valid and that your coding style follows the PEP8 standard with a simple management command.
 * **Clean client-side library integration**: Flaskage uses Bower and symlinks to cleanly integrate Twitter Bootstrap and jQuery with the ability to seamlessy upgrade these components when necessary and avoid duplication of the original source code in your Git repository.
-* **More robust development server**: Using my own slimmed down fork of [flask-failsafe](https://github.com/mgood/flask-failsafe), the development server won't crash each time small errors are made while coding.
+* **More robust development server**: Using my own fork of [flask-failsafe](https://github.com/mgood/flask-failsafe), the development server won't crash each time small errors are made while coding.
 * **Travis Integration**: Test case integration with Travis is provided out of the box.
 * **Python 3 ready**: I have ported incompatible extensions (Flask-Bcrypt and Flask-Testing) to work across Python 2.6, 2.7 and 3.3 so that you're future-proof if and when you decide to move to a Python 3 environment.
 
@@ -64,21 +64,35 @@ Flaskage supports the following Linux operating systems:
 * Debian 7 (Wheezy)
 * Ubuntu Server 10.04 LTS (Lucid Lynx)
 * Ubuntu Server 12.04 LTS (Precise Pangolin)
+* CentOS 5.x
 * CentOS 6.x
+* Red Hat Enterprise Linux 5.x
 * Red Hat Enterprise Linux 6.x
 
 You'll need to install some pre-requisites to ensure that all Python packages install correctly.
 
-If you're running Debian or Ubuntu Server:
+If you're running Python 3.3 on Ubuntu Server 12.04:
+
+``` bash
+sudo apt-get install gcc python3.3-dev
+```
+
+If you're running Python 2.6 or 2.7 Debian or Ubuntu Server:
 
 ``` bash
 sudo apt-get install gcc python-dev
 ```
 
-If you're running CentOS or Red Hat Enterprise Linux:
+If you're running CentOS 6.x or Red Hat Enterprise Linux 6.x:
 
 ``` bash
 sudo yum install gcc python-devel
+```
+
+If you're running CentOS 5.x or Red Hat Enterprise Linux 5.x, you'll need to use the **python26** package from [EPEL](https://fedoraproject.org/wiki/EPEL).  You may then install required dependencies as follows:
+
+``` bash
+sudo yum install gcc python26-devel
 ```
 
 ## Preparing Your Python Environment ##
