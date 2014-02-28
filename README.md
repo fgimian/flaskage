@@ -56,6 +56,31 @@ Flaskage is structured as shown below:
 └── requirements.txt  : Python package requirements
 ```
 
+## Preparing Your Operating System ##
+
+Flaskage supports the following Linux operating systems:
+
+* Debian 6 (Squeeze)
+* Debian 7 (Wheezy)
+* Ubuntu Server 10.04 LTS (Lucid Lynx)
+* Ubuntu Server 12.04 LTS (Precise Pangolin)
+* CentOS 6.x
+* Red Hat Enterprise Linux 6.x
+
+You'll need to install some pre-requisites to ensure that all Python packages install correctly.
+
+If you're running Debian or Ubuntu Server:
+
+``` bash
+sudo apt-get install gcc python-dev
+```
+
+If you're running CentOS or Red Hat Enterprise Linux:
+
+``` bash
+sudo yum install gcc python-devel
+```
+
 ## Preparing Your Python Environment ##
 
 Flaskage supports the following Python versions:
@@ -87,8 +112,10 @@ In order to use Bower, LESS, Clean CSS, Coffeescript and UglifyJS, we need to in
 Firstly, ensure that your system has the latest [Node.js](http://nodejs.org/) installed and then run the following:
 
 ``` bash
-npm install -g bower less clean-css coffee-script uglify-js
+[sudo] npm install -g bower less clean-css coffee-script uglify-js
 ```
+
+If your Node.js installation is global and owned by root, you'll need to run the command above using sudo.
 
 ## Installing jQuery and Twitter Bootstrap with Bower ##
 
