@@ -41,19 +41,20 @@ So what makes Flaskage unique?  A few little things:
 Flaskage is structured as shown below:
 
 ```
-├── application       : Main web application directory with app initialisation
-│   ├── assets        : Pre-compiled script and stylsheet assets
-│   ├── models        : Database model definitions
-│   ├── static        : Static files such as CSS, Javascript and images
-│   ├── templates     : Jinja2 templates for presentation
-│   ├── vendor        : Vendor provided script and stylesheet assets
-│   └── views         : Views and related forms that provide business logic for each page
-├── libraries         : Supporting libraries you have developed for your web application
-├── tests             : Unit tests for testing your web application
-├── bower.json        : Vendor provided client-side package requirements
-├── config.py         : Configuration for development, production and test environments
-├── manage.py         : Management interface and command registrations
-└── requirements.txt  : Python package requirements
+├── application           : Main web application directory with app initialisation
+│   ├── assets            : Pre-compiled script and stylsheet assets
+│   ├── models            : Database model definitions
+│   ├── static            : Static files such as CSS, Javascript and images
+│   ├── templates         : Jinja2 templates for presentation
+│   ├── vendor            : Vendor provided script and stylesheet assets
+│   └── views             : Views and related forms that provide business logic for each page
+├── libraries             : Supporting libraries you have developed for your web application
+├── tests                 : Unit tests for testing your web application
+├── bower.json            : Vendor provided client-side package requirements
+├── config.py             : Configuration for development, production and test environments
+├── manage.py             : Management interface and command registrations
+├── requirements.txt      : Python package requirements
+└── requirements-2.6.txt  : Python 2.6 specific package requirements
 ```
 
 ## Preparing Your Operating System ##
