@@ -1,0 +1,22 @@
+extends layout
+title = "Flaskage"
+block append body
+  .site-wrapper
+    .site-wrapper-inner
+      .cover-container
+        .inner.cover
+          h1.cover-heading Flaskage
+          img#flaskage(src=url_for('static', filename='img/flaskage.png'))
+          p.lead.
+            A complete and carefully designed template for use with the Flask web
+            framework
+          p.lead
+            a.btn.btn-lg.btn-default(href="https://github.com/fgimian/flaskage") Learn more
+        .mastfoot
+          .inner
+            p
+              | Cover template for 
+              a(href="http://getbootstrap.com") Bootstrap
+              | by 
+              a(href="https://twitter.com/mdo") @mdo
+              |.

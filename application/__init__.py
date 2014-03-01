@@ -33,12 +33,15 @@ def create_app(config):
     app = Flask(__name__)
     app.config.from_object(AVAILABLE_CONFIGS[config])
 
-    # Initialise all Flask extensions
+    # Initialise Flask extensions
     db.init_app(app)
     migrate.init_app(app, db)
     bcrypt.init_app(app)
     assets.init_app(app)
     login_manager.init_app(app)
+
+    # Initialise Jinja2 extensions
+    app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
 
     # Provide the Flask-Login user loader function
     # @login_manager.user_loader

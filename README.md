@@ -29,6 +29,7 @@ So what makes Flaskage unique?  A few little things:
 * **One directory per function**: It seems that most templates are inspired by the way that Django separates apps, whereby each component of the larger web application has its own models, views, templates and static files.  I personally feel that this layout doesn't make sense.  Instead, I prefer a structure more similar to the [Play Framework](http://www.playframework.com/documentation/2.0/Anatomy) which keeps views in one directory, models in one directory and so on.  The ability to split views and models into multiple files is an absolute must which is also part of Flaskage's design.
 * **Full integration of Flask-Assets**: This template has been designed for use with Coffeescript, LESS (in particular Twitter's Bootstrap CSS framework) or any other pre-processor you may have in mind.  Furthermore, Flaskage keeps all such uncompiled files neatly in an assets directory.
 * **Database migrations**: Flaskage integrates [Flask-Migrate](https://github.com/miguelgrinberg/Flask-Migrate) and is ready for database migrations which can be invoked via management commands.
+* **PyJade integration**: If you choose to, you can may use [PyJade](https://github.com/SyrusAkbary/pyjade) to write your templates.  This is a far less verbose language than regular HTML.
 * **Switchable configurations**: With a simple command line switch, you can run the development server under any environment you wish (development, production or testing).  Further to this, you can set a default environment for your app to run in via a variable in the config module or define your own custom config environments.
 * **Flake8 integration**: You can check that your syntax is valid and that your coding style follows the PEP8 standard with a simple management command.
 * **Clean client-side library integration**: Flaskage uses Bower and symlinks to cleanly integrate Twitter Bootstrap and jQuery with the ability to seamlessly upgrade these components when necessary and avoid duplication of the original source code in your Git repository.
@@ -187,7 +188,6 @@ In addition, you may consider plugging in a client-side Javascript framework for
 ## Future Plans for Flaskage ##
 
 * **Skeleton Integration**: Flaskage will soon be converted into a [mr.bob](https://github.com/iElectric/mr.bob) or [cookiecutter](https://github.com/audreyr/cookiecutter) template so that new projects may easily be generated.
-* **PyJade Support**: Flaskage may be updated to potentially support [PyJade](https://github.com/SyrusAkbary/pyjade) to simplify template writing.
 * **Fixture Integration**: I intend to integrate [factory_boy](https://github.com/rbarrois/factory_boy), [fixture](https://github.com/fixture-py/fixture) or [mixer](https://github.com/klen/mixer) fixtures to assist with testing database operations.
 * **Improved Testing Framework**: A testing framework such as [nose](https://github.com/nose-devs/nose) or [pytest](https://bitbucket.org/hpk42/pytest/) may be integrated to improve unit test code.
 * **Further Documentation**: I intend to start a Wiki for this project to provide examples of common tasks along with tips and tricks.

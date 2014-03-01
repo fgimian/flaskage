@@ -7,4 +7,5 @@ Flask-Migrate==1.2.0
 Flask-Testing==0.4.1
 Flask-Script==0.6.7
 Flask-WTF==0.9.4
+pyjade==2.1.0
 flake8==2.1.0
