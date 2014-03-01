@@ -158,7 +158,7 @@ You may optionally run the server in a chosen configuration environment:
 All unit tests may be run using:
 
 ``` bash
-./manage.py tests
+./manage.py test
 ```
 
 You may validate all your code using Flaka8 like this:

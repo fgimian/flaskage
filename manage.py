@@ -52,7 +52,7 @@ def flake8():
 
 
 @manager.command
-def tests(verbosity=2):
+def test(verbosity=2):
     """Runs all application unit tests"""
     if sys.version_info < (2, 7):
         import unittest2 as unittest
