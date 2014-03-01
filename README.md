@@ -183,3 +183,11 @@ In addition, you may consider plugging in a client-side Javascript framework for
 * [Backbone.js](http://backbonejs.org/)
 * [Ember.js](http://emberjs.com/)
 * [knockout](http://knockoutjs.com/)
+
+## Future Plans for Flaskage ##
+
+* **Skeleton Integration**: Flaskage will soon be converted into a [mr.bob](https://github.com/iElectric/mr.bob) or [cookiecutter](https://github.com/audreyr/cookiecutter) template so that new projects may easily be generated.
+* **PyJade Support**: Flaskage may be updated to potentially support [PyJade](https://github.com/SyrusAkbary/pyjade) to simplify template writing.
+* **Fixture Integration**: I intend to integrate [factory_boy](https://github.com/rbarrois/factory_boy), [fixture](https://github.com/fixture-py/fixture) or [mixer](https://github.com/klen/mixer) fixtures to assist with testing database operations.
+* **Improved Testing Framework**: A testing framework such as [nose](https://github.com/nose-devs/nose) or [pytest](https://bitbucket.org/hpk42/pytest/) may be integrated to improve unit test code.
+* **Further Documentation**: I intend to start a Wiki for this project to provide examples of common tasks along with tips and tricks.
