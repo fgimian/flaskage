@@ -14,8 +14,9 @@
     from datetime import datetime
 
     from flask.ext.login import UserMixin
+    from passlib.hash import bcrypt
 
-    from .. import db, bcrypt
+    from .. import db
 
 
     MALE = 1
@@ -46,7 +47,7 @@
             return self._password
 
         def _set_password(self, password):
-            self._password = bcrypt.generate_password_hash(password)
+            self._password = bcrypt.encrypt(password)
 
         password = db.synonym(
             '_password', descriptor=property(_get_password, _set_password))
@@ -54,7 +55,7 @@
         def check_password(self, password):
             if self.password is None:
                 return False
-            return bcrypt.check_password_hash(self.password, password)
+            return bcrypt.verify(password, self.password)
 
         @property
         def sex(self):

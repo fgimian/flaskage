@@ -1,11 +1,12 @@
 Flask==0.10.1
 Flask-Assets==0.9
-git+https://github.com/fgimian/flask-bcrypt.git@python3
 git+https://github.com/fgimian/flask-failsafe.git@exec_removal
 Flask-Login==0.2.9
 Flask-Migrate==1.2.0
 Flask-Script==0.6.7
 Flask-WTF==0.9.4
+passlib==1.6.2
+py-bcrypt==0.4
 pyjade==2.1.0
 Markdown==2.4
 flake8==2.1.0

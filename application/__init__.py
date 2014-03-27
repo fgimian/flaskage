@@ -14,7 +14,6 @@
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.migrate import Migrate
-from flask.ext.bcrypt import Bcrypt
 from flask.ext.assets import Environment
 from flask.ext.login import LoginManager
 
@@ -22,7 +21,6 @@ from config import AVAILABLE_CONFIGS
 
 db = SQLAlchemy()
 migrate = Migrate()
-bcrypt = Bcrypt()
 assets = Environment()
 login_manager = LoginManager()
 
@@ -36,7 +34,6 @@ def create_app(config):
     # Initialise Flask extensions
     db.init_app(app)
     migrate.init_app(app, db)
-    bcrypt.init_app(app)
     assets.init_app(app)
     login_manager.init_app(app)
 
