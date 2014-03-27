@@ -119,3 +119,6 @@
     :copyright: (c) 2014 Fotis Gimian.
     :license: MIT, see LICENSE for more details.
 """
+# Import models from the various model files so that they are easy to import.
+# We also issue a noqa command to avoid flake8's unused import warning.
+# from .<submodule> import <model>  # noqa

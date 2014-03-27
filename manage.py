@@ -26,7 +26,7 @@ from application import create_app, db
 
 # Import all models so that they are visible to Flask-Migrate.  We also
 # issue a noqa command to avoid flake8's unused import warning.
-# import application.models.<name>  # noqa
+import application.models  # noqa
 
 manager = Manager(failsafe(create_app), with_default_commands=False)
 manager.add_option('-c', '--config', dest='config',
