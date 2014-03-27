@@ -35,7 +35,7 @@ So what makes Flaskage unique?  A few little things:
 * **Clean client-side library integration**: Flaskage uses Bower and symlinks to cleanly integrate Twitter Bootstrap and jQuery with the ability to seamlessly upgrade these components when necessary and avoid duplication of the original source code in your Git repository.
 * **More robust development server**: Using my own fork of [flask-failsafe](https://github.com/mgood/flask-failsafe), the development server won't crash each time small errors are made while coding.
 * **Travis Integration**: Test case integration with Travis is provided out of the box.
-* **Python 3 ready**: I have ported incompatible extensions (Flask-Bcrypt and Flask-Testing) to work across Python 2.6, 2.7 and 3.3 so that you're future-proof if and when you decide to move to a Python 3 environment.
+* **Python 3 ready**: I have only chosen extensions which work across Python 2.6, 2.7 and 3.3 so that you're future-proof if and when you decide to move to a Python 3 environment.
 
 ## Project Structure ##
 

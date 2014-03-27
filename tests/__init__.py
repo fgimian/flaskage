@@ -9,19 +9,19 @@
     :copyright: (c) 2014 Fotis Gimian.
     :license: MIT, see LICENSE for more details.
 """
-from flask.ext.testing import TestCase
-
 from application import create_app, db
 
 
-class BaseTestCase(TestCase):
+class BaseTestCase(object):
 
-    def create_app(self):
-        return create_app('testing')
-
-    def setUp(self):
+    def setup(self):
+        self.app = create_app('testing')
+        self.client = self.app.test_client()
+        self.ctx = self.app.test_request_context()
+        self.ctx.push()
         db.create_all()
 
-    def tearDown(self):
+    def teardown(self):
         db.session.remove()
         db.drop_all()
+        self.ctx.pop()
