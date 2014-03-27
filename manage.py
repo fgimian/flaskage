@@ -17,22 +17,25 @@ import sys
 
 from flask.ext.failsafe import failsafe
 from flask.ext.script import Manager
-from flask.ext.script.commands import ShowUrls, Clean
+from flask.ext.script.commands import Clean, Server, Shell, ShowUrls
 from flask.ext.migrate import MigrateCommand
 from flask.ext.assets import ManageAssets
 
 from config import AVAILABLE_CONFIGS, DEFAULT_CONFIG
-from application import create_app
+from application import create_app, db
 
 # Import all models so that they are visible to Flask-Migrate.  We also
 # issue a noqa command to avoid flake8's unused import warning.
 # import application.models.<name>  # noqa
 
-manager = Manager(failsafe(create_app))
+manager = Manager(failsafe(create_app), with_default_commands=False)
 manager.add_option('-c', '--config', dest='config',
                    choices=AVAILABLE_CONFIGS.keys(), default=DEFAULT_CONFIG)
-manager.add_command('urls', ShowUrls())
 manager.add_command('clean', Clean())
+manager.add_command('runserver', Server())
+manager.add_command(
+    'shell', Shell(make_context=lambda: {'app': manager.app, 'db': db}))
+manager.add_command('urls', ShowUrls())
 manager.add_command('db', MigrateCommand)
 manager.add_command("assets", ManageAssets())
 
