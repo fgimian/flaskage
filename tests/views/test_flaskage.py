@@ -8,7 +8,7 @@
     :copyright: (c) 2014 Fotis Gimian.
     :license: MIT, see LICENSE for more details.
 """
-from . import BaseTestCase
+from .. import BaseTestCase
 
 
 class TestFlaskage(BaseTestCase):

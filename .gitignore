@@ -1,3 +1,4 @@
 *.pyc
 application/static/.webassets-cache/
 application/vendor/*/
+.coverage

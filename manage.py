@@ -57,14 +57,8 @@ def flake8():
 @manager.command
 def test(verbosity=2):
     """Runs all application unit tests"""
-    if sys.version_info < (2, 7):
-        import unittest2 as unittest
-    else:
-        import unittest
-    project_root = os.path.dirname(os.path.relpath(__file__)) or '.'
-    tests = unittest.TestLoader().discover(project_root)
-    result = unittest.TextTestRunner(verbosity=verbosity).run(tests)
-    exit(int(not result.wasSuccessful()))
+    import nose
+    nose.run(argv=['nosetests'])
 
 if __name__ == '__main__':
     manager.run()
