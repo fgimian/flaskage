@@ -17,9 +17,11 @@ Some of the existing templates and projects which inspired and influenced this p
 
 * [fbone](https://github.com/imwilsonxu/fbone)
 * [overholt](https://github.com/mattupstate/overholt)
+* [flasky](https://github.com/miguelgrinberg/flasky)
 * [flask_website](https://github.com/mitsuhiko/flask/tree/website)
 * [beancounter](https://bitbucket.org/audriusk/beancounter)
 * [cookiecutter-flask](https://github.com/sloria/cookiecutter-flask)
+* [flask-chassis](https://github.com/SawdustSoftware/flask-chassis)
 
 ## Features ##
 
@@ -35,6 +37,7 @@ So what makes Flaskage unique?  A few little things:
 * **Clean client-side library integration**: Flaskage uses Bower and symlinks to cleanly integrate Twitter Bootstrap and jQuery with the ability to seamlessly upgrade these components when necessary and avoid duplication of the original source code in your Git repository.
 * **More robust development server**: Using my own fork of [flask-failsafe](https://github.com/mgood/flask-failsafe), the development server won't crash each time small errors are made while coding.
 * **Travis Integration**: Test case integration with Travis is provided out of the box.
+* **Powerful test tools**: Integrated use of [nose](https://github.com/nose-devs/nose/), [Coverage.py](http://nedbatchelder.com/code/coverage), [factory_boy](https://github.com/rbarrois/factory_boy) and [fake-factory](https://github.com/joke2k/faker).
 * **Python 3 ready**: I have only chosen extensions which work across Python 2.6, 2.7 and 3.3 so that you're future-proof if and when you decide to move to a Python 3 environment.
 
 ## Project Structure ##
@@ -51,11 +54,13 @@ Flaskage is structured as shown below:
 │   └── views             : Views and related forms that provide business logic for each page
 ├── libraries             : Supporting libraries you have developed for your web application
 ├── tests                 : Unit tests for testing your web application
+│   ├── fixtures          : Fixtures created using factory_boy that are used to create model instances
+│   ├── models            : Unit tests which test models
+│   └── views             : Unit tests which test views
 ├── bower.json            : Vendor provided client-side package requirements
 ├── config.py             : Configuration for development, production and test environments
 ├── manage.py             : Management interface and command registrations
-├── requirements.txt      : Python package requirements
-└── requirements-2.6.txt  : Python 2.6 specific package requirements
+└── requirements.txt      : Python package requirements
 ```
 
 ## Preparing Your Operating System ##

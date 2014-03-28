@@ -22,12 +22,13 @@ from flask.ext.assets import ManageAssets
 
 from config import AVAILABLE_CONFIGS, DEFAULT_CONFIG
 from application import create_app, db, models
+from tests import fixtures
 
 manager = Manager(failsafe(create_app), with_default_commands=False)
 
 
 def _make_context():
-    return dict(app=manager.app, db=db, models=models)
+    return dict(app=manager.app, db=db, models=models, fixtures=fixtures)
 
 manager.add_option('-c', '--config', dest='config',
                    choices=AVAILABLE_CONFIGS.keys(), default=DEFAULT_CONFIG)
