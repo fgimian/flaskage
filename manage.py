@@ -58,7 +58,7 @@ def flake8():
 def test(verbosity=2):
     """Runs all application unit tests"""
     import nose
-    nose.run(argv=['nosetests'])
+    nose.run(argv=['nosetests', '--verbosity=%d' % int(verbosity)])
 
 if __name__ == '__main__':
     manager.run()
