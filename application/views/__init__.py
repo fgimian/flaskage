@@ -31,7 +31,8 @@
     from flask import Blueprint, render_template
 
     from .. import db
-    from ..models.user import Model1, Model2, Model3
+    from ..decorators import decorator1, decorator2, decorator3
+    from ..models import Model1, Model2, Model3
 
     mod = Blueprint('module1', __name__, url_prefix='/module1')
 
