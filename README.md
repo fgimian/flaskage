@@ -15,11 +15,11 @@ Unfortunately, there are currently only a few templates available to get you sta
 
 Some of the existing templates and projects which inspired and influenced this project are:
 
-* [fbone](https://github.com/imwilsonxu/fbone)
 * [overholt](https://github.com/mattupstate/overholt)
 * [flasky](https://github.com/miguelgrinberg/flasky)
 * [flask_website](https://github.com/mitsuhiko/flask/tree/website)
 * [beancounter](https://bitbucket.org/audriusk/beancounter)
+* [fbone](https://github.com/imwilsonxu/fbone)
 * [cookiecutter-flask](https://github.com/sloria/cookiecutter-flask)
 * [flask-chassis](https://github.com/SawdustSoftware/flask-chassis)
 
@@ -182,6 +182,7 @@ Depending on the circumstances, you may wish to integrate the following addition
 * [Flask-Cache](http://pythonhosted.org/Flask-Cache/): Caching for chosen items in your application
 * [Flask-Mail](http://pythonhosted.org/Flask-Mail/): When your application needs to send emails to users
 * [Flask-Principal](http://pythonhosted.org/Flask-Principal/): For more fine-tuned granularity of user account types and permissions
+* [Flask-Testing](https://pythonhosted.org/Flask-Testing/): For a few handy test helpers which make testing certain aspects simpler
 
 In addition, you may consider plugging in a client-side Javascript framework for a more dynamic page.  Some popular examples of these are:
 
@@ -193,7 +194,5 @@ In addition, you may consider plugging in a client-side Javascript framework for
 ## Future Plans for Flaskage ##
 
 * **Skeleton Integration**: Flaskage will soon be converted into a [mr.bob](https://github.com/iElectric/mr.bob) or [cookiecutter](https://github.com/audreyr/cookiecutter) template so that new projects may easily be generated.
-* **Fixture Integration**: I intend to integrate [factory_boy](https://github.com/rbarrois/factory_boy), [fixture](https://github.com/fixture-py/fixture) or [mixer](https://github.com/klen/mixer) fixtures to assist with testing database operations.
-* **Improved Testing Framework**: A testing framework such as [nose](https://github.com/nose-devs/nose) or [pytest](https://bitbucket.org/hpk42/pytest/) may be integrated to improve unit test code.
 * **Deployment Solutions**: I hope to add example configuration files and scripts which demonstrate how Flaskage may be deployed on a production web server.
 * **Further Documentation**: I intend to start a Wiki for this project to provide examples of common tasks along with tips and tricks.
