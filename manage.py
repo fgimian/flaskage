@@ -12,6 +12,7 @@
     :license: MIT, see LICENSE for more details.
 """
 import os
+import sys
 import fnmatch
 
 from flask.ext.failsafe import failsafe
@@ -57,7 +58,6 @@ def flake8():
 
 @manager.command
 def behave():
-    import sys
     import behave.__main__
     behave.__main__.main(args=sys.argv[2:])
 
