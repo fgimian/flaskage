@@ -62,11 +62,11 @@ def behave():
     behave.__main__.main(args=sys.argv[2:])
 
 
-@manager.command
-def test(verbosity=2):
+@manager.option('-v', '--verbosity', type=int, default=2)
+def test(verbosity):
     """Runs all application unit tests"""
     import nose
-    nose.run(argv=['nosetests', '--verbosity=%d' % int(verbosity)])
+    nose.run(argv=['nosetests', '--verbosity=%i' % int(verbosity)])
 
 if __name__ == '__main__':
     manager.run()
