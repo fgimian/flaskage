@@ -87,8 +87,8 @@
     # Many to many relationship table definition
     users_posts = db.Table(
         'users_posts',
-        db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
-        db.Column('post_id', db.Integer(), db.ForeignKey('post.id')))
+        db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
+        db.Column('post_id', db.Integer, db.ForeignKey('post.id')))
 
 
     class Post(db.Model):
