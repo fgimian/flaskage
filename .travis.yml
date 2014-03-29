@@ -16,6 +16,8 @@ install:
 script:
   # Run all application tests
   - ./manage.py test
+  # Run all behaviour driven development tests
+  - ./manage.py behave
 
 notifications:
   # Disable email notifications if something fails

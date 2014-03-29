@@ -38,6 +38,7 @@ So what makes Flaskage unique?  A few little things:
 * **More robust development server**: Using my own fork of [flask-failsafe](https://github.com/mgood/flask-failsafe), the development server won't crash each time small errors are made while coding.
 * **Travis Integration**: Test case integration with Travis is provided out of the box.
 * **Powerful test tools**: Integrated use of [nose](https://github.com/nose-devs/nose/), [Coverage.py](http://nedbatchelder.com/code/coverage), [factory_boy](https://github.com/rbarrois/factory_boy) and [fake-factory](https://github.com/joke2k/faker).
+* **Behaviour-driven development**: Integrated use of [behave](https://github.com/behave/behave), [mechanize](http://wwwsearch.sourceforge.net/mechanize/) and [selenium](https://code.google.com/p/selenium/) for fully featured behaviour-driven development.
 * **Python 3 ready**: I have only chosen extensions which work across Python 2.6, 2.7 and 3.3 so that you're future-proof if and when you decide to move to a Python 3 environment.
 
 ## Project Structure ##
@@ -52,6 +53,8 @@ Flaskage is structured as shown below:
 │   ├── templates         : Jinja2 templates for presentation
 │   ├── vendor            : Vendor provided script and stylesheet assets
 │   └── views             : Views and related forms that provide business logic for each page
+├── features              : Feature definitions in the Gherkin language to be used for BDD
+│   └── steps             : Test code which validates that each feature works as expected
 ├── libraries             : Supporting libraries you have developed for your web application
 ├── tests                 : Unit tests for testing your web application
 │   ├── fixtures          : Fixtures created using factory_boy that are used to create model instances

@@ -56,6 +56,13 @@ def flake8():
 
 
 @manager.command
+def behave():
+    import sys
+    import behave.__main__
+    behave.__main__.main(args=sys.argv[2:])
+
+
+@manager.command
 def test(verbosity=2):
     """Runs all application unit tests"""
     import nose

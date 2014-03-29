@@ -44,6 +44,10 @@ factory-boy==2.3.1
 fake-factory==0.3.2
 mock==1.0.1
 
+# Behaviour Driven Development Testing
+behave==1.2.4
+mechanize==0.2.5
+
 # Flake8
 flake8==2.1.0
 pep8==1.5.1
