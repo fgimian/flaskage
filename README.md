@@ -19,6 +19,7 @@ Some of the existing templates and projects which inspired and influenced this p
 * [flasky](https://github.com/miguelgrinberg/flasky)
 * [flask_website](https://github.com/mitsuhiko/flask/tree/website)
 * [beancounter](https://bitbucket.org/audriusk/beancounter)
+* [flaskr-bdd](https://github.com/ismaild/flaskr-bdd)
 * [fbone](https://github.com/imwilsonxu/fbone)
 * [cookiecutter-flask](https://github.com/sloria/cookiecutter-flask)
 * [flask-chassis](https://github.com/SawdustSoftware/flask-chassis)
