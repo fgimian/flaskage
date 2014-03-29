@@ -3,7 +3,7 @@ from behave import given, when, then
 
 @given('we have a Flaskage-based application setup')  # noqa
 def step_impl(context):
-    pass
+    assert context.client and context.ctx
 
 
 @when('I load the home page at "{url_path}"')  # noqa
