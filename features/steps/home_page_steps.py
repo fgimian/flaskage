@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from behave import given, when, then
 
 
@@ -12,6 +13,6 @@ def when_load_home_page(context, url_path):
     assert context.response
 
 
-@then('ensure the word "{expected_word}" is displayed')
-def then_ensure_word_displayed(context, expected_word):
-    assert expected_word.encode('u8') in context.response.data
+@then('ensure the word "{expected_phrase}" is displayed')
+def then_ensure_word_displayed(context, expected_phrase):
+    assert expected_phrase.encode('u8') in context.response.data
