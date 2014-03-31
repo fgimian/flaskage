@@ -1,7 +1,17 @@
-from __future__ import with_statement
+# -*- coding: utf-8 -*-
+"""
+    flaskage.migrations.env
+    ~~~~~~~~~~~~~~~~~~~~~~~
+
+    The environment definition for our Alembic migrations.
+
+    :copyright: (c) 2014 Fotis Gimian.
+    :license: MIT, see LICENSE for more details.
+"""
+from logging.config import fileConfig
+
 from alembic import context
 from sqlalchemy import engine_from_config, pool
-from logging.config import fileConfig
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
