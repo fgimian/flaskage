@@ -39,6 +39,7 @@ def create_app(config):
 
     # Initialise Jinja2 extensions
     app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
+    app.jinja_env.pyjade.options['autocloseCode'] = ['assets']
 
     # Provide the Flask-Login user loader function
     # @login_manager.user_loader

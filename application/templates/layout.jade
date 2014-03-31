@@ -9,7 +9,6 @@ html(lang="en")
     // Bootstrap
     - assets filters="less,cleancss", output="css/flaskage.css", depends="less/bootstrap/*.less", "less/flaskage.less"
         link(rel="stylesheet", type="text/css", href=ASSET_URL)
-    - endassets
 
     // HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
     // WARNING: Respond.js doesn't work if you view the page via file://
@@ -27,4 +26,3 @@ html(lang="en")
     // Coffeescript
     - assets filters="coffeescript,uglifyjs", output="js/flaskage.js", "coffee/flaskage.coffee"
         script(src=ASSET_URL)
-    - endassets
