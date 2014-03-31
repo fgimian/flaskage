@@ -6,7 +6,7 @@ itsdangerous==0.24
 Werkzeug==0.9.4
 
 # Development Server Failsafe
-git+https://github.com/fgimian/flask-failsafe.git@exec_removal
+Flask-Failsafe==0.2
 
 # Scripting Interface
 Flask-Script==0.6.7
@@ -46,7 +46,6 @@ mock==1.0.1
 
 # Behaviour Driven Development Testing
 behave==1.2.4
-mechanize==0.2.5
 
 # Flake8
 flake8==2.1.0
