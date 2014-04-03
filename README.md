@@ -32,7 +32,7 @@ So what makes Flaskage unique?  A few little things:
 * **One directory per function**: It seems that most templates are inspired by the way that Django separates apps, whereby each component of the larger web application has its own models, views, templates and static files.  I personally feel that this layout doesn't make sense.  Instead, I prefer a structure more similar to the [Play Framework](http://www.playframework.com/documentation/2.0/Anatomy) or [Ruby on Rails](http://guides.rubyonrails.org/getting_started.html#creating-the-blog-application) which keeps views in one directory, models in one directory and so on.  The ability to split views and models into multiple files is an absolute must which is also part of Flaskage's design.
 * **Full integration of Flask-Assets**: This template has been designed for use with Coffeescript, LESS (in particular Twitter's Bootstrap CSS framework) or any other pre-processor you may have in mind.  Furthermore, Flaskage keeps all such uncompiled files neatly in an assets directory.
 * **Database migrations**: Flaskage integrates [Flask-Migrate](https://github.com/miguelgrinberg/Flask-Migrate) and is ready for database migrations which can be invoked via management commands.
-* **PyJade integration**: If you choose to, you can may use [PyJade](https://github.com/SyrusAkbary/pyjade) to write your templates.  This is a far less verbose language than regular HTML.
+* **PyJade integration**: If you choose to, you may use [PyJade](https://github.com/SyrusAkbary/pyjade) to write your templates.  This is a far less verbose language than regular HTML.
 * **Switchable configurations**: With a simple command line switch, you can run the development server under any environment you wish (development, production or testing).  Further to this, you can set a default environment for your app to run in via a variable in the config module or define your own custom config environments.
 * **Flake8 integration**: You can check that your syntax is valid and that your coding style follows the PEP8 standard with a simple management command.
 * **Clean client-side library integration**: Flaskage uses Bower and symlinks to cleanly integrate Twitter Bootstrap and jQuery with the ability to seamlessly upgrade these components when necessary and avoid duplication of the original source code in your Git repository.
@@ -164,7 +164,7 @@ All unit tests may be run using:
 ./manage.py test
 ```
 
-You may validate all your code using Flaka8 like this:
+You may validate all your code using Flake8 like this:
 
 ``` bash
 ./manage.py flake8
