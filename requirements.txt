@@ -49,12 +49,13 @@ behave==1.2.4
 
 # Flake8
 flake8==2.1.0
-pep8==1.5.1
+pep8==1.5.2
 pyflakes==0.8.1
 mccabe==0.2.1
 
-# IPython
+# IPython Shell & Debugger
 ipython==1.2.1
+ipdb==0.8
 
 # Miscellaneous
 six==1.6.1
