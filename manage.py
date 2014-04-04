@@ -57,15 +57,32 @@ def flake8():
 
 @manager.command
 def behave():
+    """Runs all behaviour driven development tests"""
     import behave.__main__
     behave.__main__.main(args=sys.argv[2:])
 
 
-@manager.option('-v', '--verbosity', type=int, default=2)
-def test(verbosity):
+@manager.command
+def test():
     """Runs all application unit tests"""
-    import nose
-    nose.run(argv=['nosetests', '--verbosity=%i' % int(verbosity)])
+    # To ensure proper coverage results, we need to execute nosetests
+    # via subprocess.  The reason is that coverage won't report statistics
+    # if used modules have already been imported (which is necessary for
+    # Flask-Script to work properly).
+    #
+    # e.g.
+    #
+    # import coverage
+    # cov = coverage.coverage()
+    # cov.start()
+    # from module import function  # import must be after cov.start()
+    # assert function(...) == ...
+    # cov.stop()
+    # cov.report()
+    #
+    # I've contacted the author of Coverage.py to see if there's a workaround.
+    import subprocess
+    exit(subprocess.call('nosetests'))
 
 if __name__ == '__main__':
     manager.run()
