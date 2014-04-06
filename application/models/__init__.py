@@ -17,6 +17,7 @@
     from passlib.hash import bcrypt
 
     from .. import db
+    from . import CRUDMixin
 
 
     MALE = 1
@@ -29,7 +30,7 @@
     }
 
 
-    class User(db.Model, UserMixin):
+    class User(db.Model, CRUDMixin, UserMixin):
         # Optionally override the table name (default is user anyway)
         __tablename__ = 'user'
 
@@ -119,6 +120,43 @@
     :copyright: (c) 2014 Fotis Gimian.
     :license: MIT, see LICENSE for more details.
 """
+from .. import db
+
+
+class CRUDMixin(object):
+    __table_args__ = {'extend_existing': True}
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    @classmethod
+    def get_by_id(cls, id):
+        if any(
+            (isinstance(id, basestring) and id.isdigit(),
+             isinstance(id, (int, float))),
+        ):
+            return cls.query.get(int(id))
+        return None
+
+    @classmethod
+    def create(cls, **kwargs):
+        instance = cls(**kwargs)
+        return instance.save()
+
+    def update(self, commit=True, **kwargs):
+        for attr, value in kwargs.iteritems():
+            setattr(self, attr, value)
+        return commit and self.save() or self
+
+    def save(self, commit=True):
+        db.session.add(self)
+        if commit:
+            db.session.commit()
+        return self
+
+    def delete(self, commit=True):
+        db.session.delete(self)
+        return commit and db.session.commit()
+
 # Import models from the various model files so that they are easy to import.
 # We also issue a noqa command to avoid flake8's unused import warning.
 # from .<submodule> import <model>  # noqa
