@@ -15,3 +15,6 @@ application/static/js/flaskage.js
 
 # Vendor-provided components
 application/vendor/*/
+
+# Documentation builds
+docs/_build

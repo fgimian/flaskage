@@ -57,5 +57,8 @@ mccabe==0.2.1
 ipython==1.2.1
 ipdb==0.8
 
+# Documentation Generation
+Sphinx==1.2.2
+
 # Miscellaneous
 six==1.6.1
