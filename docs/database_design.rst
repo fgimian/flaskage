@@ -89,7 +89,7 @@ for more information.
 Relationship Definitions
 ------------------------
 
-One to many relationships may be defined as follows:
+**One to many** relationships may be defined as follows:
 
 .. code-block:: python
 
@@ -139,7 +139,7 @@ The relationship may also be specified on the other end if you like:
         # One to many relationship
         category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
 
-Many to many relationships may be defined as follows:
+**Many to many** relationships may be defined as follows:
 
 .. code-block:: python
 
@@ -167,7 +167,7 @@ Many to many relationships may be defined as follows:
 All many to many relationship tables should be placed in the file
 **relationships.py** under the **application/models** directory.
 
-One to one relationships are achieved using the **uselist** flag as shown
+**One to one relationships** are achieved using the **uselist** flag as shown
 below:
 
 .. code-block:: python

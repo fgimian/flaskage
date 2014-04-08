@@ -43,7 +43,7 @@ package to enable this database.
 .. note::
 
     In general, PostgreSQL provides superior performance and features to MySQL
-        and is therefore the preferred database for use with Flaskage.
+    and is therefore the preferred database for use with Flaskage.
 
 For **MySQL**:
 

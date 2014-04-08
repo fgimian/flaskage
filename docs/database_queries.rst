@@ -16,7 +16,7 @@ For any of these operations, be sure to first import the models you require:
 
 .. code-block:: python
 
-    from models import user
+    from models import User
 
 To **create** a new record for a model:
 
@@ -82,7 +82,21 @@ translates to:
 
 .. code-block:: python
 
-    users = User.query.filter_by(age=18)
+    users = User.query.filter_by(age = 18).all()
+
+You may also filter using other standard <, >, != operators:
+
+.. code-block:: sql
+
+    SELECT *
+    FROM user
+    WHERE age = 18
+
+translates to:
+
+.. code-block:: python
+
+    users = User.query.filter_by(age < 18).all()
 
 Obtaining a single record
 
@@ -97,7 +111,65 @@ translates to:
 
 .. code-block:: python
 
-    me = User.query.filter_by(username='fgimian').first()
+    me = User.query.filter_by(username = 'fgimian').first()
+
+Filtering using an in statement:
+
+.. code-block:: sql
+
+    SELECT *
+    FROM user
+    WHERE username IN ('fgimian', 'lonelycat')
+
+translates to:
+
+.. code-block:: python
+
+    users = User.query.filter(User.username.in_(['fgimian', 'lonelycat'])).all()
+
+Selecting particular columns only:
+
+.. code-block:: sql
+
+    SELECT username, email
+    FROM user
+
+.. code-block:: python
+
+    User.query.with_entities(User.username, User.email).all()
+
+.. note::
+
+    Using the **with_entitities** function returns a list of tuples instead
+    of a list of objects.
+
+Logical operators for use with filtering:
+
+.. code-block:: sql
+
+    SELECT *
+    FROM user
+    WHERE (username = 'fgimian'
+           OR username = 'lonelycat')
+    AND id < 3
+
+.. code-block:: python
+
+    User.query.filter(
+        (User.username == 'fgimian') | (User.username == 'lonelycat') &
+        (User.id < 3)
+    ).all()
+
+Applying functions to columns when selecting
+
+.. code-block:: sql
+
+    SELECT upper(username)
+    FROM user
+
+.. code-block:: python
+
+    User.query.with_entities(db.func.upper(User.username)).all()
 
 Ordering results
 
@@ -113,3 +185,33 @@ translates to:
 
     users = User.query.order_by(User.age)
     users_desc = Userl.query.order_by(User.age.desc())
+
+Grouping by
+
+.. code-block:: sql
+
+    SELECT age, count(*)
+    FROM user
+    GROUP BY age
+    HAVING count(*) > 5
+
+.. code-block:: python
+
+    User.query.with_entities(
+        User.age, db.func.count()
+    ).group_by(User.age).having(db.func.count() > 5).all()
+
+Aliasing columns
+
+.. code-block:: sql
+
+    SELECT age, count(*) AS counter
+    FROM user
+    GROUP BY age
+    HAVING counter > 5
+
+.. code-block:: python
+
+    User.query.with_entities(
+        User.age, db.func.count().label('counter')
+    ).group_by(User.age).having('counter > 5').all()
