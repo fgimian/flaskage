@@ -30,26 +30,26 @@ Project Structure
 
 Flaskage is structured as shown below::
 
-    ├── application
-    │   ├── assets
-    │   ├── models
-    │   ├── static
-    │   ├── templates
-    │   ├── vendor
-    │   └── views
-    ├── docs
-    ├── features
-    │   └── steps
-    ├── libraries
-    ├── tests
-    │   ├── fixtures
-    │   ├── models
-    │   └── views
-    ├── bower.json
-    ├── config.py
-    ├── manage.py
-    ├── setup.cfg
-    └── requirements.txt
+    |-- application
+    |   |-- assets
+    |   |-- models
+    |   |-- static
+    |   |-- templates
+    |   |-- vendor
+    |   '-- views
+    |-- docs
+    |-- features
+    |   '-- steps
+    |-- libraries
+    |-- tests
+    |   |-- fixtures
+    |   |-- models
+    |   '-- views
+    |-- bower.json
+    |-- config.py
+    |-- manage.py
+    |-- setup.cfg
+    '-- requirements.txt
 
 The purpose of each file and directory are as follows:
 
