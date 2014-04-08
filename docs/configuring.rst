@@ -63,7 +63,8 @@ For **SQLite**:
 .. code-block:: python
 
     SQLALCHEMY_DATABASE_URI = (
-        'sqlite:///' + os.path.join(Config.PROJECT_ROOT, 'dbname.db'))
+        'sqlite:///' + os.path.join(Config.PROJECT_ROOT, 'dbname.db')
+    )
 
 Please ensure that you add any newly installed package in your
 **requirements.txt** file.  You may list your installed packages as follows:

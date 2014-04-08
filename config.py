@@ -25,7 +25,8 @@ class DevelopmentConfig(Config):
     SECRET_KEY = 'devkey'
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = (
-        'sqlite:///' + os.path.join(Config.PROJECT_ROOT, 'data.db'))
+        'sqlite:///' + os.path.join(Config.PROJECT_ROOT, 'data.db')
+    )
     SQLALCHEMY_ECHO = True
 
 

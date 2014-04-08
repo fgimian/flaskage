@@ -36,7 +36,8 @@ Here's an example of a factory boy factory that uses fake factory to fake data:
         username = factory.LazyAttribute(lambda a: fake.user_name())
         email = factory.LazyAttribute(lambda a: fake.email())
         password = factory.PostGenerationMethodCall(
-            'set_password', 'password123')
+            'set_password', 'password123'
+        )
 
 Please see the `factory_boy <https://factoryboy.readthedocs.org/en/latest/>`_
 and `fake-factory <http://www.joke2k.net/faker/>`_ documentation for further

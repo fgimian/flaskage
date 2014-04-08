@@ -160,8 +160,9 @@ Many to many relationships may be defined as follows:
         id = db.Column(db.Integer, primary_key=True)
         ...
         # Many to many relationship
-        users = db.relationship('User', secondary=users_posts,
-                                backref=db.backref('posts'))
+        users = db.relationship(
+            'User', secondary=users_posts, backref=db.backref('posts')
+        )
 
 All many to many relationship tables should be placed in the file
 **relationships.py** under the **application/models** directory.
