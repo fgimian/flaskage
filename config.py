@@ -1,22 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-    flaskage.config
-    ~~~~~~~~~~~~~~~
-
-    Configuration for the various environments where the application may run.
-
-    In addition to adjusting this configuration, you'll need to generate some
-    secure secret keys.  To do this, simply run the following in a python
-    shell and use the result as your secret key (output provided below for
-    demonstrational purposes only).
-
-    >>> import os
-    >>> os.urandom(24)
-    '\xfd{H\xe5<\x95\xf9\xe3\x96.5\xd1\x01O<!\xd5\xa2\xa0\x9fR"\xa1\xa8'
-
-    :copyright: (c) 2014 Fotis Gimian.
-    :license: MIT, see LICENSE for more details.
-"""
 import os
 
 AVAILABLE_CONFIGS = {

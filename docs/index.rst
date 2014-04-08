@@ -18,4 +18,25 @@ Some of the existing templates and projects which inspired and influenced this p
 - `cookiecutter-flask <https://github.com/sloria/cookiecutter-flask>`_
 - `flask-chassis <https://github.com/SawdustSoftware/flask-chassis>`_
 
-.. include:: contents.rst.inc
+User's Guide
+------------
+
+This part of the documentation focuses on using Flaskage along with common
+patterns that you can use as a reference while developing your application.
+
+.. toctree::
+   :maxdepth: 2
+
+   overview
+   installation
+   configuring
+   database_design
+   database_queries
+   unit_testing_models
+   blueprints
+   client_side_libraries
+   asset_pipeline
+   jinja2_templates
+   pyjade_templates
+   unit_testing_views
+   bdd_testing

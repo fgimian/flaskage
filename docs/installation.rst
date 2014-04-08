@@ -24,7 +24,7 @@ Flaskage supports the following Linux operating systems:
 You'll need to install some pre-requisites to ensure that all Python packages
 install correctly.
 
-If you're running Python 3.3 on Ubuntu Server 12.04::
+If you're running Python 3.3 on Ubuntu Server 12.04:
 
 .. code-block:: bash
 
@@ -103,3 +103,24 @@ From the project root directory, install the client-side libraries as follows:
 .. code-block:: bash
 
     $ bower install
+
+Running the Development Server
+------------------------------
+
+Once you have completed installing all the necessary components, you may start
+the Flask development server using the following command in the root directory
+of the project:
+
+.. code-block:: bash
+
+    ./manage.py runserver
+
+This will run the development server on loopback address which will mean that
+it will only be available for viewing by your development server.
+
+If you wish to make the website available to other machines on the same
+network, then start the development server as follows:
+
+.. code-block:: bash
+
+    ./manage.py runserver -t 0.0.0.0

@@ -1,13 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-    flaskage.features.steps.home_page_steps
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-    BDD tests for home page of the Flaskage template application.
-
-    :copyright: (c) 2014 Fotis Gimian.
-    :license: MIT, see LICENSE for more details.
-"""
 from behave import given, when, then
 
 

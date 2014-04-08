@@ -21,7 +21,7 @@ So what makes Flaskage unique? A few little things:
 - **Clean client-side library integration**: Flaskage uses Bower and symlinks to cleanly integrate Twitter Bootstrap and jQuery with the ability to seamlessly upgrade these components when necessary and avoid duplication of the original source code in your Git repository.
 - **More robust development server**: Using `flask-failsafe <https://github.com/mgood/flask-failsafe>`_, the development server won't crash each time small errors are made while coding.
 - **Travis Integration**: Test case integration with Travis is provided out of the box.
-- **Powerful test tools**: Integrated use of `nose <https://github.com/nose-devs/nose/>`_, `Coverage.py <http://nedbatchelder.com/code/coverage>`_, `factory_boy <https://github.com/rbarrois/factory_boy>`_ and `fake-factory <https://github.com/joke2k/faker>`.
+- **Powerful test tools**: Integrated use of `nose <https://github.com/nose-devs/nose/>`_, `Coverage.py <http://nedbatchelder.com/code/coverage>`_, `factory_boy <https://github.com/rbarrois/factory_boy>`_ and `fake-factory <https://github.com/joke2k/faker>`_.
 - **Behaviour-driven development**: Integrated use of `behave <https://github.com/behave/behave>`_, `splinter <http://splinter.cobrateam.info/>`_ and `selenium <https://code.google.com/p/selenium/>`_ for fully featured behaviour-driven development.
 - **Python 3 ready**: I have only chosen extensions which work across Python 2.6, 2.7 and 3.3 so that you're future-proof if and when you decide to move to a Python 3 environment.
 

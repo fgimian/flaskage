@@ -1,16 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""
-    flaskage.manage
-    ~~~~~~~~~~~~~~~
-
-    The main script used to manage all aspects relating to the application
-    including configuration, database migration, assets, running the
-    development server and so on.
-
-    :copyright: (c) 2014 Fotis Gimian.
-    :license: MIT, see LICENSE for more details.
-"""
 import os
 import sys
 import fnmatch

@@ -1,13 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-    flaskage.features.environment
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-    The main environment setup for BDD testing.
-
-    :copyright: (c) 2014 Fotis Gimian.
-    :license: MIT, see LICENSE for more details.
-"""
 from application import create_app, db
 
 

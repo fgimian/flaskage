@@ -1,14 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-    flaskage.tests
-    ~~~~~~~~~~~~~~
-
-    The top level test class definition which may be used for defining
-    your own application tests.
-
-    :copyright: (c) 2014 Fotis Gimian.
-    :license: MIT, see LICENSE for more details.
-"""
 from application import create_app, db
 
 
