@@ -12,10 +12,9 @@ The CRUD Mixin
 
 Unlike Django's ORM, SQLAlchemy has a slightly lower level API whereby updating
 records requires them to be added to a session and then the session committed.
-Furthermore, primary keys are not implied with SQLAlchemy.
 
 Enter the **CRUDMixin** which provides some handy helpers that you can use
-on all your models.  These include create, update, save methods.
+on all your models.  These include create, update, save and delete methods.
 
 We'll be using the CRUDMixin in the examples that follow but use of this base
 class is entirely optional.
@@ -48,14 +47,17 @@ So let's look at a basic model definition:
 So here, we demonstrate the main directives used when defining models using
 SQLAlechmy with Flask.
 
-Some things to note:
+.. note::
 
-- In SQLAlchemy, columns are nullable by default which means that null values
-  are allowed.  If you wish to specify that the column must include a value
-  at all times, then be sure to set nullable to False as we have here with the
-  username.
-- The default keyword argument takes in a callable function which generates
-  the default value for a column if not specified by the user.
+    - When defining models with SQLAlchemy, you must explicitly create a
+      primary key for each table (which usually will be named id and similar to
+      the example above).
+    - In SQLAlchemy, columns are nullable by default which means that null
+      values are allowed.  If you wish to specify that the column must include
+      a value at all times, then be sure to set nullable to False as we have
+      here with the username.
+    - The default keyword argument takes in a callable function which generates
+      the default value for a column if not specified by the user.
 
 Once you have defined your models, you must register them in
 **application/models/__init__.py** by importing them in the following manner:
@@ -65,7 +67,7 @@ Once you have defined your models, you must register them in
     from .user import User  # noqa
 
 This enables database migrations for the new model and makes it easier to
-import in the views.  The **noqa** directive in the comments tells Flake8
+import in views.  The **noqa** directive in the comments tells Flake8
 to ignore the import as it would otherwise raise a warning stating that the
 model was unused in that file.
 
@@ -109,8 +111,8 @@ Relationship Definitions
         category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
         category = db.relationship('Category', backref=db.backref('posts'))
 
-The backref property specifies the member variable that will be used to access
-the related posts when working with a Category object.
+The **backref** property specifies the member variable that will be used to
+access the related posts when working with a Category object.
 
 For example:
 

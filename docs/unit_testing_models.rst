@@ -11,9 +11,9 @@ Model Factories
 
 Using the excellent `factory_boy <https://github.com/dnerdy/factory_boy>`_
 library combined with the powerful `fake-factory <https://pypi.python.org/pypi/fake-factory>`_,
-we can generate fake model objects.
+we can generate fake model objects that can be used during testing.
 
-A factory for each model should be defined in the a file named model_faktory.py
+A factory for each model should be defined in the a file named model_factory.py
 in the **tests/fixtures** directory (e.g. blog_post_factory.py).
 
 Here's an example of a factory boy factory that uses fake factory to fake data:
@@ -29,7 +29,7 @@ Here's an example of a factory boy factory that uses fake factory to fake data:
 
     fake = Factory.create()
 
-    class User(SQLAlchemyModelFactory):
+    class UserFactory(SQLAlchemyModelFactory):
         FACTORY_FOR = User
         FACTORY_SESSION = db.session
 

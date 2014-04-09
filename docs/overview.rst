@@ -4,7 +4,7 @@ Overview
 ========
 
 Flaskage incorporates a large number of features and integrates almost
-everything you will ever need to build a relatively complex web application.
+everything you will ever need to build a large web application.
 
 Features
 --------

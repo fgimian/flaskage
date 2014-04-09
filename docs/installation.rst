@@ -92,8 +92,10 @@ the following:
 
     $ [sudo] npm install -g bower less clean-css coffee-script uglify-js
 
-If your Node.js installation is global and owned by root, you'll need to run
-the command above using sudo.
+.. note::
+
+    If your Node.js installation is global and owned by root, you'll need to 
+    run the command above using sudo.
 
 Installing jQuery and Twitter Bootstrap with Bower
 --------------------------------------------------

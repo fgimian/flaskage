@@ -73,6 +73,14 @@ Please ensure that you add any newly installed package in your
 
     pip freeze
 
+.. important::
+
+    It is highly recommended you setup multiple databases on your chosen
+    database engine and use it to power all environments.  For example, if you
+    choose to use PostgreSQL, then also install it on your dev server and
+    setup databases for both dev and test.  This ensures that your 
+    will seamlessly work in production as each database has its own quirks.
+
 Managing Configuration Environments
 -----------------------------------
 

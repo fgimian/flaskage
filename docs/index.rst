@@ -2,8 +2,8 @@ Welcome to Flaskage
 ===================
 
 Welcome to Flaskage's documentation.  The Flaskage template attempts to bring
-together all the best packages and integrate them into Flask so you have a 
-ull stack MVC structure ready-to-use.
+together all the best packages and integrate them with Flask so you have a 
+full stack MVC (or MTV) structure ready-to-use.
 
 Flaskage takes a lot of inspiration from frameworks like
 `Ruby on Rails <http://rubyonrails.org/>`_,
@@ -11,7 +11,7 @@ Flaskage takes a lot of inspiration from frameworks like
 and doesn't attempt to re-create the Django way of working.
 
 In addition to providing a template, this project also intends to document
-common workflows with the template and serve as a good starting point of
+common workflows with the template and serve as a good general point of
 reference.
 
 Some of the existing templates and projects which inspired and influenced this

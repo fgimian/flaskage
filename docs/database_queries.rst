@@ -33,7 +33,8 @@ To **read** a record using the model's primary key:
 
     the_user = User.query.get(5)
 
-Further examples of read operations and their respective SQL will follow below.
+Further examples of read operations (select queries) and their respective SQL
+will follow below.
 
 To **update** a record for a model:
 
@@ -90,13 +91,14 @@ You may also filter using other standard <, >, != operators:
 
     SELECT *
     FROM user
-    WHERE age = 18
+    WHERE age < 18
+    AND age >= 5
 
 translates to:
 
 .. code-block:: python
 
-    users = User.query.filter_by(age < 18).all()
+    users = User.query.filter((User.age < 18) & (User.age >= 5)).all()
 
 Obtaining a single record
 
@@ -113,6 +115,29 @@ translates to:
 
     me = User.query.filter_by(username = 'fgimian').first()
 
+The **first** function will return **None** if no records were found.  In the
+case that multiple records are found matching your filter, only the first row
+will be returned.
+
+To ensure that only a single result is present
+
+.. code-block:: sql
+
+    SELECT *
+    FROM user
+    WHERE username = 'fgimian'
+
+translates to:
+
+.. code-block:: python
+
+    me = User.query.filter_by(username = 'fgimian').one()
+
+The **one** function will return a single row, however it will raise a
+**sqlalchemy.orm.exc.NoResultFound** exception if no records were found or a
+**sqlalchemy.orm.exc.MultipleResultsFound** exception if multiple records were
+found.
+
 Filtering using an in statement:
 
 .. code-block:: sql
@@ -127,21 +152,23 @@ translates to:
 
     users = User.query.filter(User.username.in_(['fgimian', 'lonelycat'])).all()
 
-Selecting particular columns only:
+Selecting particular columns only
 
 .. code-block:: sql
 
     SELECT username, email
     FROM user
 
+translates to:
+
 .. code-block:: python
 
-    User.query.with_entities(User.username, User.email).all()
+    users = User.query.with_entities(User.username, User.email).all()
 
 .. note::
 
     Using the **with_entitities** function returns a list of tuples instead
-    of a list of objects.
+    of a list of objects as per the other queries.
 
 Logical operators for use with filtering:
 
@@ -155,7 +182,7 @@ Logical operators for use with filtering:
 
 .. code-block:: python
 
-    User.query.filter(
+    users = User.query.filter(
         (User.username == 'fgimian') | (User.username == 'lonelycat') &
         (User.id < 3)
     ).all()
@@ -169,7 +196,7 @@ Applying functions to columns when selecting
 
 .. code-block:: python
 
-    User.query.with_entities(db.func.upper(User.username)).all()
+    users = User.query.with_entities(db.func.upper(User.username)).all()
 
 Ordering results
 
@@ -184,7 +211,7 @@ translates to:
 .. code-block:: python
 
     users = User.query.order_by(User.age)
-    users_desc = Userl.query.order_by(User.age.desc())
+    users_desc = User.query.order_by(User.age.desc())
 
 Grouping by
 
@@ -195,9 +222,11 @@ Grouping by
     GROUP BY age
     HAVING count(*) > 5
 
+translates to:
+
 .. code-block:: python
 
-    User.query.with_entities(
+    users = User.query.with_entities(
         User.age, db.func.count()
     ).group_by(User.age).having(db.func.count() > 5).all()
 
@@ -210,8 +239,10 @@ Aliasing columns
     GROUP BY age
     HAVING counter > 5
 
+translates to:
+
 .. code-block:: python
 
-    User.query.with_entities(
+    users = User.query.with_entities(
         User.age, db.func.count().label('counter')
     ).group_by(User.age).having('counter > 5').all()
