@@ -1,4 +1,4 @@
-.. _database_design:
+.. database_queries:
 
 Database Queries
 ================

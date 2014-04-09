@@ -33,8 +33,7 @@ For **PostgreSQL**:
 
     SQLALCHEMY_DATABASE_URI = 'postgresql://user:pass@host/dbname'
 
-You'll need to install the `psycopg2 <https://pypi.python.org/pypi/psycopg2>`_
-package to enable this database.
+You'll need to install the psycopg2_ package to enable this database.
 
 .. code-block:: bash
 
@@ -51,8 +50,7 @@ For **MySQL**:
 
     SQLALCHEMY_DATABASE_URI = 'mysql://user:pass@host/dbname'
 
-You'll need to install the `MySQL-python <https://pypi.python.org/pypi/MySQL-python>`_
-package to enable this database.
+You'll need to install the MySQL-python_ package to enable this database.
 
 .. code-block:: bash
 
@@ -114,3 +112,6 @@ not specified by the user.  You may change the default config by updating the
 .. code-block:: python
 
     DEFAULT_CONFIG = 'staging'
+
+.. _psycopg2: https://pypi.python.org/pypi/psycopg2
+.. _MySQL-python: https://pypi.python.org/pypi/MySQL-python

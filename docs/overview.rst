@@ -19,22 +19,18 @@ So what makes Flaskage unique? A few little things:
   by the way that Django separates apps, whereby each component of the larger
   web application has its own models, views, templates and static files.  I
   personally feel that this layout doesn't make sense.  Instead, I prefer a
-  structure more similar to the
-  `Play Framework <http://www.playframework.com/documentation/2.0/Anatomy>`_
-  or `Ruby on Rails <http://guides.rubyonrails.org/getting_started.html#creating-the-blog-application>`_
-  which keeps views in one directory, models in one directory and so on.
-  The ability to split views and models into multiple files is an absolute
-  must which is also part of Flaskage's design.
+  structure more similar to the Play_ or `Ruby on Rails`_ which keeps views
+  in one directory, models in one directory and so on.  The ability to split
+  views and models into multiple files is an absolute must which is also part
+  of Flaskage's design.
 - **Full integration of Flask-Assets**: This template has been designed for
   use with Coffeescript, LESS (in particular Twitter's Bootstrap CSS framework)
   or any other pre-processor you may have in mind.  Furthermore, Flaskage keeps
   all such uncompiled files neatly in an assets directory.
-- **Database migrations**: Flaskage integrates
-  `Flask-Migrate <https://github.com/miguelgrinberg/Flask-Migrate>`_ and is
+- **Database migrations**: Flaskage integrates Flask-Migrate_ and is
   ready for database migrations which can be invoked via management commands.
-- **PyJade integration**: If you choose to, you may use
-  `PyJade <https://github.com/SyrusAkbary/pyjade>`_ to write your templates.
-  This is a far less verbose language than regular HTML.
+- **PyJade integration**: If you choose to, you may use PyJade_ to write your
+  templates.  This is a far less verbose language than regular HTML.
 - **Switchable configurations**: With a simple command line switch, you can
   run the development server under any environment you wish (development,
   production or testing).  Further to this, you can set a default environment
@@ -46,21 +42,14 @@ So what makes Flaskage unique? A few little things:
   to cleanly integrate Twitter Bootstrap and jQuery with the ability to
   seamlessly upgrade these components when necessary and avoid duplication of
   the original source code in your Git repository.
-- **More robust development server**: Using
-  `flask-failsafe <https://github.com/mgood/flask-failsafe>`_, the development
+- **More robust development server**: Using flask-failsafe_, the development
   server won't crash each time small errors are made while coding.
 - **Travis Integration**: Test case integration with Travis is provided out
   of the box.
-- **Powerful test tools**: Integrated use of
-  `nose <https://github.com/nose-devs/nose/>`_,
-  `Coverage.py <http://nedbatchelder.com/code/coverage>`_,
-  `factory_boy <https://github.com/rbarrois/factory_boy>`_ and
-  `fake-factory <https://github.com/joke2k/faker>`_.
-- **Behaviour-driven development**: Integrated use of
-  `behave <https://github.com/behave/behave>`_,
-  `splinter <http://splinter.cobrateam.info/>`_ and
-  `selenium <https://code.google.com/p/selenium/>`_ for fully featured
-  behaviour-driven development.
+- **Powerful test tools**: Integrated use of nose_, Coverage.py_, factory_boy_
+  and fake-factory_.
+- **Behaviour-driven development**: Integrated use of behave_, splinter_ and
+  selenium_ for fully featured behaviour-driven development.
 - **Python 3 ready**: I have only chosen extensions which work across
   Python 2.6, 2.7 and 3.3 so that you're future-proof if and when you decide
   to move to a Python 3 environment.
@@ -120,3 +109,16 @@ The purpose of each file and directory are as follows:
 - **manage.py**: Management interface and command registrations
 - **setup.cfg**: General package configuration (used for nose)
 - **requirements.txt**: Python package requirements
+
+.. _Play: http://www.playframework.com/documentation/2.0/Anatomy
+.. _Ruby on Rails: http://guides.rubyonrails.org/getting_started.html#creating-the-blog-application
+.. _Flask-Migrate: https://github.com/miguelgrinberg/Flask-Migrate
+.. _PyJade: https://github.com/SyrusAkbary/pyjade
+.. _flask-failsafe: https://github.com/mgood/flask-failsafe
+.. _nose: https://github.com/nose-devs/nose/
+.. _Coverage.py: http://nedbatchelder.com/code/coverage
+.. _factory_boy: https://github.com/rbarrois/factory_boy
+.. _fake-factory: https://github.com/joke2k/faker
+.. _behave: https://github.com/behave/behave
+.. _splinter: http://splinter.cobrateam.info/
+.. _selenium: https://code.google.com/p/selenium/

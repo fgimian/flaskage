@@ -3,9 +3,9 @@
 Database Design
 ===============
 
-Flaskage leverages the extremely powerful `SQLAlchemy <http://www.sqlalchemy.org/>`_
-ORM for database interaction.  SQLAlchemy can indeed by a little overwhelming
-when starting out, but it's worth it in the long run.
+Flaskage leverages the extremely powerful SQLAlchemy_ ORM for database
+interaction.  SQLAlchemy can indeed by a little overwhelming when starting
+out, but it's worth it in the long run.
 
 The CRUD Mixin
 --------------
@@ -71,8 +71,7 @@ import in views.  The **noqa** directive in the comments tells Flake8
 to ignore the import as it would otherwise raise a warning stating that the
 model was unused in that file.
 
-Please see `SQLAlchemy Declarative Documentation <http://docs.sqlalchemy.org/en/latest/orm/extensions/declarative.html>`_
-for more information.
+Please see `SQLAlchemy Declarative Documentation`_ for more information.
 
 Let's go through other column types that you'll commonly use in models:
 
@@ -85,8 +84,8 @@ Let's go through other column types that you'll commonly use in models:
         integer_column = db.Column(db.Integer)
         text_column = db.Column(db.Text)
 
-Please see `SQLAlchemy Column and Data Types Documentation <http://docs.sqlalchemy.org/en/latest/core/types.html>`_
-for more information.
+Please see `SQLAlchemy Column and Data Types Documentation`_ for more
+information.
 
 Relationship Definitions
 ------------------------
@@ -194,16 +193,15 @@ Alternatively, the relationship may be reversed:
         id = db.Column(db.Integer, primary_key=True)
         user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-Please see `SQLAlchemy Relationship Configuration Documentation <http://docs.sqlalchemy.org/en/latest/orm/relationships.html>`_
-for more information.
+Please see `SQLAlchemy Relationship Configuration Documentation`_ for more
+information.
 
 Database Migrations
 -------------------
 
-Thanks to `alembic <https://pypi.python.org/pypi/alembic>`_ and the
-`Flask-Migrate <https://github.com/miguelgrinberg/Flask-Migrate>`_ extension,
-Flaskage implements the ability to easily alter the database schema as the
-application evolves over time.
+Thanks to alembic_ and the Flask-Migrate_ extension, Flaskage implements the
+ability to easily alter the database schema as the application evolves over
+time.
 
 Each time you update or add models, you can generate a new migration by running
 the following in the root directory of your project:
@@ -225,3 +223,10 @@ Changes may be undone by downgrading the migration:
 .. code-block:: bash
 
     ./manage.py db downgrade
+
+.. _SQLAlchemy: http://www.sqlalchemy.org/
+.. _SQLAlchemy Declarative Documentation: http://docs.sqlalchemy.org/en/latest/orm/extensions/declarative.html
+.. _SQLAlchemy Column and Data Types Documentation: http://docs.sqlalchemy.org/en/latest/core/types.html
+.. _SQLAlchemy Relationship Configuration Documentation: http://docs.sqlalchemy.org/en/latest/orm/relationships.html
+.. _alembic: https://pypi.python.org/pypi/alembic
+.. _Flask-Migrate: https://github.com/miguelgrinberg/Flask-Migrate
