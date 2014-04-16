@@ -1,0 +1,17 @@
+# Python byte-compiled, optimized and DLL files
+*.py[cod]
+
+# Nosetests and coverage information
+.coverage
+nosetests.xml
+coverage.xml
+
+# Webassets cache
+application/static/.webassets-cache/
+
+# Compiled versions of assets
+application/static/css/flaskage.css
+application/static/js/flaskage.js
+
+# Vendor-provided components
+application/vendor/*/

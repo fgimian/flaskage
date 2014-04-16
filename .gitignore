@@ -6,15 +6,11 @@
 nosetests.xml
 coverage.xml
 
-# Webassets cache
-application/static/.webassets-cache/
-
-# Compiled versions of assets
-application/static/css/flaskage.css
-application/static/js/flaskage.js
-
-# Vendor-provided components
-application/vendor/*/
+# Distribution & packaging
+build/
+develop-eggs/
+dist/
+*.egg-info/
 
 # Documentation builds
 docs/_build
