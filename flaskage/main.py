@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import os
 import argparse
 
@@ -40,8 +41,10 @@ def main():
     args = parser.parse_args()
 
     # Determine the location of our templates
-    template_dir = os.path.join(
-        os.path.dirname(os.path.abspath(flaskage.__file__)), 'templates'
+    template_dir = os.path.abspath(
+        os.path.join(
+            os.path.dirname(flaskage.__file__), 'templates'
+        )
     )
 
     if args.subparser_name == 'new':

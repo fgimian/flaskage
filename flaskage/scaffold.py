@@ -1,44 +1,15 @@
+# -*- coding: utf-8 -*-
 import os
-import sys
-from shutil import copy2
-import codecs
-from fnmatch import fnmatch
-import stat
 import re
+import codecs
 import logging
-from hashlib import md5
+from shutil import copy2
 
 from jinja2 import Environment, StrictUndefined
 
-
-# Python 3 compatibility (courtesy of https://github.com/kelp404/six)
-PY3 = sys.version_info[0] == 3
-if PY3:
-    text_type = str
-
-    def u(s):
-        return s
-else:
-    text_type = unicode
-
-    def u(s):
-        return unicode(s, 'unicode_escape')
-
-
-def matches_any(filename, patterns):
-    return any(fnmatch(filename, pattern) for pattern in patterns)
-
-
-def get_permissions(filename):
-    return stat.S_IMODE(os.stat(filename).st_mode)
-
-
-def md5file(filename):
-    return md5(codecs.open(filename).read()).hexdigest()
-
-
-def md5data(data):
-    return md5(data).hexdigest()
+from .utils import (
+    matches_any, get_permissions, md5file, md5data, prompt_yes_no
+)
 
 
 class ScaffoldException(Exception):
@@ -78,7 +49,10 @@ class Scaffold(object):
         self.ignored_dirs = ignored_dirs
 
         # Jinja2 related settings
-        if template_extension.startswith('.'):
+        if (
+            template_extension is None or
+            template_extension.startswith('.')
+        ):
             self.template_extension = template_extension
         else:
             self.template_extension = '.' + template_extension
@@ -152,7 +126,7 @@ class Scaffold(object):
                         target_dir=target_dir_render
                     )
                 else:
-                    self.render_template(
+                    self.render_file(
                         source_file=source_file,
                         target_dir=target_dir_render
                     )
@@ -183,8 +157,11 @@ class Scaffold(object):
             target_dir, self.render_filename(target_subdir)
         )
 
-        # Destination exists and is a symlink instead of a regular directory
-        if os.path.islink(target_path_render):
+        # Destination exists and is not a regular directory
+        if (
+            os.path.lexists(target_path_render) and
+            not os.path.isdir(target_path_render)
+        ):
             self.logger.error(
                 'Skpping existing non-directory %s', target_path_render,
                 extra={'action': 'skip'}
@@ -193,7 +170,7 @@ class Scaffold(object):
 
         # Destination exists and is identical to source
         if (
-            os.path.exists(target_path_render) and
+            os.path.isdir(target_path_render) and
             get_permissions(source_subdir) ==
             get_permissions(target_path_render)
         ):
@@ -205,7 +182,7 @@ class Scaffold(object):
 
         # Destination exists and policy is "skip"
         if (
-            os.path.exists(target_path_render) and
+            os.path.isdir(target_path_render) and
             self.existing_policy == self.EXISTING_SKIP
         ):
             self.logger.info(
@@ -229,24 +206,24 @@ class Scaffold(object):
         # Prompt the user to update permissions or overwrite the directory
         # if necessary
         if (
-            os.path.exists(target_path_render) and
+            os.path.isdir(target_path_render) and
             self.existing_policy == self.EXISTING_OVERWRITE
         ):
-            update_permissions = 'y'
+            update_permissions = True
         elif (
-            os.path.exists(target_path_render) and
+            os.path.isdir(target_path_render) and
             self.existing_policy == self.EXISTING_PROMPT
         ):
             # Destination exists and has different permissions to source
-            while update_permissions not in ['y', 'n']:
-                update_permissions = raw_input(
-                    'Update permissions of directory %s to %s? [y/n]: ' %
-                    (target_path_render, oct(get_permissions(source_subdir)))
-                ).lower()
+            update_permissions = prompt_yes_no(
+                'Update permissions of directory %s to %s?' %
+                (target_path_render, oct(get_permissions(source_subdir))),
+                default='n'
+            )
 
         # If the user has been prompted to make a change and answered no,
         # then we bail
-        if update_permissions == 'n':
+        if update_permissions is False:
             self.logger.info(
                 'Skpping existing directory %s', target_path_render,
                 extra={'action': 'skip'}
@@ -254,7 +231,7 @@ class Scaffold(object):
             return
 
         # Log the appropriate message depending on the action
-        if os.path.exists(target_path_render):
+        if os.path.isdir(target_path_render):
             self.logger.info(
                 'Updating permissions of directory %s to %s',
                 target_path_render, oct(get_permissions(source_subdir)),
@@ -267,7 +244,7 @@ class Scaffold(object):
             )
 
         # Take the appropriate actions
-        if update_permissions != 'y':
+        if update_permissions is None:
             os.mkdir(target_path_render)
         os.chmod(target_path_render, get_permissions(source_subdir))
 
@@ -337,19 +314,18 @@ class Scaffold(object):
             os.path.islink(target_path_render) and
             self.existing_policy == self.EXISTING_OVERWRITE
         ):
-            overwrite = 'y'
+            overwrite = True
         elif (
             os.path.islink(target_path_render) and
             self.existing_policy == self.EXISTING_PROMPT
         ):
-            while overwrite not in ['y', 'n']:
-                overwrite = raw_input(
-                    'Overwrite symlink %s? [y/n]: ' % target_path_render
-                ).lower()
+            overwrite = prompt_yes_no(
+                'Overwrite symlink %s?' % target_path_render, default='n'
+            )
 
         # If the user has been prompted to make a change and answered no,
         # then we bail
-        if overwrite == 'n':
+        if overwrite is False:
             self.logger.info(
                 'Skpping existing symlink %s', target_path_render,
                 extra={'action': 'skip'}
@@ -371,11 +347,11 @@ class Scaffold(object):
             )
 
         # Take the appropriate actions
-        if overwrite == 'y':
+        if overwrite is True:
             os.remove(target_path_render)
         os.symlink(os.readlink(source_symlink), target_path_render)
 
-    def render_template(self, source_file, target_dir):
+    def render_file(self, source_file, target_dir):
         # Get the basename of the source file
         target_file = os.path.basename(source_file)
 
@@ -394,8 +370,11 @@ class Scaffold(object):
             target_dir, self.render_filename(target_file)
         )
 
-        # Destination exists and is a symlink instead of a regular file
-        if os.path.islink(target_path_render):
+        # Destination exists and is not a regular file
+        if (
+            os.path.lexists(target_path_render) and
+            not os.path.isfile(target_path_render)
+        ):
             self.logger.error(
                 'Skpping existing non-file %s', target_path_render,
                 extra={'action': 'skip'}
@@ -420,10 +399,7 @@ class Scaffold(object):
 
         # If the destination exists, calculate MD5 and permission details
         # of both the source and destination for comparison
-        if (
-            os.path.exists(target_path_render) and
-            not os.path.islink(target_path_render)
-        ):
+        if os.path.isfile(target_path_render):
             if source_file_template:
                 source_file_content = md5data(output_render)
             else:
@@ -434,7 +410,7 @@ class Scaffold(object):
 
         # Destination exists and is identical to source
         if (
-            os.path.exists(target_path_render) and
+            os.path.isfile(target_path_render) and
             source_file_content == target_path_content and
             source_file_permissions == target_path_permissions
         ):
@@ -446,7 +422,7 @@ class Scaffold(object):
 
         # Destination exists and policy is "skip"
         if (
-            os.path.exists(target_path_render) and
+            os.path.isfile(target_path_render) and
             self.existing_policy == self.EXISTING_SKIP
         ):
             self.logger.info(
@@ -473,32 +449,34 @@ class Scaffold(object):
         # Prompt the user to update permissions or overwrite the file
         # if necessary
         if (
-            os.path.exists(target_path_render) and
+            os.path.isfile(target_path_render) and
             self.existing_policy == self.EXISTING_OVERWRITE
         ):
-            overwrite = 'y'
+            if source_file_content != target_path_content:
+                overwrite = True
+            else:
+                update_permissions = True
         elif (
-            os.path.exists(target_path_render) and
+            os.path.isfile(target_path_render) and
             self.existing_policy == self.EXISTING_PROMPT
         ):
             # Destination exists and has different content to source
             if source_file_content != target_path_content:
-                while overwrite not in ['y', 'n']:
-                    overwrite = raw_input(
-                        'Overwrite file %s? [y/n]: ' % target_path_render
-                    ).lower()
+                overwrite = prompt_yes_no(
+                    'Overwrite file %s?' % target_path_render, default='n'
+                )
 
             # Destination exists and has different permissions to source
             else:
-                while update_permissions not in ['y', 'n']:
-                    update_permissions = raw_input(
-                        'Update permissions of file %s to %s? [y/n]: ' %
-                        (target_path_render, oct(get_permissions(source_file)))
-                    ).lower()
+                update_permissions = prompt_yes_no(
+                    'Update permissions of file %s to %s?' %
+                    (target_path_render, oct(get_permissions(source_file))),
+                    default='n'
+                )
 
         # If the user has been prompted to make a change and answered no,
         # then we bail
-        if overwrite == 'n' or update_permissions == 'n':
+        if overwrite is False or update_permissions is False:
             self.logger.info(
                 'Skpping existing file %s', target_path_render,
                 extra={'action': 'skip'}
@@ -507,19 +485,18 @@ class Scaffold(object):
 
         # Log the appropriate message depending on the action
         if source_file_template:
-            if os.path.exists(target_path_render):
-                if overwrite == 'y':
-                    self.logger.info(
-                        'Rendering and overwriting template %s to %s',
-                        os.path.relpath(source_file, self.source_root),
-                        target_path_render, extra={'action': 'render (o)'}
-                    )
-                else:
-                    self.logger.info(
-                        'Updating permissions of template %s to %s',
-                        target_path_render, oct(get_permissions(source_file)),
-                        extra={'action': 'chmod (o)'}
-                    )
+            if overwrite is True:
+                self.logger.info(
+                    'Rendering and overwriting template %s to %s',
+                    os.path.relpath(source_file, self.source_root),
+                    target_path_render, extra={'action': 'render (o)'}
+                )
+            elif update_permissions is True:
+                self.logger.info(
+                    'Updating permissions of template %s to %s',
+                    target_path_render, oct(get_permissions(source_file)),
+                    extra={'action': 'chmod (o)'}
+                )
             else:
                 self.logger.info(
                     'Rendering template %s to %s',
@@ -527,20 +504,18 @@ class Scaffold(object):
                     target_path_render, extra={'action': 'render'}
                 )
         else:
-            if os.path.exists(target_path_render):
-                if overwrite == 'y':
-                    self.logger.info(
-                        'Copying and overwriting file %s to %s',
-                        os.path.relpath(source_file, self.source_root),
-                        target_path_render, extra={'action': 'copy (o)'}
-                    )
-                else:
-                    self.logger.info(
-                        'Updating permissions of file %s to %s',
-                        target_path_render,
-                        oct(get_permissions(source_file)),
-                        extra={'action': 'chmod (o)'}
-                    )
+            if overwrite is True:
+                self.logger.info(
+                    'Copying and overwriting file %s to %s',
+                    os.path.relpath(source_file, self.source_root),
+                    target_path_render, extra={'action': 'copy (o)'}
+                )
+            elif update_permissions is True:
+                self.logger.info(
+                    'Updating permissions of file %s to %s',
+                    target_path_render, oct(get_permissions(source_file)),
+                    extra={'action': 'chmod (o)'}
+                )
             else:
                 self.logger.info(
                     'Copying file %s to %s',
@@ -549,7 +524,7 @@ class Scaffold(object):
                 )
 
         # Take the appropriate actions
-        if update_permissions != 'y':
+        if update_permissions is None:
             if source_file_template:
                 with codecs.open(target_path_render, 'w', 'utf-8') as target:
                     target.write(output_render)
