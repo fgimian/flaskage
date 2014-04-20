@@ -2,7 +2,10 @@
 import os
 import stat
 from tempfile import NamedTemporaryFile
-from io import StringIO
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 
 import mock
 from nose.tools import raises
@@ -28,7 +31,7 @@ class TestUtils:
             stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR |
             stat.S_IRGRP | stat.S_IXGRP | stat.S_IROTH
         )
-        assert oct(get_permissions(f.name)) == '0o754'
+        assert get_permissions(f.name) == 0o754
         os.unlink(f.name)
 
     def test_md5file(self):

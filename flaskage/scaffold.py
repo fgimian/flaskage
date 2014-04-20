@@ -216,8 +216,8 @@ class Scaffold(object):
         ):
             # Destination exists and has different permissions to source
             update_permissions = prompt_yes_no(
-                'Update permissions of directory %s to %s?' %
-                (target_path_render, oct(get_permissions(source_subdir))),
+                'Update permissions of directory %s to %o?' %
+                (target_path_render, get_permissions(source_subdir)),
                 default='n'
             )
 
@@ -233,8 +233,8 @@ class Scaffold(object):
         # Log the appropriate message depending on the action
         if os.path.isdir(target_path_render):
             self.logger.info(
-                'Updating permissions of directory %s to %s',
-                target_path_render, oct(get_permissions(source_subdir)),
+                'Updating permissions of directory %s to %o',
+                target_path_render, get_permissions(source_subdir),
                 extra={'action': 'chmod (o)'}
             )
         else:
@@ -469,8 +469,8 @@ class Scaffold(object):
             # Destination exists and has different permissions to source
             else:
                 update_permissions = prompt_yes_no(
-                    'Update permissions of file %s to %s?' %
-                    (target_path_render, oct(get_permissions(source_file))),
+                    'Update permissions of file %s to %o?' %
+                    (target_path_render, get_permissions(source_file)),
                     default='n'
                 )
 
@@ -493,8 +493,8 @@ class Scaffold(object):
                 )
             elif update_permissions is True:
                 self.logger.info(
-                    'Updating permissions of template %s to %s',
-                    target_path_render, oct(get_permissions(source_file)),
+                    'Updating permissions of template %s to %o',
+                    target_path_render, get_permissions(source_file),
                     extra={'action': 'chmod (o)'}
                 )
             else:
@@ -512,8 +512,8 @@ class Scaffold(object):
                 )
             elif update_permissions is True:
                 self.logger.info(
-                    'Updating permissions of file %s to %s',
-                    target_path_render, oct(get_permissions(source_file)),
+                    'Updating permissions of file %s to %o',
+                    target_path_render, get_permissions(source_file),
                     extra={'action': 'chmod (o)'}
                 )
             else:

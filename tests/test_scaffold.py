@@ -222,7 +222,7 @@ class TestScaffold:
         )
         assert self.exists('filec.txt', type='file')
         assert 'Hello there {{{ name }}}' in self.contents('filec.txt')
-        assert oct(get_permissions(test_file)) == '0o600'
+        assert get_permissions(test_file) == 0o600
 
     @mock.patch('flaskage.scaffold.prompt_yes_no', return_value=False)
     def test_policy_prompt_no_file_content(self, mock_prompt_yes_no):
@@ -238,7 +238,7 @@ class TestScaffold:
         )
         assert self.exists('filec.txt', type='file')
         assert 'Some random text' in self.contents('filec.txt')
-        assert oct(get_permissions(test_file)) == '0o600'
+        assert get_permissions(test_file) == 0o600
 
     @mock.patch('flaskage.scaffold.prompt_yes_no', return_value=True)
     def test_policy_prompt_yes_file_content(self, mock_prompt_yes_no):
@@ -254,7 +254,7 @@ class TestScaffold:
         )
         assert self.exists('filec.txt', type='file')
         assert 'Hello there {{{ name }}}' in self.contents('filec.txt')
-        assert oct(get_permissions(test_file)) == '0o664'
+        assert get_permissions(test_file) == 0o664
 
     @mock.patch('flaskage.scaffold.prompt_yes_no', return_value=False)
     def test_policy_prompt_no_file_permissions(self, mock_prompt_yes_no):
@@ -270,7 +270,7 @@ class TestScaffold:
         )
         assert self.exists('filec.txt', type='file')
         assert 'Hello there {{{ name }}}' in self.contents('filec.txt')
-        assert oct(get_permissions(test_file)) == '0o600'
+        assert get_permissions(test_file) == 0o600
 
     @mock.patch('flaskage.scaffold.prompt_yes_no', return_value=True)
     def test_policy_prompt_yes_file_permissions(self, mock_prompt_yes_no):
@@ -286,7 +286,7 @@ class TestScaffold:
         )
         assert self.exists('filec.txt', type='file')
         assert 'Hello there {{{ name }}}' in self.contents('filec.txt')
-        assert oct(get_permissions(test_file)) == '0o664'
+        assert get_permissions(test_file) == 0o664
 
     def test_policy_overwrite_file_content(self):
         os.mkdir(self.build_dir)
@@ -301,7 +301,7 @@ class TestScaffold:
         )
         assert self.exists('filec.txt', type='file')
         assert 'Hello there {{{ name }}}' in self.contents('filec.txt')
-        assert oct(get_permissions(test_file)) == '0o664'
+        assert get_permissions(test_file) == 0o664
 
     def test_policy_overwrite_file_permissions(self):
         os.mkdir(self.build_dir)
@@ -316,7 +316,7 @@ class TestScaffold:
         )
         assert self.exists('filec.txt', type='file')
         assert 'Hello there {{{ name }}}' in self.contents('filec.txt')
-        assert oct(get_permissions(test_file)) == '0o664'
+        assert get_permissions(test_file) == 0o664
 
     def test_policy_skip_template_content(self):
         os.mkdir(self.build_dir)
@@ -344,7 +344,7 @@ class TestScaffold:
         )
         assert self.exists('filea', type='file')
         assert 'My name is happyman' in self.contents('filea')
-        assert oct(get_permissions(test_file)) == '0o600'
+        assert get_permissions(test_file) == 0o600
 
     @mock.patch('flaskage.scaffold.prompt_yes_no', return_value=False)
     def test_policy_prompt_no_template_content(self, mock_prompt_yes_no):
@@ -360,7 +360,7 @@ class TestScaffold:
         )
         assert self.exists('filea', type='file')
         assert 'Some random text' in self.contents('filea')
-        assert oct(get_permissions(test_file)) == '0o600'
+        assert get_permissions(test_file) == 0o600
 
     @mock.patch('flaskage.scaffold.prompt_yes_no', return_value=True)
     def test_policy_prompt_yes_template_content(self, mock_prompt_yes_no):
@@ -376,7 +376,7 @@ class TestScaffold:
         )
         assert self.exists('filea', type='file')
         assert 'My name is happyman' in self.contents('filea')
-        assert oct(get_permissions(test_file)) == '0o664'
+        assert get_permissions(test_file) == 0o664
 
     @mock.patch('flaskage.scaffold.prompt_yes_no', return_value=False)
     def test_policy_prompt_no_template_permissions(self, mock_prompt_yes_no):
@@ -392,7 +392,7 @@ class TestScaffold:
         )
         assert self.exists('filea', type='file')
         assert 'My name is happyman' in self.contents('filea')
-        assert oct(get_permissions(test_file)) == '0o600'
+        assert get_permissions(test_file) == 0o600
 
     @mock.patch('flaskage.scaffold.prompt_yes_no', return_value=True)
     def test_policy_prompt_yes_template_permissions(self, mock_prompt_yes_no):
@@ -408,7 +408,7 @@ class TestScaffold:
         )
         assert self.exists('filea', type='file')
         assert 'My name is happyman' in self.contents('filea')
-        assert oct(get_permissions(test_file)) == '0o664'
+        assert get_permissions(test_file) == 0o664
 
     def test_policy_overwrite_template_content(self):
         os.mkdir(self.build_dir)
@@ -423,7 +423,7 @@ class TestScaffold:
         )
         assert self.exists('filea', type='file')
         assert 'My name is happyman' in self.contents('filea')
-        assert oct(get_permissions(test_file)) == '0o664'
+        assert get_permissions(test_file) == 0o664
 
     def test_policy_overwrite_template_permissions(self):
         os.mkdir(self.build_dir)
@@ -438,7 +438,7 @@ class TestScaffold:
         )
         assert self.exists('filea', type='file')
         assert 'My name is happyman' in self.contents('filea')
-        assert oct(get_permissions(test_file)) == '0o664'
+        assert get_permissions(test_file) == 0o664
 
     def test_skip_non_file(self):
         self.build_scaffold('test-template-2')
@@ -470,7 +470,7 @@ class TestScaffold:
             existing_policy=Scaffold.EXISTING_SKIP
         )
         assert self.exists('directory1', type='dir')
-        assert oct(get_permissions(test_directory)) == '0o700'
+        assert get_permissions(test_directory) == 0o700
 
     @mock.patch('flaskage.scaffold.prompt_yes_no', return_value=False)
     def test_policy_prompt_no_directory(self, mock_prompt_yes_no):
@@ -483,7 +483,7 @@ class TestScaffold:
             existing_policy=Scaffold.EXISTING_PROMPT
         )
         assert self.exists('directory1', type='dir')
-        assert oct(get_permissions(test_directory)) == '0o700'
+        assert get_permissions(test_directory) == 0o700
 
     @mock.patch('flaskage.scaffold.prompt_yes_no', return_value=True)
     def test_policy_prompt_yes_directory(self, mock_prompt_yes_no):
@@ -496,7 +496,7 @@ class TestScaffold:
             existing_policy=Scaffold.EXISTING_PROMPT
         )
         assert self.exists('directory1', type='dir')
-        assert oct(get_permissions(test_directory)) == '0o775'
+        assert get_permissions(test_directory) == 0o775
 
     def test_policy_overwrite_directory(self):
         os.mkdir(self.build_dir)
@@ -508,7 +508,7 @@ class TestScaffold:
             existing_policy=Scaffold.EXISTING_OVERWRITE
         )
         assert self.exists('directory1', type='dir')
-        assert oct(get_permissions(test_directory)) == '0o775'
+        assert get_permissions(test_directory) == 0o775
 
     def test_skip_identical_directory(self):
         os.mkdir(self.build_dir)
@@ -524,7 +524,7 @@ class TestScaffold:
             'test-template-2', overwrite_target_root=True
         )
         assert self.exists('directory1', type='dir')
-        assert oct(get_permissions(test_directory)) == '0o775'
+        assert get_permissions(test_directory) == 0o775
 
     def test_skip_non_directory(self):
         self.build_scaffold('test-template-2')
