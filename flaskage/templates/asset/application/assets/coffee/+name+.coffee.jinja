@@ -4,7 +4,9 @@
 # To compile this file to Javascript and serve it from your template, use
 # the following code:
 #
-# {% assets filters="coffeescript,uglifyjs", output="js/{{{ name }}}.js",
-#           "coffee/{{{ name }}}.coffee" %}
-#   <script src="{{ ASSET_URL }}"></script>
-# {% endassets %}
+# {% block js %}
+#   {% assets filters="coffeescript,uglifyjs", output="js/{{{ name }}}.js",
+#             "coffee/{{{ name }}}.coffee" %}
+#     <script src="{{ ASSET_URL }}"></script>
+#   {% endassets %}
+# {% endblock %}

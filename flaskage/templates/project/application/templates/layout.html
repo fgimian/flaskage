@@ -6,11 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ title }}</title>
 
-    <!-- Bootstrap -->
+    <!-- Global Stylesheets -->
     {% assets filters="less,cleancss", output="css/flaskage.css",
               depends="less/bootstrap/*.less", "less/flaskage.less" %}
         <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}" />
     {% endassets %}
+
+    <!-- Blueprint Stylesheets -->
+    {% block css %}{% endblock %}
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -28,10 +31,13 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 
-    <!-- Coffeescript -->
+    <!-- Global Javascripts -->
     {% assets filters="coffeescript,uglifyjs", output="js/flaskage.js",
               "coffee/flaskage.coffee" %}
       <script src="{{ ASSET_URL }}"></script>
     {% endassets %}
+
+    <!-- Blueprint Javascripts -->
+    {% block js %}{% endblock %}
   </body>
 </html>

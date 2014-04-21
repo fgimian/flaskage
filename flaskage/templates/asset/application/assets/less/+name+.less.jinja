@@ -4,7 +4,9 @@
 // To compile this file to CSS and serve it from your template, use the
 // following code:
 //
-// {% assets filters="less,cleancss", output="css/{{{ name }}}.css",
-//           "less/{{{ name }}}.less" %}
-//     <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}" />
-// {% endassets %}
+// {% block css %}
+//   {% assets filters="less,cleancss", output="css/{{{ name }}}.css",
+//             "less/{{{ name }}}.less" %}
+//       <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}" />
+//   {% endassets %}
+// {% endblock %}

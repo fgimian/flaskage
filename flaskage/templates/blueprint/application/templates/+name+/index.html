@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% set title = "{{{ name }}}" %}
+
+{% block js %}
+  {% assets filters="coffeescript,uglifyjs", output="js/{{{ name }}}.js",
+            "coffee/{{{ name }}}.coffee" %}
+    <script src="{{ ASSET_URL }}"></script>
+  {% endassets %}
+{% endblock %}
+
+{% block css %}
+  {% assets filters="less,cleancss", output="css/{{{ name }}}.css",
+            "less/{{{ name }}}.less" %}
+      <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}" />
+  {% endassets %}
+{% endblock %}
+
+{% block body %}
+  Welcome to your new blueprint! :)
+{% endblock %}
