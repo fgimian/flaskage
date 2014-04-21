@@ -88,7 +88,7 @@ def main():
         'name', help='the model name in lowercase underscore format'
     )
     parser_generate_model.add_argument(
-        'column', nargs='*',
+        'columns', nargs='*',
         help='column definitions for the new model'
     )
 
@@ -219,6 +219,118 @@ def main():
                 print()
 
         elif args.subparser_generate_name in ['model', 'm']:
+            column_mapping = {
+                'integer': 'Integer',
+                'decimal': 'Numeric',
+                'float': 'Float',
+                'boolean': 'Boolean',
+                'date': 'Date',
+                'time': 'Time',
+                'datetime': 'DateTime',
+                'binary': 'LargeBinary',
+                'string': 'String',
+                'text': 'Text'
+            }
+
+            columns = []
+            for column in args.columns:
+                column_properties = column.split(':')
+
+                # Extract the column name
+                name = column_properties[0]
+                if not valid_module_name(name):
+                    parser_main.error(
+                        'The name provided was not a valid Python module name'
+                    )
+
+                # Extract the column type and length
+                length = None
+                try:
+                    type_properties = column_properties[1].split(',')
+                    type = type_properties[0].lower() or 'string'
+                    try:
+                        if type_properties[1]:
+                            length = int(type_properties[1])
+                        else:
+                            length = None
+                    except IndexError:
+                        length = None
+                except IndexError:
+                    type = 'string'
+                except ValueError:
+                    parser_main.error(
+                        'The column definition for field %s contained an '
+                        'invalid length' % name
+                    )
+                if type not in [
+                    'integer', 'decimal', 'float', 'string', 'text',
+                    'datetime', 'date', 'time', 'boolean', 'binary'
+                ]:
+                    parser_main.error(
+                        'The type of column %s must be one of the following:\n'
+                        '\n'
+                        'Numberic Types:\n'
+                        '- integer\n'
+                        '- decimal\n'
+                        '- float\n'
+                        '\n'
+                        'Text Types:\n'
+                        '- string\n'
+                        '- text\n'
+                        '\n'
+                        'Date & Time Types:\n'
+                        '- datetime\n'
+                        '- date\n'
+                        '- time\n'
+                        '\n'
+                        'Other Types:\n'
+                        '- boolean\n'
+                        '- binary\n' % name
+                    )
+                if length and type not in ['string', 'text', 'binary']:
+                    parser_main.error(
+                        'The length of column %s is invalid as length can '
+                        'only be specified for string, text or binary types' %
+                        name
+                    )
+
+                # Extract the column modifiers
+                primary_key_provided = False
+                try:
+                    modifiers = column_properties[2].lower().split(',')
+                except IndexError:
+                    modifiers = []
+                for modifier in modifiers:
+                    if modifier not in [
+                        'index', 'primary', 'required', 'unique'
+                    ]:
+                        parser_main.error(
+                            'The column modifier for column %s must be one of'
+                            'the following:\n'
+                            '\n'
+                            '- index\n'
+                            '- primary\n'
+                            '- required\n'
+                            '- unique\n' % name
+                        )
+
+                definition = 'db.%s' % column_mapping[type]
+                if length:
+                    definition += '(%i)' % length
+                if modifiers:
+                    for modifier in modifiers:
+                        if modifier == 'index':
+                            definition += ', index=True'
+                        elif modifier == 'primary':
+                            primary_key_provided = True
+                            definition += ', primary_key=True'
+                        elif modifier == 'required':
+                            definition += ', nullable=False'
+                        elif modifier == 'unique':
+                            definition += ', unique=True'
+
+                columns.append((name, definition))
+
             # Generate the scaffolding for a new model
             print()
             print('Generating new model named %s' % args.name)
@@ -228,7 +340,9 @@ def main():
                     source_root=os.path.join(template_dir, 'model'),
                     target_root=os.getcwd(),
                     variables={
-                        'name': args.name, 'name_camelcase': name_camelcase
+                        'name': args.name, 'name_camelcase': name_camelcase,
+                        'columns': columns,
+                        'primary_key_provided': primary_key_provided
                     },
                     ignored_dirs=ignored_dirs, ignored_files=ignored_files,
                     overwrite_target_root=True

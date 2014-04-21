@@ -3,4 +3,9 @@ from . import CRUDMixin
 
 
 class {{{ name_camelcase }}}(db.Model, CRUDMixin):
-    pass
+{{% if not primary_key_provided %}}
+    id = db.Column(db.Integer, primary_key=True)
+{{% endif %}}
+{{% for name, definition in columns %}}
+    {{{ name }}} = db.Column({{{ definition }}})
+{{% endfor %}}
