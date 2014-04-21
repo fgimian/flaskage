@@ -134,9 +134,9 @@ def main():
             )
 
         # Generate the scaffolding for a new project
-        print()
+        print('')
         print('Generating new project in %s' % args.name)
-        print()
+        print('')
         try:
             scaffold = Scaffold(
                 source_root=os.path.join(template_dir, 'project'),
@@ -148,15 +148,15 @@ def main():
                 overwrite_target_root=True
             )
             scaffold.render_structure()
-            print()
+            print('')
             print(
                 'Successfully created new project structure'
             )
-            print()
+            print('')
         except ScaffoldException as e:
-            print()
+            print('')
             print('Error: %s' % e)
-            print()
+            print('')
 
     elif args.subparser_main_name in ['generate', 'g']:
         # Generation of items can only run in a valid project directory
@@ -168,9 +168,9 @@ def main():
 
         if args.subparser_generate_name in ['asset', 'a']:
             # Generate the scaffolding for a new asset
-            print()
+            print('')
             print('Generating new asset named %s' % args.name)
-            print()
+            print('')
             try:
                 scaffold = Scaffold(
                     source_root=os.path.join(template_dir, 'asset'),
@@ -182,21 +182,21 @@ def main():
                     overwrite_target_root=True
                 )
                 scaffold.render_structure()
-                print()
+                print('')
                 print(
                     'Successfully created new asset'
                 )
-                print()
+                print('')
             except ScaffoldException as e:
-                print()
+                print('')
                 print('Error: %s' % e)
-                print()
+                print('')
 
         elif args.subparser_generate_name in ['blueprint', 'b']:
             # Generate the scaffolding for a new blueprint
-            print()
+            print('')
             print('Generating new blueprint named %s' % args.name)
-            print()
+            print('')
             try:
                 scaffold = Scaffold(
                     source_root=os.path.join(template_dir, 'blueprint'),
@@ -208,15 +208,15 @@ def main():
                     overwrite_target_root=True
                 )
                 scaffold.render_structure()
-                print()
+                print('')
                 print(
                     'Successfully created new blueprint'
                 )
-                print()
+                print('')
             except ScaffoldException as e:
-                print()
+                print('')
                 print('Error: %s' % e)
-                print()
+                print('')
 
         elif args.subparser_generate_name in ['model', 'm']:
             column_mapping = {
@@ -332,9 +332,9 @@ def main():
                 columns.append((name, definition))
 
             # Generate the scaffolding for a new model
-            print()
+            print('')
             print('Generating new model named %s' % args.name)
-            print()
+            print('')
             try:
                 scaffold = Scaffold(
                     source_root=os.path.join(template_dir, 'model'),
@@ -348,21 +348,21 @@ def main():
                     overwrite_target_root=True
                 )
                 scaffold.render_structure()
-                print()
+                print('')
                 print(
                     'Successfully created new model'
                 )
-                print()
+                print('')
             except ScaffoldException as e:
-                print()
+                print('')
                 print('Error: %s' % e)
-                print()
+                print('')
 
         elif args.subparser_generate_name in ['library', 'l']:
             # Generate the scaffolding for a new library
-            print()
+            print('')
             print('Generating new library named %s' % args.name)
-            print()
+            print('')
             try:
                 scaffold = Scaffold(
                     source_root=os.path.join(template_dir, 'library'),
@@ -374,15 +374,15 @@ def main():
                     overwrite_target_root=True
                 )
                 scaffold.render_structure()
-                print()
+                print('')
                 print(
                     'Successfully created new library'
                 )
-                print()
+                print('')
             except ScaffoldException as e:
-                print()
+                print('')
                 print('Error: %s' % e)
-                print()
+                print('')
 
 
 if __name__ == '__main__':
