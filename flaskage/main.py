@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
+import re
 import argparse
 import logging
 
@@ -24,6 +25,14 @@ def valid_project_directory():
         os.path.isfile(os.path.join(cwd, 'config.py')) and
         os.path.isfile(os.path.join(cwd, 'manage.py'))
     )
+
+
+def valid_module_name(s):
+    return re.match(r'^[a-z_][a-z0-9_]*$', s)
+
+
+def camelcase(s):
+    return ''.join([i.title() or '_' for i in s.split('_')])
 
 
 def main():
@@ -108,6 +117,13 @@ def main():
     ignored_dirs = ['__pycache__']
     ignored_files = ['*.pyc']
 
+    # Validate the name argument (common to all commands)
+    if not valid_module_name(args.name):
+        parser_main.error(
+            'The name provided was not a valid Python module name'
+        )
+    name_camelcase = camelcase(args.name)
+
     # Handle CLI choices
     if args.subparser_main_name in ['new', 'n']:
         # Generation of a new project can only run outside a valid project
@@ -125,7 +141,9 @@ def main():
             scaffold = Scaffold(
                 source_root=os.path.join(template_dir, 'project'),
                 target_root=args.name,
-                variables={'name': args.name},
+                variables={
+                    'name': args.name, 'name_camelcase': name_camelcase
+                },
                 ignored_dirs=ignored_dirs, ignored_files=ignored_files,
                 overwrite_target_root=True
             )
@@ -157,7 +175,9 @@ def main():
                 scaffold = Scaffold(
                     source_root=os.path.join(template_dir, 'asset'),
                     target_root=os.getcwd(),
-                    variables={'name': args.name},
+                    variables={
+                        'name': args.name, 'name_camelcase': name_camelcase
+                    },
                     ignored_dirs=ignored_dirs, ignored_files=ignored_files,
                     overwrite_target_root=True
                 )
@@ -181,7 +201,9 @@ def main():
                 scaffold = Scaffold(
                     source_root=os.path.join(template_dir, 'blueprint'),
                     target_root=os.getcwd(),
-                    variables={'name': args.name},
+                    variables={
+                        'name': args.name, 'name_camelcase': name_camelcase
+                    },
                     ignored_dirs=ignored_dirs, ignored_files=ignored_files,
                     overwrite_target_root=True
                 )
@@ -205,7 +227,9 @@ def main():
                 scaffold = Scaffold(
                     source_root=os.path.join(template_dir, 'model'),
                     target_root=os.getcwd(),
-                    variables={'name': args.name},
+                    variables={
+                        'name': args.name, 'name_camelcase': name_camelcase
+                    },
                     ignored_dirs=ignored_dirs, ignored_files=ignored_files,
                     overwrite_target_root=True
                 )
@@ -229,7 +253,9 @@ def main():
                 scaffold = Scaffold(
                     source_root=os.path.join(template_dir, 'library'),
                     target_root=os.getcwd(),
-                    variables={'name': args.name},
+                    variables={
+                        'name': args.name, 'name_camelcase': name_camelcase
+                    },
                     ignored_dirs=ignored_dirs, ignored_files=ignored_files,
                     overwrite_target_root=True
                 )
