@@ -17,6 +17,7 @@ else:  # pragma: nocover
         return s
     from __builtin__ import raw_input
 
+
 def matches_any(filename, patterns):
     return any(fnmatch(filename, pattern) for pattern in patterns)
 

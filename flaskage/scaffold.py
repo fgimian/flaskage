@@ -163,7 +163,7 @@ class Scaffold(object):
             not os.path.isdir(target_path_render)
         ):
             self.logger.error(
-                'Skpping existing non-directory %s', target_path_render,
+                'Skipping existing non-directory %s', target_path_render,
                 extra={'action': 'skip'}
             )
             return
@@ -175,7 +175,7 @@ class Scaffold(object):
             get_permissions(target_path_render)
         ):
             self.logger.info(
-                'Skpping identical directory %s', target_path_render,
+                'Skipping identical directory %s', target_path_render,
                 extra={'action': 'skip'}
             )
             return
@@ -186,7 +186,7 @@ class Scaffold(object):
             self.existing_policy == self.EXISTING_SKIP
         ):
             self.logger.info(
-                'Skpping existing directory %s', target_path_render,
+                'Skipping existing directory %s', target_path_render,
                 extra={'action': 'skip'}
             )
             return
@@ -225,7 +225,7 @@ class Scaffold(object):
         # then we bail
         if update_permissions is False:
             self.logger.info(
-                'Skpping existing directory %s', target_path_render,
+                'Skipping existing directory %s', target_path_render,
                 extra={'action': 'skip'}
             )
             return
@@ -270,7 +270,7 @@ class Scaffold(object):
             not os.path.islink(target_path_render)
         ):
             self.logger.error(
-                'Skpping existing non-symlink %s', target_path_render,
+                'Skipping existing non-symlink %s', target_path_render,
                 extra={'action': 'skip'}
             )
             return
@@ -281,7 +281,7 @@ class Scaffold(object):
             os.readlink(source_symlink) == os.readlink(target_path_render)
         ):
             self.logger.info(
-                'Skpping identical symlink %s', target_path_render,
+                'Skipping identical symlink %s', target_path_render,
                 extra={'action': 'skip'}
             )
             return
@@ -292,7 +292,7 @@ class Scaffold(object):
             self.existing_policy == self.EXISTING_SKIP
         ):
             self.logger.info(
-                'Skpping existing symlink %s', target_path_render,
+                'Skipping existing symlink %s', target_path_render,
                 extra={'action': 'skip'}
             )
             return
@@ -327,7 +327,7 @@ class Scaffold(object):
         # then we bail
         if overwrite is False:
             self.logger.info(
-                'Skpping existing symlink %s', target_path_render,
+                'Skipping existing symlink %s', target_path_render,
                 extra={'action': 'skip'}
             )
             return
@@ -335,13 +335,13 @@ class Scaffold(object):
         # Log the appropriate message depending on the action
         if os.path.islink(target_path_render):
             self.logger.info(
-                'Creating and overwriting symbolic link %s to %s',
+                'Creating and overwriting symlink %s to %s',
                 os.path.relpath(source_symlink, self.source_root),
                 target_path_render, extra={'action': 'symlink (o)'}
             )
         else:
             self.logger.info(
-                'Creating symbolic link %s to %s',
+                'Creating symlink %s to %s',
                 os.path.relpath(source_symlink, self.source_root),
                 target_path_render, extra={'action': 'symlink'}
             )
@@ -376,7 +376,7 @@ class Scaffold(object):
             not os.path.isfile(target_path_render)
         ):
             self.logger.error(
-                'Skpping existing non-file %s', target_path_render,
+                'Skipping existing non-file %s', target_path_render,
                 extra={'action': 'skip'}
             )
             return
@@ -415,7 +415,7 @@ class Scaffold(object):
             source_file_permissions == target_path_permissions
         ):
             self.logger.info(
-                'Skpping identical file %s', target_path_render,
+                'Skipping identical file %s', target_path_render,
                 extra={'action': 'skip'}
             )
             return
@@ -426,7 +426,7 @@ class Scaffold(object):
             self.existing_policy == self.EXISTING_SKIP
         ):
             self.logger.info(
-                'Skpping existing file %s', target_path_render,
+                'Skipping existing file %s', target_path_render,
                 extra={'action': 'skip'}
             )
             return
@@ -478,7 +478,7 @@ class Scaffold(object):
         # then we bail
         if overwrite is False or update_permissions is False:
             self.logger.info(
-                'Skpping existing file %s', target_path_render,
+                'Skipping existing file %s', target_path_render,
                 extra={'action': 'skip'}
             )
             return

@@ -3,6 +3,7 @@ from shutil import rmtree
 from tempfile import mkdtemp
 import os
 import stat
+import logging
 
 import jinja2
 from jinja2 import Environment, StrictUndefined
@@ -14,7 +15,43 @@ from flaskage.scaffold import Scaffold, ScaffoldException
 from flaskage.utils import get_permissions
 
 
+class MockLoggingHandler(logging.Handler):
+    """Mock logging handler to check for expected logs."""
+
+    def __init__(self, *args, **kwargs):
+        self.reset()
+        logging.Handler.__init__(self, *args, **kwargs)
+
+    def emit(self, record):
+        self.messages[record.levelname.lower()].append(record.getMessage())
+
+    def reset(self):
+        self.messages = {
+            'debug': [], 'info': [], 'warning': [], 'error': [], 'critical': []
+        }
+
+
 class TestScaffold:
+    @classmethod
+    def setup_class(cls):
+        # Create a mock handler instance at the highest logging level
+        cls.mock_log_handler = MockLoggingHandler(level=logging.DEBUG)
+
+        # Grab the main logger at the highest logging level
+        cls.logger = logging.getLogger('flaskage.scaffold')
+        cls.logger.setLevel(logging.DEBUG)
+
+        # Disable logging to the console for our main logger
+        cls.logger.propagate = False
+
+        # Add the mock handler to our main logger
+        cls.logger.addHandler(cls.mock_log_handler)
+
+    @classmethod
+    def teardown_class(cls):
+        # Remove the mock handler from the logger
+        cls.logger.removeHandler(cls.mock_log_handler)
+
     def setup(self):
         self.temp_dir = mkdtemp()
         self.build_dir = os.path.join(self.temp_dir, 'test')
@@ -24,6 +61,7 @@ class TestScaffold:
                 'templates'
             )
         )
+        self.mock_log_handler.reset()
 
     def teardown(self):
         rmtree(self.temp_dir)
@@ -49,6 +87,12 @@ class TestScaffold:
     def contents(self, filename):
         file_path = os.path.join(self.build_dir, filename)
         return open(file_path).read()
+
+    def logged(self, search_text, level='info'):
+        return any(
+            [m for m in self.mock_log_handler.messages[level]
+             if search_text in m]
+        )
 
     # ------------------------------------------------------------------------
     # Test Customisations in Constructor
@@ -92,15 +136,6 @@ class TestScaffold:
         assert self.exists('fileb.py', type='file')
         assert self.exists('filec.md', type='file')
         assert self.exists('filed.py', type='file')
-
-    def test_existing_policy_skip(self):
-        pass
-
-    def test_existing_policy_prompt(self):
-        pass
-
-    def test_existing_policy_overwrite(self):
-        pass
 
     def test_ignored_files(self):
         self.build_scaffold(
@@ -180,9 +215,9 @@ class TestScaffold:
         assert ' My name is {{= name =}}' in self.contents('fileb.html')
 
     # ------------------------------------------------------------------------
-    # Test Files
+    # Test Files & Templates
     # ------------------------------------------------------------------------
-    def test_file(self):
+    def test_files_and_templates(self):
         self.build_scaffold(
             'test-template-6', overwrite_target_root=True,
             variables={'name': 'happyman', 'age': 25}
@@ -208,6 +243,7 @@ class TestScaffold:
         )
         assert self.exists('filec.txt', type='file')
         assert 'Some random text' in self.contents('filec.txt')
+        assert self.logged('Skipping existing file')
 
     def test_policy_skip_file_permissions(self):
         os.mkdir(self.build_dir)
@@ -223,6 +259,7 @@ class TestScaffold:
         assert self.exists('filec.txt', type='file')
         assert 'Hello there {{{ name }}}' in self.contents('filec.txt')
         assert get_permissions(test_file) == 0o600
+        assert self.logged('Skipping existing file')
 
     @mock.patch('flaskage.scaffold.prompt_yes_no', return_value=False)
     def test_policy_prompt_no_file_content(self, mock_prompt_yes_no):
@@ -239,6 +276,7 @@ class TestScaffold:
         assert self.exists('filec.txt', type='file')
         assert 'Some random text' in self.contents('filec.txt')
         assert get_permissions(test_file) == 0o600
+        assert self.logged('Skipping existing file')
 
     @mock.patch('flaskage.scaffold.prompt_yes_no', return_value=True)
     def test_policy_prompt_yes_file_content(self, mock_prompt_yes_no):
@@ -255,6 +293,7 @@ class TestScaffold:
         assert self.exists('filec.txt', type='file')
         assert 'Hello there {{{ name }}}' in self.contents('filec.txt')
         assert get_permissions(test_file) == 0o664
+        assert self.logged('Copying and overwriting file')
 
     @mock.patch('flaskage.scaffold.prompt_yes_no', return_value=False)
     def test_policy_prompt_no_file_permissions(self, mock_prompt_yes_no):
@@ -271,6 +310,7 @@ class TestScaffold:
         assert self.exists('filec.txt', type='file')
         assert 'Hello there {{{ name }}}' in self.contents('filec.txt')
         assert get_permissions(test_file) == 0o600
+        assert self.logged('Skipping existing file')
 
     @mock.patch('flaskage.scaffold.prompt_yes_no', return_value=True)
     def test_policy_prompt_yes_file_permissions(self, mock_prompt_yes_no):
@@ -287,6 +327,7 @@ class TestScaffold:
         assert self.exists('filec.txt', type='file')
         assert 'Hello there {{{ name }}}' in self.contents('filec.txt')
         assert get_permissions(test_file) == 0o664
+        assert self.logged('Updating permissions of file')
 
     def test_policy_overwrite_file_content(self):
         os.mkdir(self.build_dir)
@@ -302,6 +343,7 @@ class TestScaffold:
         assert self.exists('filec.txt', type='file')
         assert 'Hello there {{{ name }}}' in self.contents('filec.txt')
         assert get_permissions(test_file) == 0o664
+        assert self.logged('Copying and overwriting file')
 
     def test_policy_overwrite_file_permissions(self):
         os.mkdir(self.build_dir)
@@ -317,6 +359,25 @@ class TestScaffold:
         assert self.exists('filec.txt', type='file')
         assert 'Hello there {{{ name }}}' in self.contents('filec.txt')
         assert get_permissions(test_file) == 0o664
+        assert self.logged('Updating permissions of file')
+
+    def test_skip_identical_file(self):
+        os.mkdir(self.build_dir)
+        test_file = os.path.join(self.build_dir, 'filec.txt')
+        with open(test_file, 'w') as f:
+            f.write('Hello there {{{ name }}}\n')
+        os.chmod(
+            test_file,
+            stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP | stat.S_IWGRP |
+            stat.S_IROTH
+        )
+        self.build_scaffold(
+            'test-template-6', overwrite_target_root=True,
+            variables={'name': 'happyman', 'age': 25}
+        )
+        assert self.exists('filec.txt')
+        assert get_permissions(test_file) == 0o664
+        assert self.logged('Skipping identical file')
 
     def test_policy_skip_template_content(self):
         os.mkdir(self.build_dir)
@@ -330,6 +391,7 @@ class TestScaffold:
         )
         assert self.exists('filea', type='file')
         assert 'Some random text' in self.contents('filea')
+        assert self.logged('Skipping existing file')
 
     def test_policy_skip_template_permissions(self):
         os.mkdir(self.build_dir)
@@ -345,6 +407,7 @@ class TestScaffold:
         assert self.exists('filea', type='file')
         assert 'My name is happyman' in self.contents('filea')
         assert get_permissions(test_file) == 0o600
+        assert self.logged('Skipping existing file')
 
     @mock.patch('flaskage.scaffold.prompt_yes_no', return_value=False)
     def test_policy_prompt_no_template_content(self, mock_prompt_yes_no):
@@ -361,6 +424,7 @@ class TestScaffold:
         assert self.exists('filea', type='file')
         assert 'Some random text' in self.contents('filea')
         assert get_permissions(test_file) == 0o600
+        assert self.logged('Skipping existing file')
 
     @mock.patch('flaskage.scaffold.prompt_yes_no', return_value=True)
     def test_policy_prompt_yes_template_content(self, mock_prompt_yes_no):
@@ -377,6 +441,7 @@ class TestScaffold:
         assert self.exists('filea', type='file')
         assert 'My name is happyman' in self.contents('filea')
         assert get_permissions(test_file) == 0o664
+        assert self.logged('Rendering and overwriting template')
 
     @mock.patch('flaskage.scaffold.prompt_yes_no', return_value=False)
     def test_policy_prompt_no_template_permissions(self, mock_prompt_yes_no):
@@ -393,6 +458,7 @@ class TestScaffold:
         assert self.exists('filea', type='file')
         assert 'My name is happyman' in self.contents('filea')
         assert get_permissions(test_file) == 0o600
+        assert self.logged('Skipping existing file')
 
     @mock.patch('flaskage.scaffold.prompt_yes_no', return_value=True)
     def test_policy_prompt_yes_template_permissions(self, mock_prompt_yes_no):
@@ -409,6 +475,7 @@ class TestScaffold:
         assert self.exists('filea', type='file')
         assert 'My name is happyman' in self.contents('filea')
         assert get_permissions(test_file) == 0o664
+        assert self.logged('Updating permissions of template')
 
     def test_policy_overwrite_template_content(self):
         os.mkdir(self.build_dir)
@@ -424,6 +491,7 @@ class TestScaffold:
         assert self.exists('filea', type='file')
         assert 'My name is happyman' in self.contents('filea')
         assert get_permissions(test_file) == 0o664
+        assert self.logged('Rendering and overwriting template')
 
     def test_policy_overwrite_template_permissions(self):
         os.mkdir(self.build_dir)
@@ -439,14 +507,33 @@ class TestScaffold:
         assert self.exists('filea', type='file')
         assert 'My name is happyman' in self.contents('filea')
         assert get_permissions(test_file) == 0o664
+        assert self.logged('Updating permissions of template')
+
+    def test_skip_identical_template(self):
+        os.mkdir(self.build_dir)
+        test_file = os.path.join(self.build_dir, 'filea')
+        with open(test_file, 'w') as f:
+            f.write('My name is happyman\n')
+        os.chmod(
+            test_file,
+            stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP | stat.S_IWGRP |
+            stat.S_IROTH
+        )
+        self.build_scaffold(
+            'test-template-6', overwrite_target_root=True,
+            variables={'name': 'happyman', 'age': 25}
+        )
+        assert self.exists('filea')
+        assert get_permissions(test_file) == 0o664
+        assert self.logged('Skipping identical file')
 
     def test_skip_non_file(self):
-        self.build_scaffold('test-template-2')
+        os.mkdir(self.build_dir)
         replace_file = os.path.join(self.build_dir, 'filea.txt')
-        os.remove(replace_file)
         os.mkdir(replace_file)
         self.build_scaffold('test-template-2', overwrite_target_root=True)
         assert self.exists('filea.txt', type='dir')
+        assert self.logged('Skipping existing non-file', level='error')
 
     # ------------------------------------------------------------------------
     # Test Directories
@@ -471,6 +558,7 @@ class TestScaffold:
         )
         assert self.exists('directory1', type='dir')
         assert get_permissions(test_directory) == 0o700
+        assert self.logged('Skipping existing directory')
 
     @mock.patch('flaskage.scaffold.prompt_yes_no', return_value=False)
     def test_policy_prompt_no_directory(self, mock_prompt_yes_no):
@@ -484,6 +572,7 @@ class TestScaffold:
         )
         assert self.exists('directory1', type='dir')
         assert get_permissions(test_directory) == 0o700
+        assert self.logged('Skipping existing directory')
 
     @mock.patch('flaskage.scaffold.prompt_yes_no', return_value=True)
     def test_policy_prompt_yes_directory(self, mock_prompt_yes_no):
@@ -497,6 +586,7 @@ class TestScaffold:
         )
         assert self.exists('directory1', type='dir')
         assert get_permissions(test_directory) == 0o775
+        assert self.logged('Updating permissions of directory')
 
     def test_policy_overwrite_directory(self):
         os.mkdir(self.build_dir)
@@ -509,6 +599,7 @@ class TestScaffold:
         )
         assert self.exists('directory1', type='dir')
         assert get_permissions(test_directory) == 0o775
+        assert self.logged('Updating permissions of directory')
 
     def test_skip_identical_directory(self):
         os.mkdir(self.build_dir)
@@ -525,14 +616,15 @@ class TestScaffold:
         )
         assert self.exists('directory1', type='dir')
         assert get_permissions(test_directory) == 0o775
+        assert self.logged('Skipping identical directory')
 
     def test_skip_non_directory(self):
-        self.build_scaffold('test-template-2')
+        os.mkdir(self.build_dir)
         replace_dir = os.path.join(self.build_dir, 'directory1')
-        os.rmdir(replace_dir)
         open(replace_dir, 'w').close()
         self.build_scaffold('test-template-2', overwrite_target_root=True)
         assert self.exists('directory1', type='file')
+        assert self.logged('Skipping existing non-directory', level='error')
 
     # ------------------------------------------------------------------------
     # Test Symbolic Links
@@ -603,6 +695,7 @@ class TestScaffold:
             os.readlink(os.path.join(self.build_dir, 'symlinka.txt')) ==
             'saywhat'
         )
+        assert self.logged('Skipping existing symlink')
 
     @mock.patch('flaskage.scaffold.prompt_yes_no', return_value=False)
     def test_policy_prompt_no_symlink(self, mock_prompt_yes_no):
@@ -617,6 +710,7 @@ class TestScaffold:
             os.readlink(os.path.join(self.build_dir, 'symlinka.txt')) ==
             'saywhat'
         )
+        assert self.logged('Skipping existing symlink')
 
     @mock.patch('flaskage.scaffold.prompt_yes_no', return_value=True)
     def test_policy_prompt_yes_symlink(self, mock_prompt_yes_no):
@@ -631,6 +725,7 @@ class TestScaffold:
             os.readlink(os.path.join(self.build_dir, 'symlinka.txt')) ==
             'filea.txt'
         )
+        assert self.logged('Creating and overwriting symlink')
 
     def test_policy_overwrite_symlink(self):
         os.mkdir(self.build_dir)
@@ -644,6 +739,7 @@ class TestScaffold:
             os.readlink(os.path.join(self.build_dir, 'symlinka.txt')) ==
             'filea.txt'
         )
+        assert self.logged('Creating and overwriting symlink')
 
     def test_skip_identical_symlink(self):
         os.mkdir(self.build_dir)
@@ -668,11 +764,12 @@ class TestScaffold:
         assert (
             os.readlink(os.path.join(self.build_dir, 'symlinkd')) == 'baddir'
         )
+        assert self.logged('Skipping identical symlink')
 
     def test_skip_non_symlink(self):
-        self.build_scaffold('test-template-2')
+        os.mkdir(self.build_dir)
         replace_symlink = os.path.join(self.build_dir, 'symlinkc')
-        os.remove(replace_symlink)
         open(replace_symlink, 'w').close()
         self.build_scaffold('test-template-2', overwrite_target_root=True)
         assert self.exists('symlinkc', type='file')
+        assert self.logged('Skipping existing non-symlink', level='error')
