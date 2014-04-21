@@ -232,6 +232,7 @@ def main():
                 'text': 'Text'
             }
 
+            primary_key_provided = False
             columns = []
             for column in args.columns:
                 column_properties = column.split(':')
@@ -295,7 +296,6 @@ def main():
                     )
 
                 # Extract the column modifiers
-                primary_key_provided = False
                 try:
                     modifiers = column_properties[2].lower().split(',')
                 except IndexError:
