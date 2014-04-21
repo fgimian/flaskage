@@ -22,6 +22,12 @@ setup(
     install_requires=[
         'Jinja2>=2.7'
     ],
+    setup_requires=[
+        'nose',
+        'coverage',
+        'mock',
+        'flake8'
+    ],
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Web Environment',

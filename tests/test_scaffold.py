@@ -86,7 +86,9 @@ class TestScaffold:
 
     def contents(self, filename):
         file_path = os.path.join(self.build_dir, filename)
-        return open(file_path).read()
+        with open(file_path) as f:
+            data = f.read()
+        return data
 
     def logged(self, search_text, level='info'):
         return any(

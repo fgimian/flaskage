@@ -27,7 +27,9 @@ def get_permissions(filename):
 
 
 def md5file(filename):
-    return md5(codecs.open(filename).read()).hexdigest()
+    with codecs.open(filename) as f:
+        data = f.read()
+    return md5(data).hexdigest()
 
 
 def md5data(data):

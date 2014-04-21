@@ -5,19 +5,12 @@ python:
   - 3.3
   - pypy
 
-install:
-  # Install all required Node.js packages
-  - npm install -g bower less clean-css coffee-script uglify-js
-  # Install client-side libraries via Bower
-  - bower install
-  # Install all required Python packages
-  - pip install -r requirements.txt
-
 script:
+  # Validate code with flake8
+  - python setup.py flake8
+
   # Run all application tests
-  - ./manage.py test
-  # Run all behaviour driven development tests
-  - ./manage.py behave
+  - python setup.py nosetests
 
 notifications:
   # Disable email notifications if something fails
