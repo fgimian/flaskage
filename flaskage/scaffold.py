@@ -129,6 +129,8 @@ class Scaffold(object):
                         target_dir=target_dir_render
                     )
 
+            local_dirs_valid = []
+
             # Iterate through each directory in the current directory
             for local_dir in local_dirs:
 
@@ -141,10 +143,16 @@ class Scaffold(object):
                         target_dir=target_dir_render
                     )
                 else:
-                    self.render_directory(
+                    success = self.render_directory(
                         source_subdir=source_subdir,
                         target_dir=target_dir_render
                     )
+                    # If None has been returned, then the directory was
+                    # created and can be walked.
+                    if success is None:
+                        local_dirs_valid.append(local_dir)
+
+            local_dirs[:] = local_dirs_valid
 
     def render_directory(self, source_subdir, target_dir):
         # Get the basename of the source file
@@ -164,7 +172,7 @@ class Scaffold(object):
                 'Skipping existing non-directory %s', target_path_render,
                 extra={'action': 'skip'}
             )
-            return
+            return False
 
         # Destination exists and is identical to source
         if (
