@@ -83,8 +83,8 @@ You may now create a new project as follows:
 
 .. code-block:: bash
 
-    # flaskage new <project-name>
-    # cd <project-name>
+    $ flaskage new <project-name>
+    $ cd <project-name>
 
 Installing Node.js Components
 -----------------------------

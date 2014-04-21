@@ -1,6 +1,10 @@
 Welcome to Flaskage
 ===================
 
+.. image:: _static/flaskage-full.png
+   :alt: Flaskage: a complete and carefully designed template for use with the Flask web framework
+   :class: floatingflask
+
 Welcome to Flaskage's documentation.  The Flaskage template attempts to bring
 together all the best packages and integrate them with Flask so you have a 
 full stack MVC (or MTV) structure ready-to-use.
