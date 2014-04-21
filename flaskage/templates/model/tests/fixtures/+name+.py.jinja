@@ -1,0 +1,15 @@
+from application import db
+from application.models import {{{ name_camelcase }}}
+
+from faker import Factory
+import factory
+from factory.alchemy import SQLAlchemyModelFactory
+
+fake = Factory.create()
+
+
+class {{{ name_camelcase }}}Factory(SQLAlchemyModelFactory):
+    FACTORY_FOR = {{{ name_camelcase }}}
+    FACTORY_SESSION = db.session
+
+    pass
