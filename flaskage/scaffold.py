@@ -59,9 +59,7 @@ class Scaffold(object):
         self.jinja2_env = jinja2_env
 
         # Create the logger
-        logging.basicConfig(
-            format='%(action)12s  %(message)s'
-        )
+        logging.basicConfig()
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
 
