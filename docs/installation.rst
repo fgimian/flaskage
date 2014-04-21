@@ -70,14 +70,21 @@ virtualenv as follows:
     $ easy_install pip
     $ pip install virtualenv
 
-Create a virtualenv and install the required Python packages:
+Create a virtualenv and install the Flaskage packages:
 
 .. code-block:: bash
 
     $ mkdir ~/.virtualenv
     $ virtualenv ~/.virtualenv/flaskage
     $ source ~/.virtualenv/flaskage/bin/activate
-    $ pip install -r requirements.txt
+    $ pip install git+git://github.com/fgimian/flaskage.git
+
+You may now create a new project as follows:
+
+.. code-block:: bash
+
+    # flaskage new <project-name>
+    # cd <project-name>
 
 Installing Node.js Components
 -----------------------------
