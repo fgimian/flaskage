@@ -103,6 +103,17 @@ def main():
 
     args = parser_main.parse_args()
 
+    # Print help if no arguments are provided
+    if not args.subparser_main_name:
+        parser_main.print_help()
+        parser_main.exit()
+    elif (
+        args.subparser_main_name in ['generate', 'g'] and
+        not args.subparser_generate_name
+    ):
+        parser_generate.print_help()
+        parser_generate.exit()
+
     # Determine the location of our templates
     template_dir = os.path.abspath(
         os.path.join(
