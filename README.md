@@ -29,7 +29,7 @@ Start the development server and check out your new project:
 
 ``` bash
 cd <project-name>
-./manage.py runserver
+./manage.py server
 ```
 
 Refer to the [documentation](http://flaskage.readthedocs.org/) for further instruction.
