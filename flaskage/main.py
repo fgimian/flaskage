@@ -17,9 +17,9 @@ def valid_project_directory():
         os.path.isdir(os.path.join(cwd, 'app', 'models')) and
         os.path.isdir(os.path.join(cwd, 'app', 'static')) and
         os.path.isdir(os.path.join(cwd, 'app', 'templates')) and
-        os.path.isdir(os.path.join(cwd, 'app', 'vendor')) and
         os.path.isdir(os.path.join(cwd, 'app', 'views')) and
         os.path.isdir(os.path.join(cwd, 'db', 'migrations')) and
+        os.path.isdir(os.path.join(cwd, 'vendor', 'assets')) and
         os.path.isdir(os.path.join(cwd, 'lib')) and
         os.path.isdir(os.path.join(cwd, 'tests')) and
         os.path.isfile(os.path.join(cwd, 'config.py')) and
