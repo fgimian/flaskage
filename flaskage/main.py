@@ -101,6 +101,7 @@ def main():
         'name', help='the library name in lowercase underscore format'
     )
 
+    # Parse the command line arguments
     args = parser_main.parse_args()
 
     # Print help if no arguments are provided
@@ -133,9 +134,11 @@ def main():
         parser_main.error(
             'The name provided was not a valid Python module name'
         )
+
+    # Convert the name to CamelCase for use with class names
     name_camelcase = camelcase(args.name)
 
-    # Handle CLI choices
+    # Handle the new command
     if args.subparser_main_name in ['new', 'n']:
         # Generation of a new project can only run outside a valid project
         # directory
@@ -160,15 +163,15 @@ def main():
             )
             scaffold.render_structure()
             print('')
-            print(
-                'Successfully created new project structure'
-            )
+            print('Successfully created new project structure')
             print('')
         except ScaffoldException as e:
             print('')
             print('Error: %s' % e)
             print('')
+            exit(1)
 
+    # Handle the generate command
     elif args.subparser_main_name in ['generate', 'g']:
         # Generation of items can only run in a valid project directory
         if not valid_project_directory():
@@ -177,6 +180,7 @@ def main():
                 'directory'
             )
 
+        # Handle the generate / asset command
         if args.subparser_generate_name in ['asset', 'a']:
             # Generate the scaffolding for a new asset
             print('')
@@ -194,15 +198,15 @@ def main():
                 )
                 scaffold.render_structure()
                 print('')
-                print(
-                    'Successfully created new asset'
-                )
+                print('Successfully created new asset')
                 print('')
             except ScaffoldException as e:
                 print('')
                 print('Error: %s' % e)
                 print('')
+                exit(1)
 
+        # Handle the generate / blueprint command
         elif args.subparser_generate_name in ['blueprint', 'b']:
             # Generate the scaffolding for a new blueprint
             print('')
@@ -220,15 +224,15 @@ def main():
                 )
                 scaffold.render_structure()
                 print('')
-                print(
-                    'Successfully created new blueprint'
-                )
+                print('Successfully created new blueprint')
                 print('')
             except ScaffoldException as e:
                 print('')
                 print('Error: %s' % e)
                 print('')
+                exit(1)
 
+        # Handle the generate / model command
         elif args.subparser_generate_name in ['model', 'm']:
             column_mapping = {
                 'integer': 'Integer',
@@ -360,15 +364,15 @@ def main():
                 )
                 scaffold.render_structure()
                 print('')
-                print(
-                    'Successfully created new model'
-                )
+                print('Successfully created new model')
                 print('')
             except ScaffoldException as e:
                 print('')
                 print('Error: %s' % e)
                 print('')
+                exit(1)
 
+        # Handle the generate / library command
         elif args.subparser_generate_name in ['library', 'l']:
             # Generate the scaffolding for a new library
             print('')
@@ -386,14 +390,13 @@ def main():
                 )
                 scaffold.render_structure()
                 print('')
-                print(
-                    'Successfully created new library'
-                )
+                print('Successfully created new library')
                 print('')
             except ScaffoldException as e:
                 print('')
                 print('Error: %s' % e)
                 print('')
+                exit(1)
 
 
 if __name__ == '__main__':
