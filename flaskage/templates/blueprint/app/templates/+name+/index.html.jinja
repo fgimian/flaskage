@@ -11,7 +11,7 @@
 {% block css %}
   {% assets filters="less,cleancss", output="css/{{{ name }}}.css",
             "less/{{{ name }}}.less" %}
-      <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}" />
+    <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}" />
   {% endassets %}
 {% endblock %}
 
