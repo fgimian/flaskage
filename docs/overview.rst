@@ -59,19 +59,22 @@ Project Structure
 
 Flaskage is structured as shown below::
 
-    |-- application
+    |-- app
     |   |-- assets
     |   |-- models
     |   |-- static
     |   |-- templates
     |   |-- vendor
     |   '-- views
+    |-- db
+    |   '-- migrations
     |-- docs
     |-- features
     |   '-- steps
-    |-- libraries
+    |-- lib
     |-- tests
     |   |-- fixtures
+    |   |-- lib
     |   |-- models
     |   '-- views
     |-- bower.json
@@ -82,7 +85,7 @@ Flaskage is structured as shown below::
 
 The purpose of each file and directory are as follows:
 
-- **application**: Main web application directory with app initialisation
+- **app**: Main web application directory with app initialisation
 
   - **assets**: Pre-compiled script and stylsheet assets
   - **models**: Database model definitions
@@ -91,16 +94,21 @@ The purpose of each file and directory are as follows:
   - **vendor**: Vendor provided script and stylesheet assets
   - **views**: Views and related forms that provide business logic for each page
 
+- **db**: Database related code and binaries
+
+  - **migrations**: The generated Alembic database migrations
+
 - **docs**: Sphinx project documentation
 - **features**: Feature definitions in the Gherkin language to be used for BDD
 
   - **steps**: Test code which validates that each feature works as expected
 
-- **libraries**: Supporting libraries you have developed for your web application
+- **lib**: Supporting libraries you have developed for your web application
 - **tests**: Unit tests for testing your web application
 
   - **fixtures**: Fixtures created using factory_boy that are used to create
     model instances
+  - **lib**: Unit tests which test libraries
   - **models**: Unit tests which test models
   - **views**: Unit tests which test views
 

@@ -20,8 +20,8 @@ Here's an example of a factory boy factory that uses fake factory to fake data:
 
 .. code-block:: python
 
-    from application import db
-    from application.models import User
+    from app import db
+    from app.models import User
 
     from faker import Factory
     import factory

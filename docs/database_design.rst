@@ -60,7 +60,7 @@ SQLAlechmy with Flask.
       the default value for a column if not specified by the user.
 
 Once you have defined your models, you must register them in
-**application/models/__init__.py** by importing them in the following manner:
+**app/models/__init__.py** by importing them in the following manner:
 
 .. code-block:: python
 
@@ -94,12 +94,12 @@ Relationship Definitions
 
 .. code-block:: python
 
-    # Category table (in application/models/category.py)
+    # Category table (in app/models/category.py)
     class Category(db.Model, CRUDMixin):
         id = db.Column(db.Integer, primary_key=True)
         name = db.Column(db.String(50))
 
-    # Post table (in application/models/post.py)
+    # Post table (in app/models/post.py)
     class Post(db.Model, CRUDMixin):
         id = db.Column(db.Integer, primary_key=True)
         title = db.Column(db.String(80))
@@ -124,13 +124,13 @@ The relationship may also be specified on the other end if you like:
 
 .. code-block:: python
 
-    # Category table (in application/models/category.py)
+    # Category table (in app/models/category.py)
     class Category(db.Model, CRUDMixin):
         id = db.Column(db.Integer, primary_key=True)
         name = db.Column(db.String(50))
         posts = db.relationship('Post', backref=db.backref('category'))
 
-    # Post table (in application/models/post.py)
+    # Post table (in app/models/post.py)
     class Post(db.Model, CRUDMixin):
         id = db.Column(db.Integer, primary_key=True)
         title = db.Column(db.String(80))
@@ -144,19 +144,19 @@ The relationship may also be specified on the other end if you like:
 
 .. code-block:: python
 
-    # User table (in application/models/user.py)
+    # User table (in app/models/user.py)
     class User(db.Model, CRUDMixin):
         id = db.Column(db.Integer, primary_key=True)
         username = db.Column(db.String(50), nullable=False, unique=True)
         email = db.Column(db.String(100), unique=True)
 
-    # Relationship table (in application/models/relationships.py)
+    # Relationship table (in app/models/relationships.py)
     users_posts = db.Table(
         'users_posts',
         db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
         db.Column('post_id', db.Integer, db.ForeignKey('post.id')))
 
-    # Post table (in application/models/post.py)
+    # Post table (in app/models/post.py)
     class Post(db.Model, CRUDMixin):
         id = db.Column(db.Integer, primary_key=True)
         ...
@@ -166,7 +166,7 @@ The relationship may also be specified on the other end if you like:
         )
 
 All many to many relationship tables should be placed in the file
-**relationships.py** under the **application/models** directory.
+**relationships.py** under the **app/models** directory.
 
 **One to one relationships** are achieved using the **uselist** flag as shown
 below:
@@ -211,7 +211,7 @@ the following in the root directory of your project:
     ./manage.py db migrate
 
 This introspects the database and generates a new migration which will be
-placed in the **migrations** directory.  Carefully review the migration to
+placed in the **db/migrations** directory.  Carefully review the migration to
 verify that it is correct and then update your database as follows:
 
 .. code-block:: bash

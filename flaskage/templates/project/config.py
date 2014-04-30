@@ -12,7 +12,10 @@ DEFAULT_CONFIG = 'development'
 class Config(object):
     PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
     DEBUG = False
-    ASSETS_LOAD_PATH = [os.path.join(PROJECT_ROOT, 'application', 'assets')]
+    ASSETS_LOAD_PATH = [
+        os.path.join(PROJECT_ROOT, 'app', 'assets'),
+        os.path.join(PROJECT_ROOT, 'app', 'vendor')
+    ]
 
 
 class ProductionConfig(Config):

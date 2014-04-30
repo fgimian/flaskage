@@ -10,8 +10,8 @@ from flask.ext.script.commands import Clean, Server, Shell, ShowUrls
 from flask.ext.migrate import MigrateCommand
 from flask.ext.assets import ManageAssets
 
+from app import create_app, db, models
 from config import AVAILABLE_CONFIGS, DEFAULT_CONFIG
-from application import create_app, db, models
 from tests import fixtures
 
 manager = Manager(failsafe(create_app), with_default_commands=False)
@@ -35,7 +35,7 @@ def flake8():
     """Validates all Python source files using Flake8"""
     import flake8.main
     project_root = os.path.dirname(os.path.relpath(__file__)) or '.'
-    ignore_paths = ['/.git', '/application/vendor']
+    ignore_paths = ['/.git', '/app/vendor']
     for dirpath, subdirs, filenames in os.walk(project_root):
         if any([dirpath.endswith(d) for d in ignore_paths]):
             subdirs[:] = []

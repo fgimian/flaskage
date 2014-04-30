@@ -12,15 +12,15 @@ from flaskage.scaffold import Scaffold, ScaffoldException
 def valid_project_directory():
     cwd = os.getcwd()
     return (
-        os.path.isdir(os.path.join(cwd, 'application')) and
-        os.path.isdir(os.path.join(cwd, 'application', 'assets')) and
-        os.path.isdir(os.path.join(cwd, 'application', 'models')) and
-        os.path.isdir(os.path.join(cwd, 'application', 'static')) and
-        os.path.isdir(os.path.join(cwd, 'application', 'templates')) and
-        os.path.isdir(os.path.join(cwd, 'application', 'vendor')) and
-        os.path.isdir(os.path.join(cwd, 'application', 'views')) and
-        os.path.isdir(os.path.join(cwd, 'migrations')) and
-        os.path.isdir(os.path.join(cwd, 'libraries')) and
+        os.path.isdir(os.path.join(cwd, 'app')) and
+        os.path.isdir(os.path.join(cwd, 'app', 'assets')) and
+        os.path.isdir(os.path.join(cwd, 'app', 'models')) and
+        os.path.isdir(os.path.join(cwd, 'app', 'static')) and
+        os.path.isdir(os.path.join(cwd, 'app', 'templates')) and
+        os.path.isdir(os.path.join(cwd, 'app', 'vendor')) and
+        os.path.isdir(os.path.join(cwd, 'app', 'views')) and
+        os.path.isdir(os.path.join(cwd, 'db', 'migrations')) and
+        os.path.isdir(os.path.join(cwd, 'lib')) and
         os.path.isdir(os.path.join(cwd, 'tests')) and
         os.path.isfile(os.path.join(cwd, 'config.py')) and
         os.path.isfile(os.path.join(cwd, 'manage.py'))
@@ -94,7 +94,7 @@ def main():
 
     # Parser for the generate / library command
     parser_generate_library = subparsers_generate.add_parser(
-        'library', aliases=['l'],
+        'lib', aliases=['l'],
         help='create a new independent library which is used by your project'
     )
     parser_generate_library.add_argument(
@@ -373,14 +373,14 @@ def main():
                 exit(1)
 
         # Handle the generate / library command
-        elif args.subparser_generate_name in ['library', 'l']:
+        elif args.subparser_generate_name in ['lib', 'l']:
             # Generate the scaffolding for a new library
             print('')
             print('Generating new library named %s' % args.name)
             print('')
             try:
                 scaffold = Scaffold(
-                    source_root=os.path.join(template_dir, 'library'),
+                    source_root=os.path.join(template_dir, 'lib'),
                     target_root=os.getcwd(),
                     variables={
                         'name': args.name, 'name_camelcase': name_camelcase

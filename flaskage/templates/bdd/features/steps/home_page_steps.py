@@ -3,7 +3,7 @@ from behave import given, when, then
 
 
 @given('we have a Flaskage-based application setup')
-def given_we_have_application(context):
+def given_we_have_app(context):
     assert context.client and context.ctx
 
 
