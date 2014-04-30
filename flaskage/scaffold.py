@@ -181,7 +181,8 @@ class Scaffold(object):
             get_permissions(target_path_render)
         ):
             self.logger.info(
-                'Skipping identical directory %s', target_path_render,
+                'Skipping identical directory %s',
+                os.path.relpath(target_path_render, self.target_root),
                 extra={'action': 'skip'}
             )
             return
@@ -192,7 +193,8 @@ class Scaffold(object):
             self.existing_policy == self.EXISTING_SKIP
         ):
             self.logger.info(
-                'Skipping existing directory %s', target_path_render,
+                'Skipping existing directory %s',
+                os.path.relpath(target_path_render, self.target_root),
                 extra={'action': 'skip'}
             )
             return
@@ -231,7 +233,8 @@ class Scaffold(object):
         # then we bail
         if update_permissions is False:
             self.logger.info(
-                'Skipping existing directory %s', target_path_render,
+                'Skipping existing directory %s',
+                os.path.relpath(target_path_render, self.target_root),
                 extra={'action': 'skip'}
             )
             return
@@ -240,12 +243,14 @@ class Scaffold(object):
         if os.path.isdir(target_path_render):
             self.logger.info(
                 'Updating permissions of directory %s to %o',
-                target_path_render, get_permissions(source_subdir),
+                os.path.relpath(target_path_render, self.target_root),
+                get_permissions(source_subdir),
                 extra={'action': 'chmod (o)'}
             )
         else:
             self.logger.info(
-                'Making directory %s', target_path_render,
+                'Making directory %s',
+                os.path.relpath(target_path_render, self.target_root),
                 extra={'action': 'mkdir'}
             )
 
@@ -287,7 +292,8 @@ class Scaffold(object):
             os.readlink(source_symlink) == os.readlink(target_path_render)
         ):
             self.logger.info(
-                'Skipping identical symlink %s', target_path_render,
+                'Skipping identical symlink %s',
+                os.path.relpath(target_path_render, self.target_root),
                 extra={'action': 'skip'}
             )
             return
@@ -298,7 +304,8 @@ class Scaffold(object):
             self.existing_policy == self.EXISTING_SKIP
         ):
             self.logger.info(
-                'Skipping existing symlink %s', target_path_render,
+                'Skipping existing symlink %s',
+                os.path.relpath(target_path_render, self.target_root),
                 extra={'action': 'skip'}
             )
             return
@@ -333,7 +340,8 @@ class Scaffold(object):
         # then we bail
         if overwrite is False:
             self.logger.info(
-                'Skipping existing symlink %s', target_path_render,
+                'Skipping existing symlink %s',
+                os.path.relpath(target_path_render, self.target_root),
                 extra={'action': 'skip'}
             )
             return
@@ -341,15 +349,15 @@ class Scaffold(object):
         # Log the appropriate message depending on the action
         if os.path.islink(target_path_render):
             self.logger.info(
-                'Creating and overwriting symlink %s to %s',
-                os.path.relpath(source_symlink, self.source_root),
-                target_path_render, extra={'action': 'symlink (o)'}
+                'Creating and overwriting symlink %s',
+                os.path.relpath(target_path_render, self.target_root),
+                extra={'action': 'symlink (o)'}
             )
         else:
             self.logger.info(
-                'Creating symlink %s to %s',
-                os.path.relpath(source_symlink, self.source_root),
-                target_path_render, extra={'action': 'symlink'}
+                'Creating symlink %s',
+                os.path.relpath(target_path_render, self.target_root),
+                extra={'action': 'symlink'}
             )
 
         # Take the appropriate actions
@@ -421,7 +429,8 @@ class Scaffold(object):
             source_file_permissions == target_path_permissions
         ):
             self.logger.info(
-                'Skipping identical file %s', target_path_render,
+                'Skipping identical file %s',
+                os.path.relpath(target_path_render, self.target_root),
                 extra={'action': 'skip'}
             )
             return
@@ -432,7 +441,8 @@ class Scaffold(object):
             self.existing_policy == self.EXISTING_SKIP
         ):
             self.logger.info(
-                'Skipping existing file %s', target_path_render,
+                'Skipping existing file %s',
+                os.path.relpath(target_path_render, self.target_root),
                 extra={'action': 'skip'}
             )
             return
@@ -484,7 +494,8 @@ class Scaffold(object):
         # then we bail
         if overwrite is False or update_permissions is False:
             self.logger.info(
-                'Skipping existing file %s', target_path_render,
+                'Skipping existing file %s',
+                os.path.relpath(target_path_render, self.target_root),
                 extra={'action': 'skip'}
             )
             return
@@ -495,38 +506,42 @@ class Scaffold(object):
                 self.logger.info(
                     'Rendering and overwriting template %s to %s',
                     os.path.relpath(source_file, self.source_root),
-                    target_path_render, extra={'action': 'render (o)'}
+                    os.path.relpath(target_path_render, self.target_root),
+                    extra={'action': 'render (o)'}
                 )
             elif update_permissions is True:
                 self.logger.info(
                     'Updating permissions of template %s to %o',
-                    target_path_render, get_permissions(source_file),
+                    os.path.relpath(target_path_render, self.target_root),
+                    get_permissions(source_file),
                     extra={'action': 'chmod (o)'}
                 )
             else:
                 self.logger.info(
                     'Rendering template %s to %s',
                     os.path.relpath(source_file, self.source_root),
-                    target_path_render, extra={'action': 'render'}
+                    os.path.relpath(target_path_render, self.target_root),
+                    extra={'action': 'render'}
                 )
         else:
             if overwrite is True:
                 self.logger.info(
-                    'Copying and overwriting file %s to %s',
-                    os.path.relpath(source_file, self.source_root),
-                    target_path_render, extra={'action': 'copy (o)'}
+                    'Copying and overwriting file %s',
+                    os.path.relpath(target_path_render, self.target_root),
+                    extra={'action': 'copy (o)'}
                 )
             elif update_permissions is True:
                 self.logger.info(
                     'Updating permissions of file %s to %o',
-                    target_path_render, get_permissions(source_file),
+                    os.path.relpath(target_path_render, self.target_root),
+                    get_permissions(source_file),
                     extra={'action': 'chmod (o)'}
                 )
             else:
                 self.logger.info(
-                    'Copying file %s to %s',
-                    os.path.relpath(source_file, self.source_root),
-                    target_path_render, extra={'action': 'copy'}
+                    'Copying file %s',
+                    os.path.relpath(target_path_render, self.target_root),
+                    extra={'action': 'copy'}
                 )
 
         # Take the appropriate actions
