@@ -170,7 +170,7 @@ class Scaffold(object):
         ):
             self.logger.error(
                 'Skipping existing non-directory %s', target_path_render,
-                extra={'action': 'skip'}
+                extra={'action': 'skip (i)'}
             )
             return False
 
@@ -282,7 +282,7 @@ class Scaffold(object):
         ):
             self.logger.error(
                 'Skipping existing non-symlink %s', target_path_render,
-                extra={'action': 'skip'}
+                extra={'action': 'skip (i)'}
             )
             return
 
@@ -391,7 +391,7 @@ class Scaffold(object):
         ):
             self.logger.error(
                 'Skipping existing non-file %s', target_path_render,
-                extra={'action': 'skip'}
+                extra={'action': 'skip (i)'}
             )
             return
 
