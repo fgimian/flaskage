@@ -16,6 +16,12 @@ class Config(object):
         os.path.join(PROJECT_ROOT, 'app', 'assets'),
         os.path.join(PROJECT_ROOT, 'app', 'vendor')
     ]
+    LESS_EXTRA_ARGS = [
+        '--no-color',
+        '--include-path=%s' % os.path.join(PROJECT_ROOT, 'app', 'vendor')
+    ]
+    # The current non-release version of webassets supports LESS_PATHS
+    # LESS_PATHS = os.path.join(PROJECT_ROOT, 'app', 'vendor')
 
 
 class ProductionConfig(Config):
