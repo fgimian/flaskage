@@ -1,20 +1,5 @@
 {
-  "name": "flaskage",
-  "version": "1.0.0",
-  "homepage": "https://github.com/fgimian/flaskage",
-  "authors": [
-    "Fotis Gimian <fgimiansoftware@gmail.com>"
-  ],
-  "description": "A complete and carefully designed template for use with the Flask web framework",
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "application/vendor",
-    "test",
-    "tests"
-  ],
+  "name": "{{{ name }}}",
   "dependencies": {
     "bootstrap": "~3.1.0",
     "jquery": "git://github.com/jquery/jquery.git#~2.1.0",

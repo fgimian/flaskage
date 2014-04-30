@@ -2,7 +2,7 @@
 from .. import BaseTestCase
 
 
-class TestFlaskage(BaseTestCase):
+class TestHome(BaseTestCase):
 
     def test_index(self):
         response = self.client.get('/')

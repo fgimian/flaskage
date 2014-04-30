@@ -10,8 +10,8 @@ coverage.xml
 application/static/.webassets-cache/
 
 # Compiled versions of assets
-application/static/css/flaskage.css
-application/static/js/flaskage.js
+application/static/css/{{{ name }}}.css
+application/static/js/{{{ name }}}.js
 
 # Vendor-provided components
 application/vendor/*/

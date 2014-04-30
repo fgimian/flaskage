@@ -7,7 +7,7 @@ html(lang="en")
     title= title
 
     // Bootstrap
-    - assets filters="less,cleancss", output="css/flaskage.css", depends="less/bootstrap/*.less", "less/flaskage.less"
+    - assets filters="less,cleancss", output="css/{{{ name }}}.css", depends="less/bootstrap/*.less", "less/{{{ name }}}.less"
         link(rel="stylesheet", type="text/css", href=ASSET_URL)
 
     // HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
@@ -24,5 +24,5 @@ html(lang="en")
     script(src=url_for('static', filename='js/bootstrap.min.js'))
 
     // Coffeescript
-    - assets filters="coffeescript,uglifyjs", output="js/flaskage.js", "coffee/flaskage.coffee"
+    - assets filters="coffeescript,uglifyjs", output="js/{{{ name }}}.js", "coffee/{{{ name }}}.coffee"
         script(src=ASSET_URL)

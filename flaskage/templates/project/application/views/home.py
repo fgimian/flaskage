@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import Blueprint, render_template
 
-mod = Blueprint('flaskage', __name__)
+mod = Blueprint('home', __name__)
 
 
 @mod.route('/')

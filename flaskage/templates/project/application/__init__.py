@@ -56,10 +56,10 @@ def create_app(config):
     #     return render_template("500.html"), 500
 
     # Import and register Blueprints
-    from .views import flaskage
+    from .views import home
     # from .views import module1
     # from .views import module2
-    app.register_blueprint(flaskage.mod)
+    app.register_blueprint(home.mod)
     # app.register_blueprint(module1.mod)
     # app.register_blueprint(module2.mod)
 
