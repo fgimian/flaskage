@@ -21,7 +21,8 @@ setup(
     },
     zip_safe=False,
     install_requires=[
-        'Jinja2>=2.7'
+        'Jinja2>=2.7',
+        'painter>=0.3'
     ],
     setup_requires=[
         'nose',

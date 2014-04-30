@@ -2,8 +2,11 @@
 # -*- coding: utf-8 -*-
 import os
 import re
+import sys
 import argparse
 import logging
+
+from painter import paint
 
 import flaskage
 from flaskage.scaffold import Scaffold, ScaffoldException
@@ -33,6 +36,26 @@ def valid_module_name(s):
 
 def camelcase(s):
     return ''.join([i.title() or '_' for i in s.split('_')])
+
+
+class ColoredFormatter(logging.Formatter):
+    COLOR_MAPPING = {
+        'identical': paint.light_blue,
+        'exist': paint.light_blue,
+        'conflict': paint.light_red,
+        'create': paint.light_green,
+        'update': paint.light_yellow
+    }
+
+    def __init__(self, msg, use_color=True):
+        logging.Formatter.__init__(self, msg)
+        self.use_color = use_color
+
+    def format(self, record):
+        if self.use_color:
+            color = self.COLOR_MAPPING[record.description]
+            record.description = color(record.description)
+        return logging.Formatter.format(self, record)
 
 
 def main():
@@ -118,7 +141,18 @@ def main():
     )
 
     # Adjust logging output
-    logging.basicConfig(format='%(description)12s : %(destination)s')
+    logger = logging.getLogger('flaskage.scaffold')
+    logger.setLevel(logging.DEBUG)
+
+    formatter = ColoredFormatter('%(description)23s : %(destination)s')
+
+    ch = logging.StreamHandler(sys.stdout)
+    ch.setLevel(logging.DEBUG)
+    ch.setFormatter(formatter)
+
+    logger.addHandler(ch)
+
+    # logging.basicConfig(format='%(description)12s : %(destination)s')
 
     # Setup our ignored directories and files
     ignored_dirs = ['__pycache__']

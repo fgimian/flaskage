@@ -59,7 +59,6 @@ class Scaffold(object):
         self.jinja2_env = jinja2_env
 
         # Create the logger
-        logging.basicConfig()
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
 
@@ -201,7 +200,7 @@ class Scaffold(object):
                 os.path.relpath(target_path_render, self.target_root),
                 extra={
                     'action': 'skip',
-                    'description': 'identical',
+                    'description': 'exist',
                     'destination': os.path.relpath(
                         target_path_render, self.target_root
                     )
