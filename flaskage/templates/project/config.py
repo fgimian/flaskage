@@ -14,14 +14,14 @@ class Config(object):
     DEBUG = False
     ASSETS_LOAD_PATH = [
         os.path.join(PROJECT_ROOT, 'app', 'assets'),
-        os.path.join(PROJECT_ROOT, 'app', 'vendor')
+        os.path.join(PROJECT_ROOT, 'vendor', 'assets')
     ]
     LESS_EXTRA_ARGS = [
         '--no-color',
-        '--include-path=%s' % os.path.join(PROJECT_ROOT, 'app', 'vendor')
+        '--include-path=%s' % os.path.join(PROJECT_ROOT, 'vendor', 'assets')
     ]
     # The current non-release version of webassets supports LESS_PATHS
-    # LESS_PATHS = os.path.join(PROJECT_ROOT, 'app', 'vendor')
+    # LESS_PATHS = os.path.join(PROJECT_ROOT, 'vendor', 'assets')
 
 
 class ProductionConfig(Config):

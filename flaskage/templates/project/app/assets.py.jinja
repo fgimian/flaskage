@@ -34,11 +34,7 @@ assets.register(
     Bundle(
         'html5shiv/dist/html5shiv.js',
         'respond/dest/respond.src.js',
-        Bundle(
-            'coffee/{{{ name }}}.coffee',
-            filters=['coffeescript']
-        ),
         filters='uglifyjs',
-        output='js/{{{ name }}}.js'
+        output='js/ie8.js'
     )
 )
