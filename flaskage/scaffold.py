@@ -79,13 +79,22 @@ class Scaffold(object):
         elif not os.path.exists(target_root_render):
             self.logger.info(
                 'Making root directory %s', target_root_render,
-                extra={'action': 'mkdir'}
+                extra={
+                    'action': 'mkdir',
+                    'description': 'create',
+                    'destination': target_root_render
+                }
             )
             os.mkdir(target_root_render)
         else:
             self.logger.info(
                 'Skipping existing target root directory %s',
-                target_root_render, extra={'action': 'skip'}
+                target_root_render,
+                extra={
+                    'action': 'skip',
+                    'description': 'exist',
+                    'destination': target_root_render
+                }
             )
 
         # Walk through each directory in the source root
@@ -169,8 +178,15 @@ class Scaffold(object):
             not os.path.isdir(target_path_render)
         ):
             self.logger.error(
-                'Skipping existing non-directory %s', target_path_render,
-                extra={'action': 'skip (i)'}
+                'Skipping existing non-directory %s',
+                os.path.relpath(target_path_render, self.target_root),
+                extra={
+                    'action': 'skip (i)',
+                    'description': 'exist',
+                    'destination': os.path.relpath(
+                        target_path_render, self.target_root
+                    )
+                }
             )
             return False
 
@@ -183,7 +199,13 @@ class Scaffold(object):
             self.logger.info(
                 'Skipping identical directory %s',
                 os.path.relpath(target_path_render, self.target_root),
-                extra={'action': 'skip'}
+                extra={
+                    'action': 'skip',
+                    'description': 'identical',
+                    'destination': os.path.relpath(
+                        target_path_render, self.target_root
+                    )
+                }
             )
             return
 
@@ -195,7 +217,13 @@ class Scaffold(object):
             self.logger.info(
                 'Skipping existing directory %s',
                 os.path.relpath(target_path_render, self.target_root),
-                extra={'action': 'skip'}
+                extra={
+                    'action': 'skip',
+                    'description': 'exist',
+                    'destination': os.path.relpath(
+                        target_path_render, self.target_root
+                    )
+                }
             )
             return
 
@@ -223,6 +251,18 @@ class Scaffold(object):
             self.existing_policy == self.EXISTING_PROMPT
         ):
             # Destination exists and has different permissions to source
+            self.logger.warning(
+                'The directory %s exists and has different permissions',
+                os.path.relpath(target_path_render, self.target_root),
+                extra={
+                    'action': 'prompt',
+                    'description': 'conflict',
+                    'destination': os.path.relpath(
+                        target_path_render, self.target_root
+                    )
+                }
+            )
+
             update_permissions = prompt_yes_no(
                 'Update permissions of directory %s to %o?' %
                 (target_path_render, get_permissions(source_subdir)),
@@ -235,7 +275,13 @@ class Scaffold(object):
             self.logger.info(
                 'Skipping existing directory %s',
                 os.path.relpath(target_path_render, self.target_root),
-                extra={'action': 'skip'}
+                extra={
+                    'action': 'skip',
+                    'description': 'exist',
+                    'destination': os.path.relpath(
+                        target_path_render, self.target_root
+                    )
+                }
             )
             return
 
@@ -245,13 +291,25 @@ class Scaffold(object):
                 'Updating permissions of directory %s to %o',
                 os.path.relpath(target_path_render, self.target_root),
                 get_permissions(source_subdir),
-                extra={'action': 'chmod (o)'}
+                extra={
+                    'action': 'chmod (o)',
+                    'description': 'update',
+                    'destination': os.path.relpath(
+                        target_path_render, self.target_root
+                    )
+                }
             )
         else:
             self.logger.info(
                 'Making directory %s',
                 os.path.relpath(target_path_render, self.target_root),
-                extra={'action': 'mkdir'}
+                extra={
+                    'action': 'mkdir',
+                    'description': 'create',
+                    'destination': os.path.relpath(
+                        target_path_render, self.target_root
+                    )
+                }
             )
 
         # Take the appropriate actions
@@ -281,8 +339,15 @@ class Scaffold(object):
             not os.path.islink(target_path_render)
         ):
             self.logger.error(
-                'Skipping existing non-symlink %s', target_path_render,
-                extra={'action': 'skip (i)'}
+                'Skipping existing non-symlink %s',
+                os.path.relpath(target_path_render, self.target_root),
+                extra={
+                    'action': 'skip (i)',
+                    'description': 'exist',
+                    'destination': os.path.relpath(
+                        target_path_render, self.target_root
+                    )
+                }
             )
             return
 
@@ -294,7 +359,13 @@ class Scaffold(object):
             self.logger.info(
                 'Skipping identical symlink %s',
                 os.path.relpath(target_path_render, self.target_root),
-                extra={'action': 'skip'}
+                extra={
+                    'action': 'skip',
+                    'description': 'identical',
+                    'destination': os.path.relpath(
+                        target_path_render, self.target_root
+                    )
+                }
             )
             return
 
@@ -306,7 +377,13 @@ class Scaffold(object):
             self.logger.info(
                 'Skipping existing symlink %s',
                 os.path.relpath(target_path_render, self.target_root),
-                extra={'action': 'skip'}
+                extra={
+                    'action': 'skip',
+                    'description': 'exist',
+                    'destination': os.path.relpath(
+                        target_path_render, self.target_root
+                    )
+                }
             )
             return
 
@@ -332,6 +409,18 @@ class Scaffold(object):
             os.path.islink(target_path_render) and
             self.existing_policy == self.EXISTING_PROMPT
         ):
+            self.logger.warning(
+                'The symbolic link %s exists and differs',
+                os.path.relpath(target_path_render, self.target_root),
+                extra={
+                    'action': 'prompt',
+                    'description': 'conflict',
+                    'destination': os.path.relpath(
+                        target_path_render, self.target_root
+                    )
+                }
+            )
+
             overwrite = prompt_yes_no(
                 'Overwrite symlink %s?' % target_path_render, default='n'
             )
@@ -342,7 +431,13 @@ class Scaffold(object):
             self.logger.info(
                 'Skipping existing symlink %s',
                 os.path.relpath(target_path_render, self.target_root),
-                extra={'action': 'skip'}
+                extra={
+                    'action': 'skip',
+                    'description': 'exist',
+                    'destination': os.path.relpath(
+                        target_path_render, self.target_root
+                    )
+                }
             )
             return
 
@@ -351,13 +446,25 @@ class Scaffold(object):
             self.logger.info(
                 'Creating and overwriting symlink %s',
                 os.path.relpath(target_path_render, self.target_root),
-                extra={'action': 'symlink (o)'}
+                extra={
+                    'action': 'symlink (o)',
+                    'description': 'update',
+                    'destination': os.path.relpath(
+                        target_path_render, self.target_root
+                    )
+                }
             )
         else:
             self.logger.info(
                 'Creating symlink %s',
                 os.path.relpath(target_path_render, self.target_root),
-                extra={'action': 'symlink'}
+                extra={
+                    'action': 'symlink',
+                    'description': 'create',
+                    'destination': os.path.relpath(
+                        target_path_render, self.target_root
+                    )
+                }
             )
 
         # Take the appropriate actions
@@ -390,8 +497,15 @@ class Scaffold(object):
             not os.path.isfile(target_path_render)
         ):
             self.logger.error(
-                'Skipping existing non-file %s', target_path_render,
-                extra={'action': 'skip (i)'}
+                'Skipping existing non-file %s',
+                os.path.relpath(target_path_render, self.target_root),
+                extra={
+                    'action': 'skip (i)',
+                    'description': 'exist',
+                    'destination': os.path.relpath(
+                        target_path_render, self.target_root
+                    )
+                }
             )
             return
 
@@ -431,7 +545,13 @@ class Scaffold(object):
             self.logger.info(
                 'Skipping identical file %s',
                 os.path.relpath(target_path_render, self.target_root),
-                extra={'action': 'skip'}
+                extra={
+                    'action': 'skip',
+                    'description': 'identical',
+                    'destination': os.path.relpath(
+                        target_path_render, self.target_root
+                    )
+                }
             )
             return
 
@@ -443,7 +563,13 @@ class Scaffold(object):
             self.logger.info(
                 'Skipping existing file %s',
                 os.path.relpath(target_path_render, self.target_root),
-                extra={'action': 'skip'}
+                extra={
+                    'action': 'skip',
+                    'description': 'exist',
+                    'destination': os.path.relpath(
+                        target_path_render, self.target_root
+                    )
+                }
             )
             return
 
@@ -478,12 +604,36 @@ class Scaffold(object):
         ):
             # Destination exists and has different content to source
             if source_file_content != target_path_content:
+                self.logger.warning(
+                    'The file %s exists and has differs',
+                    os.path.relpath(target_path_render, self.target_root),
+                    extra={
+                        'action': 'prompt',
+                        'description': 'conflict',
+                        'destination': os.path.relpath(
+                            target_path_render, self.target_root
+                        )
+                    }
+                )
+
                 overwrite = prompt_yes_no(
                     'Overwrite file %s?' % target_path_render, default='n'
                 )
 
             # Destination exists and has different permissions to source
             else:
+                self.logger.warning(
+                    'The file %s exists and has different permissions',
+                    os.path.relpath(target_path_render, self.target_root),
+                    extra={
+                        'action': 'prompt',
+                        'description': 'conflict',
+                        'destination': os.path.relpath(
+                            target_path_render, self.target_root
+                        )
+                    }
+                )
+
                 update_permissions = prompt_yes_no(
                     'Update permissions of file %s to %o?' %
                     (target_path_render, get_permissions(source_file)),
@@ -496,7 +646,13 @@ class Scaffold(object):
             self.logger.info(
                 'Skipping existing file %s',
                 os.path.relpath(target_path_render, self.target_root),
-                extra={'action': 'skip'}
+                extra={
+                    'action': 'skip',
+                    'description': 'exist',
+                    'destination': os.path.relpath(
+                        target_path_render, self.target_root
+                    )
+                }
             )
             return
 
@@ -507,41 +663,77 @@ class Scaffold(object):
                     'Rendering and overwriting template %s to %s',
                     os.path.relpath(source_file, self.source_root),
                     os.path.relpath(target_path_render, self.target_root),
-                    extra={'action': 'render (o)'}
+                    extra={
+                        'action': 'render (o)',
+                        'description': 'update',
+                        'destination': os.path.relpath(
+                            target_path_render, self.target_root
+                        )
+                    }
                 )
             elif update_permissions is True:
                 self.logger.info(
                     'Updating permissions of template %s to %o',
                     os.path.relpath(target_path_render, self.target_root),
                     get_permissions(source_file),
-                    extra={'action': 'chmod (o)'}
+                    extra={
+                        'action': 'chmod (o)',
+                        'description': 'update',
+                        'destination': os.path.relpath(
+                            target_path_render, self.target_root
+                        )
+                    }
                 )
             else:
                 self.logger.info(
                     'Rendering template %s to %s',
                     os.path.relpath(source_file, self.source_root),
                     os.path.relpath(target_path_render, self.target_root),
-                    extra={'action': 'render'}
+                    extra={
+                        'action': 'render',
+                        'description': 'create',
+                        'destination': os.path.relpath(
+                            target_path_render, self.target_root
+                        )
+                    }
                 )
         else:
             if overwrite is True:
                 self.logger.info(
                     'Copying and overwriting file %s',
                     os.path.relpath(target_path_render, self.target_root),
-                    extra={'action': 'copy (o)'}
+                    extra={
+                        'action': 'copy (o)',
+                        'description': 'update',
+                        'destination': os.path.relpath(
+                            target_path_render, self.target_root
+                        )
+                    }
                 )
             elif update_permissions is True:
                 self.logger.info(
                     'Updating permissions of file %s to %o',
                     os.path.relpath(target_path_render, self.target_root),
                     get_permissions(source_file),
-                    extra={'action': 'chmod (o)'}
+                    extra={
+                        'action': 'chmod (o)',
+                        'description': 'update',
+                        'destination': os.path.relpath(
+                            target_path_render, self.target_root
+                        )
+                    }
                 )
             else:
                 self.logger.info(
                     'Copying file %s',
                     os.path.relpath(target_path_render, self.target_root),
-                    extra={'action': 'copy'}
+                    extra={
+                        'action': 'copy',
+                        'description': 'create',
+                        'destination': os.path.relpath(
+                            target_path_render, self.target_root
+                        )
+                    }
                 )
 
         # Take the appropriate actions

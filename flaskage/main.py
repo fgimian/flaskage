@@ -118,7 +118,7 @@ def main():
     )
 
     # Adjust logging output
-    logging.basicConfig(format='%(levelname)s [%(action)s]: %(message)s')
+    logging.basicConfig(format='%(description)12s : %(destination)s')
 
     # Setup our ignored directories and files
     ignored_dirs = ['__pycache__']
