@@ -45,8 +45,7 @@ def main():
 
     # Parser for the new command
     parser_new = subparsers_main.add_parser(
-        'new', aliases=['n'],
-        help='create a new Flaskage project'
+        'new', help='create a new Flaskage project'
     )
     parser_new.add_argument(
         'name', help='the project name in lowercase underscore format'
@@ -54,8 +53,7 @@ def main():
 
     # Parser for the generate command
     parser_generate = subparsers_main.add_parser(
-        'generate', aliases=['g'],
-        help='generate code for an application component'
+        'generate', help='generate code for an application component'
     )
     subparsers_generate = (
         parser_generate.add_subparsers(dest='subparser_generate_name')
@@ -63,8 +61,7 @@ def main():
 
     # Parser for the generate / asset command
     parser_generate_asset = subparsers_generate.add_parser(
-        'asset', aliases=['a'],
-        help='create a new set of LESS and Coffeescript assets'
+        'asset', help='create a new set of LESS and Coffeescript assets'
     )
     parser_generate_asset.add_argument(
         'name', help='the asset name in lowercase underscore format'
@@ -72,8 +69,7 @@ def main():
 
     # Parser for the generate / blueprint command
     parser_generate_blueprint = subparsers_generate.add_parser(
-        'blueprint', aliases=['b'],
-        help='create a new application component (blueprint)'
+        'blueprint', help='create a new application component (blueprint)'
     )
     parser_generate_blueprint.add_argument(
         'name', help='the blueprint name in lowercase underscore format'
@@ -81,8 +77,7 @@ def main():
 
     # Parser for the generate / model command
     parser_generate_model = subparsers_generate.add_parser(
-        'model', aliases=['m'],
-        help='create a new database model'
+        'model', help='create a new database model'
     )
     parser_generate_model.add_argument(
         'name', help='the model name in lowercase underscore format'
@@ -94,7 +89,7 @@ def main():
 
     # Parser for the generate / library command
     parser_generate_library = subparsers_generate.add_parser(
-        'lib', aliases=['l'],
+        'lib',
         help='create a new independent library which is used by your project'
     )
     parser_generate_library.add_argument(
@@ -104,15 +99,15 @@ def main():
     # Parse the command line arguments
     args = parser_main.parse_args()
 
-    # Print help if no arguments are provided
+    # Print help if no arguments are provided (required on Python 3)
     if not args.subparser_main_name:
-        parser_main.print_help()
+        parser_main.print_usage()
         parser_main.exit()
     elif (
-        args.subparser_main_name in ['generate', 'g'] and
+        args.subparser_main_name in ['generate'] and
         not args.subparser_generate_name
     ):
-        parser_generate.print_help()
+        parser_generate.print_usage()
         parser_generate.exit()
 
     # Determine the location of our templates
@@ -139,7 +134,7 @@ def main():
     name_camelcase = camelcase(args.name)
 
     # Handle the new command
-    if args.subparser_main_name in ['new', 'n']:
+    if args.subparser_main_name in ['new']:
         # Generation of a new project can only run outside a valid project
         # directory
         if valid_project_directory():
@@ -172,7 +167,7 @@ def main():
             exit(1)
 
     # Handle the generate command
-    elif args.subparser_main_name in ['generate', 'g']:
+    elif args.subparser_main_name in ['generate']:
         # Generation of items can only run in a valid project directory
         if not valid_project_directory():
             parser_main.error(
@@ -181,7 +176,7 @@ def main():
             )
 
         # Handle the generate / asset command
-        if args.subparser_generate_name in ['asset', 'a']:
+        if args.subparser_generate_name in ['asset']:
             # Generate the scaffolding for a new asset
             print('')
             print('Generating new asset named %s' % args.name)
@@ -207,7 +202,7 @@ def main():
                 exit(1)
 
         # Handle the generate / blueprint command
-        elif args.subparser_generate_name in ['blueprint', 'b']:
+        elif args.subparser_generate_name in ['blueprint']:
             # Generate the scaffolding for a new blueprint
             print('')
             print('Generating new blueprint named %s' % args.name)
@@ -233,7 +228,7 @@ def main():
                 exit(1)
 
         # Handle the generate / model command
-        elif args.subparser_generate_name in ['model', 'm']:
+        elif args.subparser_generate_name in ['model']:
             column_mapping = {
                 'integer': 'Integer',
                 'decimal': 'Numeric',
@@ -373,7 +368,7 @@ def main():
                 exit(1)
 
         # Handle the generate / library command
-        elif args.subparser_generate_name in ['lib', 'l']:
+        elif args.subparser_generate_name in ['lib']:
             # Generate the scaffolding for a new library
             print('')
             print('Generating new library named %s' % args.name)
