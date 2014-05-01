@@ -410,7 +410,7 @@ def main():
                 print('1. Add the model import to app/models/__init__.py')
                 print()
                 print(
-                    'from .%s import %s  # nqa' %
+                    'from .%s import %s  # noqa' %
                     (args.name, name_camelcase)
                 )
                 print()
@@ -419,7 +419,7 @@ def main():
                 )
                 print()
                 print(
-                    'from .%s import %sFactory  # nqa' %
+                    'from .%s import %sFactory  # noqa' %
                     (args.name, name_camelcase)
                 )
                 print()
