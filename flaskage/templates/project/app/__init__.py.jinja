@@ -73,8 +73,8 @@ def configure_hooks(app):
 
 
 def configure_blueprints(app):
-    from .views import application
-    app.register_blueprint(application.mod)
+    from .views import welcome
+    app.register_blueprint(welcome.mod)
 
 
 def configure_extensions(app, db):
