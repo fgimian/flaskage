@@ -8,13 +8,13 @@ from flask.ext.assets import ManageAssets
 
 from app import create_app, db, models
 from config import AVAILABLE_CONFIGS, DEFAULT_CONFIG
-from tests import fixtures
+from tests import factories
 
 manager = Manager(failsafe(create_app), with_default_commands=False)
 
 
 def _make_context():
-    return dict(app=manager.app, db=db, models=models, fixtures=fixtures)
+    return dict(app=manager.app, db=db, models=models, factories=factories)
 
 manager.add_option('-c', '--config', dest='config',
                    choices=list(AVAILABLE_CONFIGS), default=DEFAULT_CONFIG)

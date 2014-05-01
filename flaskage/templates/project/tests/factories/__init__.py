@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
-# Import fixtures from the various fixture files.
+# Import factories from the various factory files.
 # from .<submodule> import <fixture>  # noqa
