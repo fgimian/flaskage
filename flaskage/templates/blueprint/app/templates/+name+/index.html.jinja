@@ -2,15 +2,15 @@
 {% set title = "{{{ name }}}" %}
 
 {% block js %}
-  {% assets filters="coffeescript,uglifyjs", output="js/{{{ name }}}.js",
-            "coffee/{{{ name }}}.coffee" %}
+  {% assets filters="coffeescript,uglifyjs", output="assets/{{{ name }}}.js",
+            "javascripts/{{{ name }}}.coffee" %}
     <script src="{{ ASSET_URL }}"></script>
   {% endassets %}
 {% endblock %}
 
 {% block css %}
-  {% assets filters="less,cleancss", output="css/{{{ name }}}.css",
-            "less/{{{ name }}}.less" %}
+  {% assets filters="less,cleancss", output="assets/{{{ name }}}.css",
+            "stylesheets/{{{ name }}}.less" %}
     <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}" />
   {% endassets %}
 {% endblock %}
