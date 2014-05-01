@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from __future__ import print_function
 import os
 import re
 import sys
@@ -177,9 +178,9 @@ def main():
             )
 
         # Generate the scaffolding for a new project
-        print('')
+        print()
         print('Generating new project in %s' % args.name)
-        print('')
+        print()
         try:
             scaffold = Scaffold(
                 source_root=os.path.join(template_dir, 'project'),
@@ -191,13 +192,13 @@ def main():
                 overwrite_target_root=True
             )
             scaffold.render_structure()
-            print('')
+            print()
             print('Successfully created new project structure')
-            print('')
+            print()
         except ScaffoldException as e:
-            print('')
+            print()
             print('Error: %s' % e)
-            print('')
+            print()
             exit(1)
 
     # Handle the generate command
@@ -212,9 +213,9 @@ def main():
         # Handle the generate / asset command
         if args.subparser_generate_name in ['asset']:
             # Generate the scaffolding for a new asset
-            print('')
+            print()
             print('Generating new asset named %s' % args.name)
-            print('')
+            print()
             try:
                 scaffold = Scaffold(
                     source_root=os.path.join(template_dir, 'asset'),
@@ -226,21 +227,21 @@ def main():
                     overwrite_target_root=True
                 )
                 scaffold.render_structure()
-                print('')
+                print()
                 print('Successfully created new asset')
-                print('')
+                print()
             except ScaffoldException as e:
-                print('')
+                print()
                 print('Error: %s' % e)
-                print('')
+                print()
                 exit(1)
 
         # Handle the generate / blueprint command
         elif args.subparser_generate_name in ['blueprint']:
             # Generate the scaffolding for a new blueprint
-            print('')
+            print()
             print('Generating new blueprint named %s' % args.name)
-            print('')
+            print()
             try:
                 scaffold = Scaffold(
                     source_root=[
@@ -255,13 +256,21 @@ def main():
                     overwrite_target_root=True
                 )
                 scaffold.render_structure()
-                print('')
+                print()
                 print('Successfully created new blueprint')
-                print('')
+                print()
+                print(
+                    'Add the blueprint import to app/__init__.py in the '
+                    'configure_blueprints function'
+                )
+                print()
+                print('    from .views import %s' % args.name)
+                print('    app.register_blueprint(%s.mod)' % args.name)
+                print()
             except ScaffoldException as e:
-                print('')
+                print()
                 print('Error: %s' % e)
-                print('')
+                print()
                 exit(1)
 
         # Handle the generate / model command
@@ -379,9 +388,9 @@ def main():
                 columns.append((name, definition))
 
             # Generate the scaffolding for a new model
-            print('')
+            print()
             print('Generating new model named %s' % args.name)
-            print('')
+            print()
             try:
                 scaffold = Scaffold(
                     source_root=os.path.join(template_dir, 'model'),
@@ -395,21 +404,48 @@ def main():
                     overwrite_target_root=True
                 )
                 scaffold.render_structure()
-                print('')
+                print()
                 print('Successfully created new model')
-                print('')
+                print()
+                print('1. Add the model import to app/models/__init__.py')
+                print()
+                print(
+                    'from .%s import %s  # nqa' %
+                    (args.name, name_camelcase)
+                )
+                print()
+                print(
+                    '2. Add the factory import to tests/factories/__init__.py'
+                )
+                print()
+                print(
+                    'from .%s import %sFactory  # nqa' %
+                    (args.name, name_camelcase)
+                )
+                print()
+                print(
+                    '3. Generate a migration to add the new model to your '
+                    'database'
+                )
+                print()
+                print('./manage.py db migrate')
+                print()
+                print('4. Apply the migration')
+                print()
+                print('./manage.py db upgrade')
+                print()
             except ScaffoldException as e:
-                print('')
+                print()
                 print('Error: %s' % e)
-                print('')
+                print()
                 exit(1)
 
         # Handle the generate / library command
         elif args.subparser_generate_name in ['lib']:
             # Generate the scaffolding for a new library
-            print('')
+            print()
             print('Generating new library named %s' % args.name)
-            print('')
+            print()
             try:
                 scaffold = Scaffold(
                     source_root=os.path.join(template_dir, 'lib'),
@@ -421,13 +457,13 @@ def main():
                     overwrite_target_root=True
                 )
                 scaffold.render_structure()
-                print('')
+                print()
                 print('Successfully created new library')
-                print('')
+                print()
             except ScaffoldException as e:
-                print('')
+                print()
                 print('Error: %s' % e)
-                print('')
+                print()
                 exit(1)
 
 
