@@ -1,67 +1,118 @@
 # -*- coding: utf-8 -*-
+import os
+import logging
+
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.migrate import Migrate
-from flask.ext.assets import Environment
+from flask.ext.assets import Environment, Bundle
 from flask.ext.login import LoginManager
 
 from config import AVAILABLE_CONFIGS
-from .assets import assets
 
 db = SQLAlchemy()
 migrate = Migrate()
-# assets = Environment()
+assets = Environment()
 login_manager = LoginManager()
 
 
 def create_app(config):
-
-    # Create and configure the Flash application
     app = Flask(__name__)
+    configure_app(app, config)
+    configure_assets()
+    configure_extensions(app, db)
+    configure_logging(app)
+    configure_hooks(app)
+    configure_error_handlers(app)
+    configure_blueprints(app)
+    return app
+
+
+def configure_app(app, config):
     app.config.from_object(AVAILABLE_CONFIGS[config])
 
-    # Initialise Flask extensions
+
+def configure_assets():
+    assets.register(
+        'css_all',
+        Bundle(
+            Bundle(
+                'stylesheets/application.less',
+                filters=['less']
+            ),
+            filters=['cleancss'], output='assets/application.css'
+        )
+    )
+    assets.register(
+        'js_all',
+        Bundle(
+            'jquery/dist/jquery.js',
+            'bootstrap/dist/js/bootstrap.js',
+            Bundle(
+                'javascripts/application.coffee',
+                filters=['coffeescript']
+            ),
+            filters=['uglifyjs'], output='assets/application.js'
+        )
+    )
+    assets.register(
+        'js_ie8',
+        Bundle(
+            'html5shiv/dist/html5shiv.js',
+            'respond/dest/respond.src.js',
+            filters=['uglifyjs'], output='js/ie8.js'
+        )
+    )
+
+
+def configure_hooks(app):
+    # @app.before_request
+    # def before_request():
+    #     pass
+    pass
+
+
+def configure_blueprints(app):
+    from .views import application
+    app.register_blueprint(application.mod)
+
+
+def configure_extensions(app, db):
     db.init_app(app)
-    migrate.init_app(app, db, directory='db/migrations')
+    migrate.init_app(app, db, directory=os.path.join('db', 'migrations'))
     assets.init_app(app)
     login_manager.init_app(app)
 
-    # Initialise Jinja2 extensions
     app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
     app.jinja_env.pyjade.options['autocloseCode'] = ['assets']
 
-    # Provide the Flask-Login user loader function
     # @login_manager.user_loader
     # def load_user(id):
     #     return User.query.get(id)
 
-    # Setup app logging if necessary
-    # app.logger.setLevel(logging.INFO)
 
-    # Setup app hooks if necessary
-    # @app.before_request
-    # def before_request():
-    #     pass
+def configure_logging(app):
+    app.logger.setLevel(logging.INFO)
 
-    # Setup app error handlers if necessary
-    # @app.errorhandler(403)
-    # def forbidden(error):
-    #     return render_template("403.html"), 403
 
-    # @app.errorhandler(404)
-    # def not_found(error):
-    #     return render_template("404.html"), 404
+def configure_template_filters(app):
+    # @app.template_filter()
+    # def reverse_filter(s):
+    #     return s[::-1]
+    #
+    # app.jinja_env.filters['imported_filter'] = imported_filter
+    pass
 
-    # @app.errorhandler(500)
-    # def internal_server_error(error):
-    #     return render_template("500.html"), 500
 
-    # Import and register Blueprints
-    from .views import home
-    # from .views import module1
-    # from .views import module2
-    app.register_blueprint(home.mod)
-    # app.register_blueprint(module1.mod)
-    # app.register_blueprint(module2.mod)
+def configure_error_handlers(app):
+    @app.errorhandler(403)
+    def forbidden(error):
+        return render_template("403.html"), 403
 
-    return app
+    @app.errorhandler(404)
+    def not_found(error):
+        return render_template("404.html"), 404
+
+    @app.errorhandler(500)
+    def internal_server_error(error):
+        return render_template("500.html"), 500
