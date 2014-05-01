@@ -7,7 +7,7 @@ assets.register(
     'css_all',
     Bundle(
         Bundle(
-            'less/{{{ name }}}.less',
+            'stylesheets/{{{ name }}}.less',
             filters=['less']
         ),
         filters='cleancss',
@@ -21,7 +21,7 @@ assets.register(
         'jquery/dist/jquery.js',
         'bootstrap/dist/js/bootstrap.js',
         Bundle(
-            'coffee/{{{ name }}}.coffee',
+            'javascripts/{{{ name }}}.coffee',
             filters=['coffeescript']
         ),
         filters='uglifyjs',
