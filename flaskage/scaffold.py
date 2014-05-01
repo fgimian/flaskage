@@ -108,7 +108,10 @@ class Scaffold(object):
                 # Exclude any ignored directories
                 local_dirs[:] = [d for d in local_dirs
                                  if not matches_any(d, self.ignored_dirs)]
+
+                # Sort the directories and files
                 local_dirs.sort()
+                local_files.sort()
 
                 # Determine the current target directory we're working in
                 target_dir = os.path.abspath(
