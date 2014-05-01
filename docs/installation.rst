@@ -122,7 +122,7 @@ of the project:
 
 .. code-block:: bash
 
-    ./manage.py runserver
+    ./manage.py server
 
 This will run the development server on loopback address which will mean that
 it will only be available for viewing by your development server.
@@ -132,4 +132,4 @@ network, then start the development server as follows:
 
 .. code-block:: bash
 
-    ./manage.py runserver -t 0.0.0.0
+    ./manage.py server -t 0.0.0.0
