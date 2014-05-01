@@ -419,7 +419,7 @@ def main():
                 )
                 print()
                 print(
-                    'from .%s import %sFactory  # noqa' %
+                    'from .%s_factory import %sFactory  # noqa' %
                     (args.name, name_camelcase)
                 )
                 print()
