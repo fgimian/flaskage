@@ -243,7 +243,10 @@ def main():
             print('')
             try:
                 scaffold = Scaffold(
-                    source_root=os.path.join(template_dir, 'blueprint'),
+                    source_root=[
+                        os.path.join(template_dir, 'asset'),
+                        os.path.join(template_dir, 'blueprint'),
+                    ],
                     target_root=os.getcwd(),
                     variables={
                         'name': args.name, 'name_camelcase': name_camelcase

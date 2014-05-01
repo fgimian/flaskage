@@ -34,7 +34,10 @@ class Scaffold(object):
     ):
         # Essential information providing the template source, destination and
         # related variables in the form of a dict
-        self.source_root = source_root
+        if isinstance(source_root, (list, tuple)):
+            self.source_roots = list(source_root)
+        else:
+            self.source_roots = [source_root]
         self.target_root = target_root
         self.variables = variables
 
@@ -81,7 +84,7 @@ class Scaffold(object):
                 extra={
                     'action': 'mkdir',
                     'description': 'create',
-                    'destination': target_root_render
+                    'destination': ''
                 }
             )
             os.mkdir(target_root_render)
@@ -92,75 +95,77 @@ class Scaffold(object):
                 extra={
                     'action': 'skip',
                     'description': 'exist',
-                    'destination': target_root_render
+                    'destination': ''
                 }
             )
 
-        # Walk through each directory in the source root
-        for source_dir, local_dirs, local_files in os.walk(
-            self.source_root, topdown=True
-        ):
-            # Exclude any ignored directories
-            local_dirs[:] = [d for d in local_dirs
-                             if not matches_any(d, self.ignored_dirs)]
-            local_dirs.sort()
+        for source_root in self.source_roots:
 
-            # Determine the current target directory we're working in
-            target_dir = os.path.abspath(
-                os.path.join(
-                    target_root_render,
-                    os.path.relpath(source_dir, self.source_root)
+            # Walk through each directory in the source root
+            for source_dir, local_dirs, local_files in os.walk(
+                source_root, topdown=True
+            ):
+                # Exclude any ignored directories
+                local_dirs[:] = [d for d in local_dirs
+                                 if not matches_any(d, self.ignored_dirs)]
+                local_dirs.sort()
+
+                # Determine the current target directory we're working in
+                target_dir = os.path.abspath(
+                    os.path.join(
+                        target_root_render,
+                        os.path.relpath(source_dir, source_root)
+                    )
                 )
-            )
 
-            # Render the target directory using variables
-            target_dir_render = self.render_filename(target_dir)
+                # Render the target directory using variables
+                target_dir_render = self.render_filename(target_dir)
 
-            # Iterate through each file in the current directory
-            for local_file in local_files:
+                # Iterate through each file in the current directory
+                for local_file in local_files:
 
-                # Exclude any ignored files
-                if matches_any(local_file, self.ignored_files):
-                    continue
+                    # Exclude any ignored files
+                    if matches_any(local_file, self.ignored_files):
+                        continue
 
-                source_file = os.path.join(source_dir, local_file)
+                    source_file = os.path.join(source_dir, local_file)
 
-                # Render the current file into the output directory
-                if os.path.islink(source_file):
-                    self.render_symlink(
-                        source_symlink=source_file,
-                        target_dir=target_dir_render
-                    )
-                else:
-                    self.render_file(
-                        source_file=source_file,
-                        target_dir=target_dir_render
-                    )
+                    # Render the current file into the output directory
+                    if os.path.islink(source_file):
+                        self.render_symlink(
+                            source_symlink=source_file,
+                            target_dir=target_dir_render
+                        )
+                    else:
+                        self.render_file(
+                            source_file=source_file,
+                            target_dir=target_dir_render
+                        )
 
-            local_dirs_valid = []
+                local_dirs_valid = []
 
-            # Iterate through each directory in the current directory
-            for local_dir in local_dirs:
+                # Iterate through each directory in the current directory
+                for local_dir in local_dirs:
 
-                source_subdir = os.path.join(source_dir, local_dir)
+                    source_subdir = os.path.join(source_dir, local_dir)
 
-                # Render the current directory into the output directory
-                if os.path.islink(source_subdir):
-                    self.render_symlink(
-                        source_symlink=source_subdir,
-                        target_dir=target_dir_render
-                    )
-                else:
-                    success = self.render_directory(
-                        source_subdir=source_subdir,
-                        target_dir=target_dir_render
-                    )
-                    # If None has been returned, then the directory was
-                    # created and can be walked.
-                    if success is None:
-                        local_dirs_valid.append(local_dir)
+                    # Render the current directory into the output directory
+                    if os.path.islink(source_subdir):
+                        self.render_symlink(
+                            source_symlink=source_subdir,
+                            target_dir=target_dir_render
+                        )
+                    else:
+                        success = self.render_directory(
+                            source_subdir=source_subdir,
+                            target_dir=target_dir_render
+                        )
+                        # If None has been returned, then the directory was
+                        # created and can be walked.
+                        if success is None:
+                            local_dirs_valid.append(local_dir)
 
-            local_dirs[:] = local_dirs_valid
+                local_dirs[:] = local_dirs_valid
 
     def render_directory(self, source_subdir, target_dir):
         # Get the basename of the source file
@@ -659,8 +664,7 @@ class Scaffold(object):
         if source_file_template:
             if overwrite is True:
                 self.logger.info(
-                    'Rendering and overwriting template %s to %s',
-                    os.path.relpath(source_file, self.source_root),
+                    'Rendering and overwriting template %s',
                     os.path.relpath(target_path_render, self.target_root),
                     extra={
                         'action': 'render (o)',
@@ -685,8 +689,7 @@ class Scaffold(object):
                 )
             else:
                 self.logger.info(
-                    'Rendering template %s to %s',
-                    os.path.relpath(source_file, self.source_root),
+                    'Rendering template %s',
                     os.path.relpath(target_path_render, self.target_root),
                     extra={
                         'action': 'render',
