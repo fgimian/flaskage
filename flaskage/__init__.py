@@ -1,1 +1,1 @@
-__all__ = ['main', 'scaffold']
+__all__ = ['cli', 'scaffold']

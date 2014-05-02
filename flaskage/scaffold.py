@@ -8,7 +8,7 @@ from shutil import copy2
 from jinja2 import Environment, StrictUndefined
 
 from .utils import (
-    matches_any, get_permissions, md5file, md5data, prompt_yes_no
+    matches_any, get_permissions, md5_file, md5_data, prompt_yes_no
 )
 
 
@@ -536,11 +536,11 @@ class Scaffold(object):
         # of both the source and destination for comparison
         if os.path.isfile(target_path_render):
             if source_file_template:
-                source_file_content = md5data(output_render)
+                source_file_content = md5_data(output_render)
             else:
-                source_file_content = md5file(source_file)
+                source_file_content = md5_file(source_file)
             source_file_permissions = get_permissions(source_file)
-            target_path_content = md5file(target_path_render)
+            target_path_content = md5_file(target_path_render)
             target_path_permissions = get_permissions(target_path_render)
 
         # Destination exists and is identical to source

@@ -16,11 +16,12 @@ setup(
     include_package_data=True,
     entry_points={
         'console_scripts': [
-            'flaskage = flaskage.main:main',
+            'flaskage = flaskage.cli:cli',
         ]
     },
     zip_safe=False,
     install_requires=[
+        'click>=0.1',
         'Jinja2>=2.7',
         'painter>=0.3'
     ],

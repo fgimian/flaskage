@@ -11,7 +11,7 @@ import mock
 from nose.tools import raises
 
 from flaskage.utils import (
-    matches_any, get_permissions, md5file, md5data, prompt_yes_no
+    matches_any, get_permissions, md5_file, md5_data, prompt_yes_no
 )
 
 
@@ -34,34 +34,34 @@ class TestUtils:
         assert get_permissions(f.name) == 0o754
         os.unlink(f.name)
 
-    def test_md5file(self):
+    def test_md5_file(self):
         f = NamedTemporaryFile(delete=False)
         f.write(b'hello there')
         f.close()
-        md5sum = md5file(f.name)
+        md5sum = md5_file(f.name)
         os.unlink(f.name)
         assert md5sum == '161bc25962da8fed6d2f59922fb642aa'
 
-    def test_md5data(self):
-        assert md5data('hello there') == '161bc25962da8fed6d2f59922fb642aa'
+    def test_md5_data(self):
+        assert md5_data('hello there') == '161bc25962da8fed6d2f59922fb642aa'
 
-    @mock.patch('flaskage.utils.raw_input', return_value='')
+    @mock.patch('flaskage.utils.input', return_value='')
     def test_prompt_yes_no_default_yes(self, mock_raw_input):
         assert prompt_yes_no('Shall I go ahead?', default='y')
 
-    @mock.patch('flaskage.utils.raw_input', return_value='')
+    @mock.patch('flaskage.utils.input', return_value='')
     def test_prompt_yes_no_default_no(self, mock_raw_input):
         assert not prompt_yes_no('Shall I go ahead?', default='n')
 
-    @mock.patch('flaskage.utils.raw_input', return_value='y')
+    @mock.patch('flaskage.utils.input', return_value='y')
     def test_prompt_yes_no_reply_yes(self, mock_raw_input):
         assert prompt_yes_no('Shall I go ahead?')
 
-    @mock.patch('flaskage.utils.raw_input', return_value='n')
+    @mock.patch('flaskage.utils.input', return_value='n')
     def test_prompt_yes_no_reply_no(self, mock_raw_input):
         assert not prompt_yes_no('Shall I go ahead?', default='y')
 
-    @mock.patch('flaskage.utils.raw_input', side_effect=['bla', 'n'])
+    @mock.patch('flaskage.utils.input', side_effect=['bla', 'n'])
     def test_prompt_yes_no_reply_invalid(self, mock_raw_input):
         with mock.patch('sys.stdout', new_callable=StringIO) as mock_stdout:
             assert not prompt_yes_no('Shall I go ahead?')

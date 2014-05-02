@@ -1,4 +1,4 @@
-from flaskage.main import main
+from flaskage.cli import cli
 
 
 class TestMain(object):
