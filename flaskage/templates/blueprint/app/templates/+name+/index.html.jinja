@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% set title = "{{{ name }}}" %}
+{% set title = "Blueprint" %}
 
 {% block js %}
   {% assets filters="coffeescript,uglifyjs", output="assets/{{{ name }}}.js",
@@ -16,5 +16,9 @@
 {% endblock %}
 
 {% block body %}
-  Welcome to your new blueprint! :)
+  <h1>Welcome to your new blueprint!</h1>
+  <p>
+    You may now begin developing your blueprint by writing any related models,
+    views, templates and helper functions.
+  </p>
 {% endblock %}

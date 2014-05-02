@@ -19,7 +19,8 @@ html(lang="en")
       - assets "js_ie8"
           script(src=ASSET_URL)
   body
-    block body
+    .container-fluid
+      block body
 
     // Global Javascript
     - assets "js_all"

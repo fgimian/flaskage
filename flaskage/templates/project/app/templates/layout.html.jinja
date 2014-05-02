@@ -23,7 +23,9 @@
     <![endif]-->
   </head>
   <body>
-    {% block body %}{% endblock %}
+    <div class="container-fluid">
+      {% block body %}{% endblock %}
+    </div>
 
     <!-- Global Javascript -->
     {% assets "js_all" %}

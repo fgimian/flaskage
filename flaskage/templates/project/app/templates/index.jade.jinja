@@ -1,11 +1,20 @@
 extends layout
 title = "Flaskage"
+
+block append js
+  - assets filters="coffeescript,uglifyjs", output="assets/welcome.js", "javascripts/welcome.coffee"
+      script(src=ASSET_URL)
+
+block append css
+  - assets filters="less,cleancss", output="assets/welcome.css", "stylesheets/welcome.less"
+      link(rel="stylesheet", type="text/css", href=ASSET_URL)
+
 block append body
   .site-wrapper
     .site-wrapper-inner
       .cover-container
         .inner.cover
-          h1.cover-heading Flaskage
+          h1.cover-heading Welcome to Flaskage
           img#main-logo(src=url_for('static', filename='images/flaskage.png'))
           p.lead.
             A complete and carefully designed template for use with the Flask web
