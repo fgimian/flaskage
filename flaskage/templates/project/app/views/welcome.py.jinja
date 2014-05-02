@@ -6,9 +6,9 @@ mod = Blueprint('welcome', __name__)
 
 @mod.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('welcome/index.html')
 
 
 @mod.route('/pyjade')
 def index_pyjade():
-    return render_template('index.jade')
+    return render_template('welcome/index.jade')
