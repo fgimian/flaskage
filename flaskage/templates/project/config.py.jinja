@@ -16,6 +16,10 @@ class Config(object):
         os.path.join(PROJECT_ROOT, 'app', 'assets'),
         os.path.join(PROJECT_ROOT, 'vendor', 'assets')
     ]
+    ASSETS_DIRECTORY = (
+        os.path.join(PROJECT_ROOT, 'app', 'static', 'assets')
+    )
+    ASSETS_URL = 'static/assets'
     LESS_EXTRA_ARGS = [
         '--no-color',
         '--include-path=%s' % os.path.join(PROJECT_ROOT, 'vendor', 'assets')

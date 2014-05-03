@@ -40,7 +40,7 @@ def configure_assets():
                 'stylesheets/application.less',
                 filters=['less']
             ),
-            filters=['cleancss'], output='assets/application.css'
+            filters=['cleancss'], output='application.css'
         )
     )
     assets.register(
@@ -52,7 +52,7 @@ def configure_assets():
                 'javascripts/application.coffee',
                 filters=['coffeescript']
             ),
-            filters=['uglifyjs'], output='assets/application.js'
+            filters=['uglifyjs'], output='application.js'
         )
     )
     assets.register(
@@ -60,7 +60,7 @@ def configure_assets():
         Bundle(
             'html5shiv/dist/html5shiv.js',
             'respond/dest/respond.src.js',
-            filters=['uglifyjs'], output='js/ie8.js'
+            filters=['uglifyjs'], output='ie8.js'
         )
     )
 

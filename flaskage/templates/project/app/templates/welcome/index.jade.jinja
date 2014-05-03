@@ -2,11 +2,11 @@ extends layout
 title = "Flaskage"
 
 block append js
-  - assets filters="coffeescript,uglifyjs", output="assets/welcome.js", "javascripts/welcome.coffee"
+  - assets filters="coffeescript,uglifyjs", output="welcome.js", "javascripts/welcome.coffee"
       script(src=ASSET_URL)
 
 block append css
-  - assets filters="less,cleancss", output="assets/welcome.css", "stylesheets/welcome.less"
+  - assets filters="less,cleancss", output="welcome.css", "stylesheets/welcome.less"
       link(rel="stylesheet", type="text/css", href=ASSET_URL)
 
 block append body
