@@ -40,6 +40,19 @@ def configure_logging():
     logger.addHandler(ch)
 
 
+def mode_option(f):
+    o1 = click.option('-f', '--force', 'mode',
+                      flag_value=Scaffold.EXISTING_OVERWRITE,
+                      help='Force overwriting of existing files')
+    o2 = click.option('-p', '--prompt', 'mode', default=True,
+                      flag_value=Scaffold.EXISTING_PROMPT,
+                      help='Prompt to overwrite existing files (default)')
+    o3 = click.option('-s', '--skip', 'mode',
+                      flag_value=Scaffold.EXISTING_SKIP,
+                      help='Skip existing files')
+    return o1(o2(o3(f)))
+
+
 @click.command(add_help_option=False, cls=AliasedGroup)
 @click.help_option('-h', '--help')
 def cli():
@@ -50,9 +63,10 @@ def cli():
 
 @click.command(add_help_option=False)
 @click.help_option('-h', '--help')
+@mode_option
 @click.argument('name', type=MODULE_NAME)
 @click.pass_context
-def new(ctx, name):
+def new(ctx, name, mode):
     """Create a new Flaskage project."""
     # Convert the name to CamelCase for use with class names
     name_camelcase = camelcase(name)
@@ -70,7 +84,7 @@ def new(ctx, name):
         target_root=name,
         variables={'name': name, 'name_camelcase': name_camelcase},
         ignored_dirs=IGNORED_DIRS, ignored_files=IGNORED_FILES,
-        overwrite_target_root=True
+        overwrite_target_root=True, existing_policy=mode
     )
     scaffold.render_structure()
     click.echo()
@@ -93,6 +107,7 @@ def new(ctx, name):
 
 
 @click.command(add_help_option=False, cls=AliasedGroup)
+@click.help_option('-h', '--help')
 def generate():
     """Generate code for an application component."""
     pass
@@ -100,9 +115,10 @@ def generate():
 
 @click.command(add_help_option=False)
 @click.help_option('-h', '--help')
+@mode_option
 @click.argument('name', type=MODULE_NAME)
 @click.pass_context
-def asset(ctx, name):
+def asset(ctx, name, mode):
     """Generate a set of assets."""
     # Convert the name to CamelCase for use with class names
     name_camelcase = camelcase(name)
@@ -122,7 +138,7 @@ def asset(ctx, name):
         target_root=os.getcwd(),
         variables={'name': name, 'name_camelcase': name_camelcase},
         ignored_dirs=IGNORED_DIRS, ignored_files=IGNORED_FILES,
-        overwrite_target_root=True
+        overwrite_target_root=True, existing_policy=mode
     )
     scaffold.render_structure()
     click.echo()
@@ -130,9 +146,10 @@ def asset(ctx, name):
 
 @click.command(add_help_option=False)
 @click.help_option('-h', '--help')
+@mode_option
 @click.argument('name', type=MODULE_NAME)
 @click.pass_context
-def blueprint(ctx, name):
+def blueprint(ctx, name, mode):
     """Generate an application component (blueprint)."""
     # Convert the name to CamelCase for use with class names
     name_camelcase = camelcase(name)
@@ -155,7 +172,7 @@ def blueprint(ctx, name):
         target_root=os.getcwd(),
         variables={'name': name, 'name_camelcase': name_camelcase},
         ignored_dirs=IGNORED_DIRS, ignored_files=IGNORED_FILES,
-        overwrite_target_root=True
+        overwrite_target_root=True, existing_policy=mode
     )
     scaffold.render_structure()
     click.echo()
@@ -171,10 +188,11 @@ def blueprint(ctx, name):
 
 @click.command(add_help_option=False, short_help='Generate a database model')
 @click.help_option('-h', '--help')
+@mode_option
 @click.argument('name', type=MODULE_NAME)
 @click.argument('columns', nargs=-1, type=MODEL_COLUMN)
 @click.pass_context
-def model(ctx, name, columns):
+def model(ctx, name, columns, mode):
     """Generate a database model using a given name. You may also specify the
     columns you need following the model name using the format:
 
@@ -257,7 +275,7 @@ def model(ctx, name, columns):
             'primary_key_provided': primary_key_provided
         },
         ignored_dirs=IGNORED_DIRS, ignored_files=IGNORED_FILES,
-        overwrite_target_root=True
+        overwrite_target_root=True, existing_policy=mode
     )
     scaffold.render_structure()
     click.echo()
@@ -281,9 +299,10 @@ def model(ctx, name, columns):
 
 @click.command(add_help_option=False)
 @click.help_option('-h', '--help')
+@mode_option
 @click.argument('name', type=MODULE_NAME)
 @click.pass_context
-def library(ctx, name):
+def library(ctx, name, mode):
     """Generate an application-agnostic library."""
     # Convert the name to CamelCase for use with class names
     name_camelcase = camelcase(name)
@@ -303,7 +322,7 @@ def library(ctx, name):
         target_root=os.getcwd(),
         variables={'name': name, 'name_camelcase': name_camelcase},
         ignored_dirs=IGNORED_DIRS, ignored_files=IGNORED_FILES,
-        overwrite_target_root=True
+        overwrite_target_root=True, existing_policy=mode
     )
     scaffold.render_structure()
     click.echo()
