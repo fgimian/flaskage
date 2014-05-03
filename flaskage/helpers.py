@@ -81,6 +81,7 @@ class ModelColumnParamType(click.ParamType):
             type_properties = column_properties[1].split(',')
             type = type_properties[0].lower() or COLUMN_TYPE_DEFAULT
         except IndexError:
+            type_properties = []
             type = COLUMN_TYPE_DEFAULT
 
         if type not in COLUMN_TYPE_MAPPING:
