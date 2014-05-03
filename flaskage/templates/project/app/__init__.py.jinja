@@ -83,8 +83,8 @@ def configure_extensions(app, db):
     assets.init_app(app)
     login_manager.init_app(app)
 
-    app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
-    app.jinja_env.pyjade.options['autocloseCode'] = ['assets']
+    # app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
+    # app.jinja_env.pyjade.options['autocloseCode'] = ['assets']
 
     # @login_manager.user_loader
     # def load_user(id):
