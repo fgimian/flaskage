@@ -11,7 +11,7 @@ from factory.alchemy import SQLAlchemyModelFactory
 
 from app import create_app, db, models
 from config import AVAILABLE_CONFIGS, DEFAULT_CONFIG
-from tests import factories
+from test import factories
 
 manager = Manager(failsafe(create_app), with_default_commands=False)
 

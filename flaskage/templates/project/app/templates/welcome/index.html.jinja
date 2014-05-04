@@ -3,14 +3,14 @@
 
 {% block js %}
   {% assets filters="coffeescript,uglifyjs", output="welcome.js",
-            "javascripts/welcome.coffee" %}
+            "javascripts/welcome.js.coffee" %}
     <script src="{{ ASSET_URL }}"></script>
   {% endassets %}
 {% endblock %}
 
 {% block css %}
   {% assets filters="less,cleancss", output="welcome.css",
-            "stylesheets/welcome.less" %}
+            "stylesheets/welcome.css.less" %}
     <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}" />
   {% endassets %}
 {% endblock %}

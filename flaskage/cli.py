@@ -184,8 +184,8 @@ def blueprint(ctx, name, mode):
     click.echo('  Add the blueprint import to app/__init__.py in the '
                'configure_blueprints function')
     click.echo()
-    click.echo('  from .views import %s' % name)
-    click.echo('  app.register_blueprint(%s.mod)' % name)
+    click.echo('  from .views import %s_view' % name)
+    click.echo('  app.register_blueprint(%s_view.mod)' % name)
     click.echo()
 
 

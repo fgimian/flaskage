@@ -37,7 +37,7 @@ def configure_assets():
         'css_all',
         Bundle(
             Bundle(
-                'stylesheets/application.less',
+                'stylesheets/application.css.less',
                 filters=['less']
             ),
             filters=['cleancss'], output='application.css'
@@ -49,7 +49,7 @@ def configure_assets():
             'jquery/dist/jquery.js',
             'bootstrap/dist/js/bootstrap.js',
             Bundle(
-                'javascripts/application.coffee',
+                'javascripts/application.js.coffee',
                 filters=['coffeescript']
             ),
             filters=['uglifyjs'], output='application.js'
@@ -73,8 +73,8 @@ def configure_hooks(app):
 
 
 def configure_blueprints(app):
-    from .views import welcome
-    app.register_blueprint(welcome.mod)
+    from .views import welcome_view
+    app.register_blueprint(welcome_view.mod)
 
 
 def configure_extensions(app, db):
