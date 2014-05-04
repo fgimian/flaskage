@@ -190,6 +190,37 @@ def blueprint(ctx, name, mode):
     click.echo()
 
 
+@click.command(add_help_option=False)
+@click.help_option('-h', '--help')
+@mode_option
+@click.argument('name', type=MODULE_NAME)
+@click.pass_context
+def helper(ctx, name, mode):
+    """Generate an application-related helper."""
+    # Convert the name to CamelCase for use with class names
+    name_camelcase = camelcase(name)
+
+    # Generation of items can only run in a valid project directory
+    if not valid_project_directory():
+        ctx.fail(
+            'You can only run the generate command from a valid project '
+            'directory'
+        )
+
+    click.echo()
+    click.echo('Generating new helper named %s:' % paint.bold(name))
+    click.echo()
+    scaffold = Scaffold(
+        source_root=os.path.join(TEMPLATE_DIR, 'helper'),
+        target_root=os.getcwd(),
+        variables={'name': name, 'name_camelcase': name_camelcase},
+        ignored_dirs=IGNORED_DIRS, ignored_files=IGNORED_FILES,
+        overwrite_target_root=True, existing_policy=mode
+    )
+    scaffold.render_structure()
+    click.echo()
+
+
 @click.command(add_help_option=False, short_help='Generate a database model')
 @click.help_option('-h', '--help')
 @mode_option
@@ -353,6 +384,7 @@ cli.add_command(new)
 cli.add_command(generate)
 generate.add_command(asset)
 generate.add_command(blueprint)
+generate.add_command(helper)
 generate.add_command(model)
 generate.add_command(library)
 

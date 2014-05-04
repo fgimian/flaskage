@@ -246,7 +246,8 @@ class Scaffold(object):
                 )
                 return
 
-            # If we have gotten this far, then we have to deal with the following:
+            # If we have gotten this far, then we have to deal with the
+            # following:
             # * Destination does exist and differs from source
             #   * EXISTING_PROMPT policy
             #     * Destination only has different permissions to source

@@ -46,7 +46,6 @@ Flaskage is currently a work in progress.  My current outstanding tasks are:
 * Determine the best way to deal with symbolic link for Twitter Bootstrap fonts
 * Consider a better way to store sensitive configuration (e.g. secret keys
   and database credentials)
-* Create a scaffolding command for helpers
 * Consider a scaffolding command for BDD and Jade templates
 * Complete writing documentation
 * Complete unit tests for the flaskage CLI tool
