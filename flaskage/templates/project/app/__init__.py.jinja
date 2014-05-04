@@ -6,14 +6,12 @@ from flask import Flask, render_template
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.migrate import Migrate
 from flask.ext.assets import Environment, Bundle
-from flask.ext.login import LoginManager
 
 from config import AVAILABLE_CONFIGS
 
 db = SQLAlchemy()
 migrate = Migrate()
 assets = Environment()
-login_manager = LoginManager()
 
 
 def create_app(config):
@@ -81,14 +79,9 @@ def configure_extensions(app, db):
     db.init_app(app)
     migrate.init_app(app, db, directory=os.path.join('db', 'migrations'))
     assets.init_app(app)
-    login_manager.init_app(app)
 
     # app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
     # app.jinja_env.pyjade.options['autocloseCode'] = ['assets']
-
-    # @login_manager.user_loader
-    # def load_user(id):
-    #     return User.query.get(id)
 
 
 def configure_logging(app):

@@ -15,9 +15,9 @@ install:
 
 script:
   # Run all application tests
-  - ./manage.py test
+  - nosetests
   # Run all behaviour driven development tests
-  - ./manage.py behave
+  - flake8
 
 notifications:
   # Disable email notifications if something fails
