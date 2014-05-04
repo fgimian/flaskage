@@ -209,12 +209,12 @@ def model(ctx, name, columns, mode):
     SQLAlchemy mapping:
 
     Numeric Types:
-    - integer: Integer
+    - integer (or int): Integer
     - decimal: Numeric
     - float: Float
 
     Text Types:
-    - string: String
+    - string (or str): String
     - text: Text
 
     Date & Time Types:
@@ -223,8 +223,8 @@ def model(ctx, name, columns, mode):
     - datetime: DateTime
 
     Other Types:
-    - binary: LargeBinary
-    - boolean: Boolean
+    - binary (or bin): LargeBinary
+    - boolean (or bool): Boolean
 
     The string, text and binary types also accept an optional length.
 

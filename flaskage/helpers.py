@@ -26,6 +26,11 @@ COLUMN_TYPE_MAPPING = {
     'string': 'String',
     'text': 'Text'
 }
+COLUMN_TYPE_MAPPING['int'] = COLUMN_TYPE_MAPPING['integer']
+COLUMN_TYPE_MAPPING['bool'] = COLUMN_TYPE_MAPPING['boolean']
+COLUMN_TYPE_MAPPING['bin'] = COLUMN_TYPE_MAPPING['binary']
+COLUMN_TYPE_MAPPING['str'] = COLUMN_TYPE_MAPPING['string']
+
 COLUMN_TYPE_DEFAULT = 'string'
 COLUMN_TYPES_SUPPORTING_LENGTH = ['string', 'text', 'binary']
 
