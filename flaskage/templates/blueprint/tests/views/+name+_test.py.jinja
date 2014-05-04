@@ -5,5 +5,5 @@ from .. import BaseTestCase
 class TestView{{{ name_camelcase }}}(BaseTestCase):
 
     def test_index(self):
-        response = self.client.get('/')
-        assert b'Welcome to your new blueprint! :)' in response.data
+        response = self.client.get('/{{{ name }}}/')
+        assert b'Welcome to your new blueprint!' in response.data
