@@ -46,7 +46,7 @@ network, then start the development server as follows:
 
 .. code-block:: bash
 
-    ./manage.py server -t 0.0.0.0
+    ./manage.py server -h 0.0.0.0
 
 Generating Scaffolds
 --------------------
