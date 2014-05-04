@@ -87,7 +87,7 @@ class Scaffold(object):
                     'destination': ''
                 }
             )
-            os.mkdir(target_root_render)
+            os.makedirs(target_root_render)
         else:
             self.logger.info(
                 'Skipping existing target root directory %s',

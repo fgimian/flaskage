@@ -80,7 +80,7 @@ def new(ctx, project_name, mode):
         ctx.fail('You cannot create a new project inside a project directory')
 
     click.echo()
-    click.echo('Generating new project in %s:' % paint.bold(name))
+    click.echo('Generating new project %s:' % paint.bold(name))
     click.echo()
     scaffold = Scaffold(
         source_root=os.path.join(TEMPLATE_DIR, 'project'),
