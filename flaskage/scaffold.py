@@ -25,6 +25,7 @@ class Scaffold(object):
     def __init__(
         self, source_root, target_root, variables={},
         overwrite_target_root=False, existing_policy=None,
+        compare_directory_permissions=False,
         ignored_files=[], ignored_dirs=[], template_extension='.jinja',
         jinja2_env=Environment(
             block_start_string='{{%', block_end_string='%}}',
@@ -46,6 +47,9 @@ class Scaffold(object):
         self.existing_policy = (
             existing_policy if existing_policy else self.EXISTING_PROMPT
         )
+
+        # Perform a more advanced comparison of directory permissions
+        self.compare_directory_permissions = compare_directory_permissions
 
         # Lists of ignored files and directories
         self.ignored_files = ignored_files
@@ -197,127 +201,145 @@ class Scaffold(object):
             )
             return False
 
-        # Destination exists and is identical to source
-        if (
-            os.path.isdir(target_path_render) and
-            get_permissions(source_subdir) ==
-            get_permissions(target_path_render)
-        ):
-            self.logger.info(
-                'Skipping identical directory %s',
-                os.path.relpath(target_path_render, self.target_root),
-                extra={
-                    'action': 'skip',
-                    'description': 'exist',
-                    'destination': os.path.relpath(
-                        target_path_render, self.target_root
-                    )
-                }
-            )
-            return
-
-        # Destination exists and policy is "skip"
-        if (
-            os.path.isdir(target_path_render) and
-            self.existing_policy == self.EXISTING_SKIP
-        ):
-            self.logger.info(
-                'Skipping existing directory %s',
-                os.path.relpath(target_path_render, self.target_root),
-                extra={
-                    'action': 'skip',
-                    'description': 'exist',
-                    'destination': os.path.relpath(
-                        target_path_render, self.target_root
-                    )
-                }
-            )
-            return
-
-        # If we have gotten this far, then we have to deal with the following:
-        # * Destination does exist and differs from source
-        #   * EXISTING_PROMPT policy
-        #     * Destination only has different permissions to source
-        #   * EXISTING_OVERWRITE policy
-        # * Destination doesn't exist and must be created
-
         # Create a variable to track whether a permission update has been
         # requested for an existing directory.  This will be None if the
         # destination doesn't exist.
         update_permissions = None
 
-        # Prompt the user to update permissions or overwrite the directory
-        # if necessary
-        if (
-            os.path.isdir(target_path_render) and
-            self.existing_policy == self.EXISTING_OVERWRITE
-        ):
-            update_permissions = True
-        elif (
-            os.path.isdir(target_path_render) and
-            self.existing_policy == self.EXISTING_PROMPT
-        ):
-            # Destination exists and has different permissions to source
-            self.logger.warning(
-                'The directory %s exists and has different permissions',
-                os.path.relpath(target_path_render, self.target_root),
-                extra={
-                    'action': 'prompt',
-                    'description': 'conflict',
-                    'destination': os.path.relpath(
-                        target_path_render, self.target_root
-                    )
-                }
-            )
+        # The user has requested a more complex check to confirm that the
+        # directory exists and has the same permissions
+        if self.compare_directory_permissions:
+            # Destination exists and is identical to source
+            if (
+                os.path.isdir(target_path_render) and
+                get_permissions(source_subdir) ==
+                get_permissions(target_path_render)
+            ):
+                self.logger.info(
+                    'Skipping identical directory %s',
+                    os.path.relpath(target_path_render, self.target_root),
+                    extra={
+                        'action': 'skip',
+                        'description': 'identical',
+                        'destination': os.path.relpath(
+                            target_path_render, self.target_root
+                        )
+                    }
+                )
+                return
 
-            update_permissions = prompt_yes_no(
-                'Update permissions of directory %s to %o?' %
-                (target_path_render, get_permissions(source_subdir)),
-                default='n'
-            )
+            # Destination exists and policy is "skip"
+            if (
+                os.path.isdir(target_path_render) and
+                self.existing_policy == self.EXISTING_SKIP
+            ):
+                self.logger.info(
+                    'Skipping existing directory %s',
+                    os.path.relpath(target_path_render, self.target_root),
+                    extra={
+                        'action': 'skip',
+                        'description': 'exist',
+                        'destination': os.path.relpath(
+                            target_path_render, self.target_root
+                        )
+                    }
+                )
+                return
 
-        # If the user has been prompted to make a change and answered no,
-        # then we bail
-        if update_permissions is False:
-            self.logger.info(
-                'Skipping existing directory %s',
-                os.path.relpath(target_path_render, self.target_root),
-                extra={
-                    'action': 'skip',
-                    'description': 'exist',
-                    'destination': os.path.relpath(
-                        target_path_render, self.target_root
-                    )
-                }
-            )
-            return
+            # If we have gotten this far, then we have to deal with the following:
+            # * Destination does exist and differs from source
+            #   * EXISTING_PROMPT policy
+            #     * Destination only has different permissions to source
+            #   * EXISTING_OVERWRITE policy
+            # * Destination doesn't exist and must be created
 
-        # Log the appropriate message depending on the action
-        if os.path.isdir(target_path_render):
-            self.logger.info(
-                'Updating permissions of directory %s to %o',
-                os.path.relpath(target_path_render, self.target_root),
-                get_permissions(source_subdir),
-                extra={
-                    'action': 'chmod (o)',
-                    'description': 'update',
-                    'destination': os.path.relpath(
-                        target_path_render, self.target_root
-                    )
-                }
-            )
+            # Prompt the user to update permissions or overwrite the directory
+            # if necessary
+            if (
+                os.path.isdir(target_path_render) and
+                self.existing_policy == self.EXISTING_OVERWRITE
+            ):
+                update_permissions = True
+            elif (
+                os.path.isdir(target_path_render) and
+                self.existing_policy == self.EXISTING_PROMPT
+            ):
+                # Destination exists and has different permissions to source
+                self.logger.warning(
+                    'The directory %s exists and has different permissions',
+                    os.path.relpath(target_path_render, self.target_root),
+                    extra={
+                        'action': 'prompt',
+                        'description': 'conflict',
+                        'destination': os.path.relpath(
+                            target_path_render, self.target_root
+                        )
+                    }
+                )
+
+                update_permissions = prompt_yes_no(
+                    'Update permissions of directory %s to %o?' %
+                    (target_path_render, get_permissions(source_subdir)),
+                    default='n'
+                )
+
+            # If the user has been prompted to make a change and answered no,
+            # then we bail
+            if update_permissions is False:
+                self.logger.info(
+                    'Skipping existing directory %s',
+                    os.path.relpath(target_path_render, self.target_root),
+                    extra={
+                        'action': 'skip',
+                        'description': 'exist',
+                        'destination': os.path.relpath(
+                            target_path_render, self.target_root
+                        )
+                    }
+                )
+                return
+
+            # Log the appropriate message depending on the action
+            if os.path.isdir(target_path_render):
+                self.logger.info(
+                    'Updating permissions of directory %s to %o',
+                    os.path.relpath(target_path_render, self.target_root),
+                    get_permissions(source_subdir),
+                    extra={
+                        'action': 'chmod (o)',
+                        'description': 'update',
+                        'destination': os.path.relpath(
+                            target_path_render, self.target_root
+                        )
+                    }
+                )
+            else:
+                self.logger.info(
+                    'Making directory %s',
+                    os.path.relpath(target_path_render, self.target_root),
+                    extra={
+                        'action': 'mkdir',
+                        'description': 'create',
+                        'destination': os.path.relpath(
+                            target_path_render, self.target_root
+                        )
+                    }
+                )
         else:
-            self.logger.info(
-                'Making directory %s',
-                os.path.relpath(target_path_render, self.target_root),
-                extra={
-                    'action': 'mkdir',
-                    'description': 'create',
-                    'destination': os.path.relpath(
-                        target_path_render, self.target_root
-                    )
-                }
-            )
+            # Destination exists
+            if os.path.isdir(target_path_render):
+                self.logger.info(
+                    'Skipping existing directory %s',
+                    os.path.relpath(target_path_render, self.target_root),
+                    extra={
+                        'action': 'skip',
+                        'description': 'exist',
+                        'destination': os.path.relpath(
+                            target_path_render, self.target_root
+                        )
+                    }
+                )
+                return
 
         # Take the appropriate actions
         if update_permissions is None:

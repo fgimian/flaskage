@@ -77,7 +77,7 @@ def new(ctx, project_name, mode):
 
     # Generation of a new project can only run outside a valid project
     # directory
-    if valid_project_directory(directory):
+    if valid_project_directory(os.path.dirname(directory)):
         ctx.fail('You cannot create a new project inside a project directory')
 
     click.echo()
