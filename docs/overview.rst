@@ -29,8 +29,6 @@ So what makes Flaskage unique? A few little things:
   all such uncompiled files neatly in an assets directory.
 - **Database migrations**: Flaskage integrates Flask-Migrate_ and is
   ready for database migrations which can be invoked via management commands.
-- **PyJade integration**: If you choose to, you may use PyJade_ to write your
-  templates.  This is a far less verbose language than regular HTML.
 - **Switchable configurations**: With a simple command line switch, you can
   run the development server under any environment you wish (development,
   production or testing).  Further to this, you can set a default environment
@@ -48,11 +46,13 @@ So what makes Flaskage unique? A few little things:
   of the box.
 - **Powerful test tools**: Integrated use of nose_, Coverage.py_, factory_boy_
   and fake-factory_.
-- **Behaviour-driven development**: Integrated use of behave_, splinter_ and
-  selenium_ for fully featured behaviour-driven development.
 - **Python 3 ready**: I have only chosen extensions which work across
   Python 2.6, 2.7 and 3.3 so that you're future-proof if and when you decide
   to move to a Python 3 environment.
+- **PyJade integration (optional)**: If you choose to, you may use PyJade_ to
+  write your templates.  This is a far less verbose language than regular HTML.
+- **Behaviour-driven development (optional)**: Integrated use of behave_,
+  splinter_ and selenium_ for fully featured behaviour-driven development.
 
 Project Structure
 -----------------
@@ -64,24 +64,27 @@ Flaskage is structured as shown below::
     |   |-- models
     |   |-- static
     |   |-- templates
-    |   |-- vendor
     |   '-- views
     |-- db
     |   '-- migrations
-    |-- docs
     |-- features
     |   '-- steps
     |-- lib
-    |-- tests
-    |   |-- fixtures
+    |-- test
+    |   |-- factories
     |   |-- lib
     |   |-- models
     |   '-- views
+    |-- vendor
+    |   '-- assets
+    |-- .bowerrc
+    |-- .travis.yml
     |-- bower.json
     |-- config.py
     |-- manage.py
+    |-- requirements.txt
     |-- setup.cfg
-    '-- requirements.txt
+    '-- wsgi.py
 
 The purpose of each file and directory are as follows:
 
@@ -91,32 +94,40 @@ The purpose of each file and directory are as follows:
   - **models**: Database model definitions
   - **static**: Static files such as CSS, Javascript and images
   - **templates**: Jinja2 templates for presentation
-  - **vendor**: Vendor provided script and stylesheet assets
   - **views**: Views and related forms that provide business logic for each page
 
 - **db**: Database related code and binaries
 
   - **migrations**: The generated Alembic database migrations
 
-- **docs**: Sphinx project documentation
 - **features**: Feature definitions in the Gherkin language to be used for BDD
 
   - **steps**: Test code which validates that each feature works as expected
 
 - **lib**: Supporting libraries you have developed for your web application
-- **tests**: Unit tests for testing your web application
+- **test**: Unit tests for testing your web application
 
-  - **fixtures**: Fixtures created using factory_boy that are used to create
+  - **factories**: factories created using factory_boy that are used to create
     model instances
   - **lib**: Unit tests which test libraries
   - **models**: Unit tests which test models
   - **views**: Unit tests which test views
 
+- **vendor**: Vendor provided libraries
+
+  - **assets**: Third-party Javascript and Stylsheet assets (via Bower)
+
+- **.bowerrc**: Overrides the default installation directory for Bower
+  components
+- **.travis.yml**: The Travis configuration for the application
 - **bower.json**: Vendor provided client-side package requirements
-- **config.py**: Configuration for development, production and test environments
+- **config.py**: Configuration for development, production and test
+  environments
 - **manage.py**: Management interface and command registrations
-- **setup.cfg**: General package configuration (used for nose)
 - **requirements.txt**: Python package requirements
+- **setup.cfg**: General package configuration (used for nose)
+- **wsgi.py**: Exposes the production application to your production WSGI
+  server
 
 .. _Play: http://www.playframework.com/documentation/2.0/Anatomy
 .. _Ruby on Rails: http://guides.rubyonrails.org/getting_started.html#creating-the-blog-application

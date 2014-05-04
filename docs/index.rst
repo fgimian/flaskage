@@ -39,7 +39,9 @@ patterns that you can use as a reference while developing your application.
 
    overview
    installation
+   creating
    configuring
+   troubleshooting
    database_design
    database_queries
    unit_testing_models
@@ -47,9 +49,16 @@ patterns that you can use as a reference while developing your application.
    client_side_libraries
    asset_pipeline
    jinja2_templates
-   pyjade_templates
    unit_testing_views
+   caching
+   mail
+   background_tasks
+   authentication
+   authorisation
+   internationalisation
    bdd_testing
+   pyjade_templates
+   deploying
 
 .. _Ruby on Rails: http://rubyonrails.org/
 .. _Play: http://www.playframework.com/

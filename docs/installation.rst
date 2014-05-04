@@ -16,19 +16,24 @@ Flaskage supports the following Linux operating systems:
 - Debian 7 (Wheezy)
 - Ubuntu Server 10.04 LTS (Lucid Lynx)
 - Ubuntu Server 12.04 LTS (Precise Pangolin)
+- Ubuntu Server 14.04 LTS (Trusty Tahr)
 - CentOS 5.x
 - CentOS 6.x
 - Red Hat Enterprise Linux 5.x
 - Red Hat Enterprise Linux 6.x
 
+.. note::
+
+    Although Flaskage is designed to work on Python 3.3 and above, it is
+    recommended that you develop projects on Python 2.7 until the Python 3
+    ecosystem further matures.
+
+    Python 3 really hasn't presented any compelling advantages over its prior
+    version and has added some complexity around aspects of the language which
+    many (including me) feel is unnecessary.
+
 You'll need to install some pre-requisites to ensure that all Python packages
 install correctly.
-
-If you're running Python 3.3 on Ubuntu Server 12.04:
-
-.. code-block:: bash
-
-    $ sudo apt-get install gcc python3.3-dev git
 
 If you're running Python 2.6 or 2.7 Debian or Ubuntu Server:
 
@@ -59,6 +64,7 @@ Flaskage supports the following Python versions:
 - CPython 2.6
 - CPython 2.7
 - CPython 3.3
+- CPython 3.4
 - PyPy 2.2
 
 If you haven't already, you'll need to first install setuptools, pip and
@@ -66,7 +72,7 @@ virtualenv as follows:
 
 .. code-block:: bash
 
-    $ sudo wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py -O - | sudo python
+    $ curl https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py | sudo python
     $ easy_install pip
     $ pip install virtualenv
 
@@ -79,12 +85,9 @@ Create a virtualenv and install the Flaskage packages:
     $ source ~/.virtualenv/flaskage/bin/activate
     $ pip install git+git://github.com/fgimian/flaskage.git
 
-You may now create a new project as follows:
-
-.. code-block:: bash
-
-    $ flaskage new <project-name>
-    $ cd <project-name>
+This will make an executable script named **flaskage** available which allows
+you to create a new project and generate scaffolding.  More on that to follow
+in the next section.
 
 Installing Node.js Components
 -----------------------------
@@ -103,33 +106,3 @@ the following:
 
     If your Node.js installation is global and owned by root, you'll need to 
     run the command above using sudo.
-
-Installing jQuery and Twitter Bootstrap with Bower
---------------------------------------------------
-
-From the project root directory, install the client-side libraries as follows:
-
-.. code-block:: bash
-
-    $ bower install
-
-Running the Development Server
-------------------------------
-
-Once you have completed installing all the necessary components, you may start
-the Flask development server using the following command in the root directory
-of the project:
-
-.. code-block:: bash
-
-    ./manage.py server
-
-This will run the development server on loopback address which will mean that
-it will only be available for viewing by your development server.
-
-If you wish to make the website available to other machines on the same
-network, then start the development server as follows:
-
-.. code-block:: bash
-
-    ./manage.py server -t 0.0.0.0

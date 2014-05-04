@@ -7,6 +7,12 @@ Flaskage leverages the extremely powerful SQLAlchemy_ ORM for database
 interaction.  SQLAlchemy can indeed by a little overwhelming when starting
 out, but it's worth it in the long run.
 
+In most cases, it is suggested that you use scaffolding to generate your models
+so that they are created in the correct location and with the correct
+Flaskage naming conventions which have been carefully thought out.  However,
+this page goes through all details of manual model design so that you can
+understand how everything works.
+
 The CRUD Mixin
 --------------
 
@@ -89,6 +95,12 @@ information.
 
 Relationship Definitions
 ------------------------
+
+.. note::
+
+    At the current time, Flaskage scaffolding doesn't support creation of
+    relationships, so the foreign key fields and relationships will need to be
+    added manually after you generate the model with all other fields.
 
 **One to many** relationships may be defined as follows:
 

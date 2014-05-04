@@ -200,7 +200,7 @@ def model(ctx, name, columns, mode):
     """Generate a database model using a given name. You may also specify the
     columns you need following the model name using the format:
 
-    <column>[:<type>[,<length>][:<modifier>][:<modifier>]...]
+    <name>[:<type>[,<length>][:<modifier>,<modifier>...]]
 
     e.g.
 
@@ -235,7 +235,7 @@ def model(ctx, name, columns, mode):
     - required
     - unique
 
-    If no primary key is specified, an primary key integer column named id
+    If no primary key is specified, a primary key integer column named id
     will be created for you.
     """
     # Convert the name to CamelCase for use with class names
