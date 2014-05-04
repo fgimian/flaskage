@@ -12,7 +12,7 @@ import flaskage
 from flaskage.scaffold import Scaffold
 from flaskage.utils import camelcase, AliasedGroup, MODULE_NAME
 from flaskage.helpers import (
-    valid_project_directory, ColoredFormatter, MODEL_COLUMN,
+    valid_project_directory, ColoredFormatter, PROJECT_NAME, MODEL_COLUMN,
     COLUMN_TYPE_MAPPING, COLUMN_MODIFIER_MAPPING, COLUMN_MODIFIER_PRIMARY_KEY
 )
 
@@ -64,16 +64,19 @@ def cli():
 @click.command(add_help_option=False)
 @click.help_option('-h', '--help')
 @mode_option
-@click.argument('name', type=MODULE_NAME)
+@click.argument('project_name', type=PROJECT_NAME)
 @click.pass_context
-def new(ctx, name, mode):
+def new(ctx, project_name, mode):
     """Create a new Flaskage project."""
+    # Unpack the project directory and name
+    name, directory = project_name
+
     # Convert the name to CamelCase for use with class names
     name_camelcase = camelcase(name)
 
     # Generation of a new project can only run outside a valid project
     # directory
-    if valid_project_directory():
+    if valid_project_directory(directory):
         ctx.fail('You cannot create a new project inside a project directory')
 
     click.echo()
@@ -81,7 +84,7 @@ def new(ctx, name, mode):
     click.echo()
     scaffold = Scaffold(
         source_root=os.path.join(TEMPLATE_DIR, 'project'),
-        target_root=name,
+        target_root=directory,
         variables={'name': name, 'name_camelcase': name_camelcase},
         ignored_dirs=IGNORED_DIRS, ignored_files=IGNORED_FILES,
         overwrite_target_root=True, existing_policy=mode
@@ -91,7 +94,7 @@ def new(ctx, name, mode):
     click.echo('Getting started with your project:')
     click.echo()
     click.echo('  1. Change into the new project directory')
-    click.echo('     cd %s' % name)
+    click.echo('     cd %s' % directory)
     click.echo()
     click.echo('  2. Install all client-side components using Bower')
     click.echo('     bower install')

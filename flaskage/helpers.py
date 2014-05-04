@@ -38,17 +38,16 @@ COLUMN_MODIFIER_MAPPING = {
 COLUMN_MODIFIER_PRIMARY_KEY = 'primary'
 
 
-def valid_project_directory():
-    cwd = os.getcwd()
+def valid_project_directory(directory=os.getcwd()):
     return (
-        os.path.isdir(os.path.join(cwd, 'app')) and
-        os.path.isdir(os.path.join(cwd, 'app', 'models')) and
-        os.path.isdir(os.path.join(cwd, 'app', 'static')) and
-        os.path.isdir(os.path.join(cwd, 'app', 'templates')) and
-        os.path.isdir(os.path.join(cwd, 'app', 'views')) and
-        os.path.isdir(os.path.join(cwd, 'db', 'migrations')) and
-        os.path.isdir(os.path.join(cwd, 'tests')) and
-        os.path.isfile(os.path.join(cwd, 'manage.py'))
+        os.path.isdir(os.path.join(directory, 'app')) and
+        os.path.isdir(os.path.join(directory, 'app', 'models')) and
+        os.path.isdir(os.path.join(directory, 'app', 'static')) and
+        os.path.isdir(os.path.join(directory, 'app', 'templates')) and
+        os.path.isdir(os.path.join(directory, 'app', 'views')) and
+        os.path.isdir(os.path.join(directory, 'db', 'migrations')) and
+        os.path.isdir(os.path.join(directory, 'tests')) and
+        os.path.isfile(os.path.join(directory, 'manage.py'))
     )
 
 
@@ -62,6 +61,23 @@ class ColoredFormatter(logging.Formatter):
             color = LOGGING_COLOR_MAPPING[record.description]
             record.description = color(record.description)
         return logging.Formatter.format(self, record)
+
+
+class ProjectNameParamType(click.ParamType):
+    name = 'project_name'
+
+    def convert(self, value, param, ctx):
+        name = os.path.basename(value)
+        directory = os.path.join(
+            os.path.dirname(value), name.replace('_', '-')
+        )
+        if valid_underscore_name(name):
+            return (name, directory)
+        else:
+            self.fail('%s is not a valid project name' % name, param, ctx)
+
+    def __repr__(self):
+        return 'PROJECT_NAME'
 
 
 class ModelColumnParamType(click.ParamType):
@@ -121,4 +137,5 @@ class ModelColumnParamType(click.ParamType):
     def __repr__(self):
         return 'MODEL_COLUMN'
 
+PROJECT_NAME = ProjectNameParamType()
 MODEL_COLUMN = ModelColumnParamType()

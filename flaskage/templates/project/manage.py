@@ -7,6 +7,7 @@ from flask.ext.script import Manager
 from flask.ext.script.commands import Clean, Server, Shell, ShowUrls
 from flask.ext.migrate import MigrateCommand
 from flask.ext.assets import ManageAssets
+from factory.alchemy import SQLAlchemyModelFactory
 
 from app import create_app, db, models
 from config import AVAILABLE_CONFIGS, DEFAULT_CONFIG
