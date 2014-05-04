@@ -40,7 +40,7 @@ Flaskage.
 However, if you ever wish to see a full mapping of all URLs and their
 associated view function, you may run:
 
-..code:: bash
+.. code:: bash
 
     ./manage.py urls
 
@@ -51,7 +51,7 @@ Any command that you invoke via manage.py will be run against the development
 environment by default.  However, you may easily override this using the **-c**
 option as shown below:
 
-..code:: bash
+.. code:: bash
 
     ./manage.py -c production shell
 
