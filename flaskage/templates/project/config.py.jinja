@@ -41,7 +41,6 @@ class DevelopmentConfig(Config):
         'sqlite:///%s' %
         os.path.join(Config.PROJECT_ROOT, 'db', '{{{ name }}}.db')
     )
-    SQLALCHEMY_ECHO = True
 
 
 class TestingConfig(Config):

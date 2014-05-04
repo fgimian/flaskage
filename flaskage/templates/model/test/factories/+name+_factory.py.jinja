@@ -12,4 +12,6 @@ class {{{ name_camelcase }}}Factory(SQLAlchemyModelFactory):
     FACTORY_FOR = {{{ name_camelcase }}}
     FACTORY_SESSION = db.session
 
-    pass
+{{% for name, column_factory_definition in column_factory_definitions %}}
+    {{{ name }}} = factory.LazyAttribute(lambda a: {{{ column_factory_definition }}})
+{{% endfor %}}

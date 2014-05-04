@@ -6,6 +6,6 @@ class {{{ name_camelcase }}}(db.Model, CRUDMixin):
 {{% if not primary_key_provided %}}
     id = db.Column(db.Integer, primary_key=True)
 {{% endif %}}
-{{% for name, definition in column_definitions %}}
+{{% for name, definition in column_model_definitions %}}
     {{{ name }}} = db.Column({{{ definition }}})
 {{% endfor %}}

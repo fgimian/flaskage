@@ -13,7 +13,8 @@ from flaskage.scaffold import Scaffold
 from flaskage.utils import camelcase, AliasedGroup, MODULE_NAME
 from flaskage.helpers import (
     valid_project_directory, ColoredFormatter, PROJECT_NAME, MODEL_COLUMN,
-    COLUMN_TYPE_MAPPING, COLUMN_MODIFIER_MAPPING, COLUMN_MODIFIER_PRIMARY_KEY
+    COLUMN_TYPE_MAPPING, COLUMN_FACTORY_MAPPING, COLUMN_MODIFIER_MAPPING,
+    COLUMN_MODIFIER_PRIMARY_KEY
 )
 
 
@@ -199,7 +200,7 @@ def model(ctx, name, columns, mode):
     """Generate a database model using a given name. You may also specify the
     columns you need following the model name using the format:
 
-    <column>[:<type>[,<length>]][:<modifier>][:<modifier>]...
+    <column>[:<type>[,<length>][:<modifier>][:<modifier>]...]
 
     e.g.
 
@@ -250,21 +251,37 @@ def model(ctx, name, columns, mode):
     # Generate the Python code required for each column (this is too
     # tedious to do in templates)
     primary_key_provided = False
-    column_definitions = []
+    column_model_definitions = []
+    column_factory_definitions = []
 
     for column_name, type, length, modifiers in columns:
         # Generate the type and its size (if applicable)
-        definition = 'db.%s' % COLUMN_TYPE_MAPPING[type]
+        model_definition = 'db.%s' % COLUMN_TYPE_MAPPING[type]
         if length:
-            definition += '(%i)' % length
+            model_definition += '(%i)' % length
 
         # Generate modifiers (primary key, index .etc)
         for modifier in modifiers:
-            definition += ', %s' % COLUMN_MODIFIER_MAPPING[modifier]
+            model_definition += ', %s' % COLUMN_MODIFIER_MAPPING[modifier]
             if modifier == COLUMN_MODIFIER_PRIMARY_KEY:
                 primary_key_provided = True
 
-        column_definitions.append((column_name, definition))
+        # Add the model column definition to our list
+        column_model_definitions.append((column_name, model_definition))
+
+        # Generate the model factory fakers
+        factory_definition = None
+        if type in COLUMN_FACTORY_MAPPING:
+            if column_name in COLUMN_FACTORY_MAPPING[type]:
+                factory_definition = COLUMN_FACTORY_MAPPING[type][column_name]
+            elif '*' in COLUMN_FACTORY_MAPPING[type]:
+                factory_definition = COLUMN_FACTORY_MAPPING[type]['*']
+
+        # Add the factory column definition to our list
+        if factory_definition:
+            column_factory_definitions.append(
+                (column_name, factory_definition)
+            )
 
     click.echo()
     click.echo('Generating new model named %s:' % paint.bold(name))
@@ -274,8 +291,9 @@ def model(ctx, name, columns, mode):
         target_root=os.getcwd(),
         variables={
             'name': name, 'name_camelcase': name_camelcase,
-            'column_definitions': column_definitions,
-            'primary_key_provided': primary_key_provided
+            'column_model_definitions': column_model_definitions,
+            'primary_key_provided': primary_key_provided,
+            'column_factory_definitions': column_factory_definitions
         },
         ignored_dirs=IGNORED_DIRS, ignored_files=IGNORED_FILES,
         overwrite_target_root=True, existing_policy=mode
@@ -287,7 +305,7 @@ def model(ctx, name, columns, mode):
     click.echo('  1. Add the model import to app/models/__init__.py')
     click.echo('     from .%s import %s  # noqa' % (name, name_camelcase))
     click.echo()
-    click.echo('  2. Add the factory import to tests/factories/__init__.py')
+    click.echo('  2. Add the factory import to test/factories/__init__.py')
     click.echo('     from .%s_factory import %sFactory  # noqa' %
                (name, name_camelcase))
     click.echo()

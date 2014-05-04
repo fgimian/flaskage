@@ -26,13 +26,109 @@ COLUMN_TYPE_MAPPING = {
     'string': 'String',
     'text': 'Text'
 }
-COLUMN_TYPE_MAPPING['int'] = COLUMN_TYPE_MAPPING['integer']
-COLUMN_TYPE_MAPPING['bool'] = COLUMN_TYPE_MAPPING['boolean']
-COLUMN_TYPE_MAPPING['bin'] = COLUMN_TYPE_MAPPING['binary']
-COLUMN_TYPE_MAPPING['str'] = COLUMN_TYPE_MAPPING['string']
+COLUMN_TYPE_MAPPING.update({
+    'int': COLUMN_TYPE_MAPPING['integer'],
+    'bool': COLUMN_TYPE_MAPPING['boolean'],
+    'bin': COLUMN_TYPE_MAPPING['binary'],
+    'str': COLUMN_TYPE_MAPPING['string']
+})
 
 COLUMN_TYPE_DEFAULT = 'string'
 COLUMN_TYPES_SUPPORTING_LENGTH = ['string', 'text', 'binary']
+
+COLUMN_FACTORY_MAPPING = {
+    'integer': {
+        '*': 'fake.random_int()'
+    },
+    'decimal': {
+        '*': 'fake.pyfloat()'
+    },
+    'float': {
+        '*': 'fake.pyfloat()'
+    },
+    'boolean': {
+        '*': 'fake.boolean()'
+    },
+    'date': {
+        '*': 'fake.date_time().date()'
+    },
+    'time': {
+        '*': 'fake.date_time().time()'
+    },
+    'datetime': {
+        '*': 'fake.date_time()'
+    },
+    'binary': {
+        '*': "'test binary data'"
+    },
+    'string': {
+        '*': 'fake.word()',
+        'user_name': 'fake.user_name()',
+        'password': 'fake.password()',
+
+        'first_name': 'fake.first_name()',
+        'last_name': 'fake.last_name()',
+        'name': 'fake.name()',
+        'job': 'fake.job()',
+        'email': 'fake.email()',
+
+        'address': 'fake.address()',
+        'secondary_address': 'fake.secondary_address()',
+        'building_number': 'fake.building_number()',
+        'street_name': 'fake.street_name()',
+        'street_address': 'fake.street_address()',
+        'city': 'fake.city()',
+        'state': 'fake.state()',
+        'state_abbr': 'fake.state_abbr()',
+        'postcode': 'fake.postcode()',
+        'country': 'fake.country()',
+        'country_code': 'fake.country_code()',
+        'phone_number': 'fake.phone_number()',
+
+        'credit_card_number': 'fake.credit_card_number()',
+        'credit_card_provider': 'fake.credit_card_provider()',
+        'credit_card_expire': 'fake.credit_card_expire()',
+        'credit_card_security_code': 'fake.credit_card_security_code()',
+
+        'company': 'fake.company()',
+        'company_email': 'fake.company_email()',
+
+        'timezone': 'fake.timezone()',
+        'locale': 'fake.locale()',
+        'language_code': 'fake.language_code()',
+
+        'uri': 'fake.uri()',
+        'uri_path': 'fake.uri_path()',
+        'url': 'fake.url()',
+        'domain_name': 'fake.domain_name()'
+    },
+    'text': {
+        '*': 'text'
+    },
+}
+COLUMN_FACTORY_MAPPING['string'].update({
+    'username': COLUMN_FACTORY_MAPPING['string']['user_name'],
+    'full_name': COLUMN_FACTORY_MAPPING['string']['name'],
+    'occupation': COLUMN_FACTORY_MAPPING['string']['job'],
+    'email_address': COLUMN_FACTORY_MAPPING['string']['email'],
+
+    'building_no': COLUMN_FACTORY_MAPPING['string']['building_number'],
+    'street_number': COLUMN_FACTORY_MAPPING['string']['building_number'],
+    'street_no': COLUMN_FACTORY_MAPPING['string']['building_number'],
+    'state_abbreviation': COLUMN_FACTORY_MAPPING['string']['state_abbr'],
+    'phone': COLUMN_FACTORY_MAPPING['string']['phone_number'],
+
+    'credit_card': COLUMN_FACTORY_MAPPING['string']['credit_card_number'],
+
+    'business_name': COLUMN_FACTORY_MAPPING['string']['company'],
+    'business_email': COLUMN_FACTORY_MAPPING['string']['company_email'],
+    'organisation_name': COLUMN_FACTORY_MAPPING['string']['company'],
+    'organisation_email': COLUMN_FACTORY_MAPPING['string']['company_email'],
+    'organization_name': COLUMN_FACTORY_MAPPING['string']['company'],
+    'organization_email': COLUMN_FACTORY_MAPPING['string']['company_email'],
+
+    'domain': COLUMN_FACTORY_MAPPING['string']['domain_name']
+})
 
 COLUMN_MODIFIER_MAPPING = {
     'index': 'index=True',
@@ -51,7 +147,7 @@ def valid_project_directory(directory=os.getcwd()):
         os.path.isdir(os.path.join(directory, 'app', 'templates')) and
         os.path.isdir(os.path.join(directory, 'app', 'views')) and
         os.path.isdir(os.path.join(directory, 'db', 'migrations')) and
-        os.path.isdir(os.path.join(directory, 'tests')) and
+        os.path.isdir(os.path.join(directory, 'test')) and
         os.path.isfile(os.path.join(directory, 'manage.py'))
     )
 
