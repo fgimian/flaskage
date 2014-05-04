@@ -246,3 +246,36 @@ translates to:
     users = User.query.with_entities(
         User.age, db.func.count().label('counter')
     ).group_by(User.age).having('counter > 5').all()
+
+Sub-queries, ranking and extracting date components
+
+.. code-block:: sql
+
+    SELECT name, used, date
+    FROM (SELECT name, value, date,
+                 rank() OVER (PARTITION BY name, EXTRACT(YEAR FROM date)
+                              ORDER BY date DESC) AS ranking
+          FROM bandwidth_usage) AS bwr
+    WHERE ranking = 1
+
+translates to:
+
+.. code-block:: python
+
+    used_bw_subquery = BandwidthUsage.query.add_columns(
+        db.func.rank().over(
+            partition_by=[BandwidthUsage.name,
+                          db.extract('year', BandwidthUsage.date)],
+            order_by=BandwidthUsage.date.desc()
+        ).label('ranking')
+    ).subquery('bwr')
+
+    used_bw = BandwidthUsage.query.select_entity_from(used_bw_subquery).filter(
+        bw_subquery.c.ranking == 1
+    )
+
+.. tip::
+
+    When constructing such complex queries containing sub-quries, it's best to
+    tackle the inner most query first and work your way outwards until you
+    reach the main query.
