@@ -584,7 +584,8 @@ class TestScaffold:
         os.chmod(test_directory, stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR)
         self.build_scaffold(
             'test-template-2', overwrite_target_root=True,
-            existing_policy=Scaffold.EXISTING_PROMPT
+            existing_policy=Scaffold.EXISTING_PROMPT,
+            compare_directory_permissions=True
         )
         assert self.exists('directory1', type='dir')
         assert get_permissions(test_directory) == 0o775
@@ -597,7 +598,8 @@ class TestScaffold:
         os.chmod(test_directory, stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR)
         self.build_scaffold(
             'test-template-2', overwrite_target_root=True,
-            existing_policy=Scaffold.EXISTING_OVERWRITE
+            existing_policy=Scaffold.EXISTING_OVERWRITE,
+            compare_directory_permissions=True
         )
         assert self.exists('directory1', type='dir')
         assert get_permissions(test_directory) == 0o775
@@ -614,7 +616,8 @@ class TestScaffold:
             stat.S_IROTH | stat.S_IXOTH
         )
         self.build_scaffold(
-            'test-template-2', overwrite_target_root=True
+            'test-template-2', overwrite_target_root=True,
+            compare_directory_permissions=True
         )
         assert self.exists('directory1', type='dir')
         assert get_permissions(test_directory) == 0o775
