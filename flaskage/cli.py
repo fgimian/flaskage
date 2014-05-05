@@ -221,7 +221,9 @@ def helper(ctx, name, mode):
     click.echo()
 
 
-@generate.command(add_help_option=False, short_help='Generate a database model')
+@generate.command(
+    add_help_option=False, short_help='Generate a database model'
+)
 @click.help_option('-h', '--help')
 @mode_option
 @click.argument('name', type=MODULE_NAME)
