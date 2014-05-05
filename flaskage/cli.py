@@ -62,7 +62,7 @@ def cli():
     pass
 
 
-@click.command(add_help_option=False)
+@cli.command(add_help_option=False)
 @click.help_option('-h', '--help')
 @mode_option
 @click.argument('project_name', type=PROJECT_NAME)
@@ -110,14 +110,14 @@ def new(ctx, project_name, mode):
     click.echo()
 
 
-@click.command(add_help_option=False, cls=AliasedGroup)
+@cli.command(add_help_option=False, cls=AliasedGroup)
 @click.help_option('-h', '--help')
 def generate():
     """Generate code for an application component."""
     pass
 
 
-@click.command(add_help_option=False)
+@generate.command(add_help_option=False)
 @click.help_option('-h', '--help')
 @mode_option
 @click.argument('name', type=MODULE_NAME)
@@ -148,7 +148,7 @@ def asset(ctx, name, mode):
     click.echo()
 
 
-@click.command(add_help_option=False)
+@generate.command(add_help_option=False)
 @click.help_option('-h', '--help')
 @mode_option
 @click.argument('name', type=MODULE_NAME)
@@ -190,7 +190,7 @@ def blueprint(ctx, name, mode):
     click.echo()
 
 
-@click.command(add_help_option=False)
+@generate.command(add_help_option=False)
 @click.help_option('-h', '--help')
 @mode_option
 @click.argument('name', type=MODULE_NAME)
@@ -221,7 +221,7 @@ def helper(ctx, name, mode):
     click.echo()
 
 
-@click.command(add_help_option=False, short_help='Generate a database model')
+@generate.command(add_help_option=False, short_help='Generate a database model')
 @click.help_option('-h', '--help')
 @mode_option
 @click.argument('name', type=MODULE_NAME)
@@ -349,7 +349,7 @@ def model(ctx, name, columns, mode):
     click.echo()
 
 
-@click.command(add_help_option=False)
+@generate.command(add_help_option=False)
 @click.help_option('-h', '--help')
 @mode_option
 @click.argument('name', type=MODULE_NAME)
@@ -378,15 +378,6 @@ def library(ctx, name, mode):
     )
     scaffold.render_structure()
     click.echo()
-
-# Setup the command hierarchy
-cli.add_command(new)
-cli.add_command(generate)
-generate.add_command(asset)
-generate.add_command(blueprint)
-generate.add_command(helper)
-generate.add_command(model)
-generate.add_command(library)
 
 # Setup log formatting and display
 configure_logging()
