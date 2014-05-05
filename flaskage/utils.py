@@ -13,6 +13,7 @@ PY3 = sys.version_info[0] == 3
 if PY3:  # pragma: nocover
     def b(s):
         return s.encode("latin-1")
+    from builtins import input
 else:  # pragma: nocover
     def b(s):
         return s
