@@ -37,30 +37,14 @@ COLUMN_TYPE_DEFAULT = 'string'
 COLUMN_TYPES_SUPPORTING_LENGTH = ['string', 'text', 'binary']
 
 COLUMN_FACTORY_MAPPING = {
-    'integer': {
-        '*': 'fake.random_int()'
-    },
-    'decimal': {
-        '*': 'fake.pyfloat()'
-    },
-    'float': {
-        '*': 'fake.pyfloat()'
-    },
-    'boolean': {
-        '*': 'fake.boolean()'
-    },
-    'date': {
-        '*': 'fake.date_time().date()'
-    },
-    'time': {
-        '*': 'fake.date_time().time()'
-    },
-    'datetime': {
-        '*': 'fake.date_time()'
-    },
-    'binary': {
-        '*': "'test binary data'"
-    },
+    'integer': {'*': 'fake.random_int()'},
+    'decimal': {'*': 'fake.pyfloat()'},
+    'float': {'*': 'fake.pyfloat()'},
+    'boolean': {'*': 'fake.boolean()'},
+    'date': {'*': 'fake.date_time().date()'},
+    'time': {'*': 'fake.date_time().time()'},
+    'datetime': {'*': 'fake.date_time()'},
+    'binary': {'*': "'test binary data'"},
     'string': {
         '*': 'fake.word()',
         'user_name': 'fake.user_name()',
@@ -102,9 +86,7 @@ COLUMN_FACTORY_MAPPING = {
         'url': 'fake.url()',
         'domain_name': 'fake.domain_name()'
     },
-    'text': {
-        '*': 'text'
-    },
+    'text': {'*': 'fake.paragraph()'}
 }
 COLUMN_FACTORY_MAPPING['string'].update({
     'username': COLUMN_FACTORY_MAPPING['string']['user_name'],
