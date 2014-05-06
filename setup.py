@@ -21,7 +21,7 @@ setup(
     },
     zip_safe=False,
     install_requires=[
-        'click>=0.1',
+        'click>=0.2',
         'Jinja2>=2.7',
         'painter>=0.3'
     ],
