@@ -104,7 +104,7 @@ def new(ctx, project_name, mode):
     click.echo('     bower install')
     click.echo()
     click.echo('  3. Install all server-side dependencies using pip')
-    click.echo('     pip install -r requirements.txt')
+    click.echo('     pip install -r requirements/development.txt')
     click.echo()
     click.echo('  4. Start up the development web server')
     click.echo('     ./manage.py server')

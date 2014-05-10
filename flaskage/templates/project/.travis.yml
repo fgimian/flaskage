@@ -11,7 +11,7 @@ install:
   # Install client-side libraries via Bower
   - bower install
   # Install all required Python packages
-  - pip install -r requirements.txt
+  - pip install -r requirements/development.txt
 
 script:
   # Run all application tests
