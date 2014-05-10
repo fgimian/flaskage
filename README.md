@@ -36,18 +36,26 @@ Refer to the [documentation](http://flaskage.readthedocs.org/) for further instr
 
 ## TODO ##
 
-Flaskage is currently a work in progress.  My current outstanding tasks are:
+Flaskage is currently a work in progress.  My current outstanding tasks are...
+
+CLI:
+
+* Provide the ability to turn off colors when using the flaskage command
+* Complete unit tests for the flaskage CLI tool
+* Consider a scaffolding command for BDD and Jade templates
+
+Project Structure:
 
 * Consider requirements files for each environment
-* Provide the ability to turn off colors when using the flaskage command
 * Improve organisation of assets and resolve multiple registrations during
   testing
 * Determine the best way to deal with symbolic link for Twitter Bootstrap fonts
 * Consider a better way to store sensitive configuration (e.g. secret keys
   and database credentials)
-* Consider a scaffolding command for BDD and Jade templates
+
+Documentation:
+
 * Complete writing documentation
-* Complete unit tests for the flaskage CLI tool
 
 Long-term goals are as follows:
 
