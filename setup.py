@@ -21,7 +21,7 @@ setup(
     },
     zip_safe=False,
     install_requires=[
-        'click>=0.2',
+        'click>=0.6',
         'Jinja2>=2.7'
     ],
     setup_requires=[

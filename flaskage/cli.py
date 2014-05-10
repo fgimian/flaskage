@@ -241,26 +241,31 @@ def model(ctx, name, columns, mode):
     The following types are listed below along with their corresponding
     SQLAlchemy mapping:
 
+    \b
     Numeric Types:
     - integer (or int): Integer
     - decimal: Numeric
     - float: Float
 
+    \b
     Text Types:
     - string (or str): String
     - text: Text
 
+    \b
     Date & Time Types:
     - date: Date
     - time: Time
     - datetime: DateTime
 
+    \b
     Other Types:
     - binary (or bin): LargeBinary
     - boolean (or bool): Boolean
 
     The string, text and binary types also accept an optional length.
 
+    \b
     The column modifiers available are:
     - index
     - primary
