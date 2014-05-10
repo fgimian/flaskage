@@ -38,7 +38,6 @@ Refer to the [documentation](http://flaskage.readthedocs.org/) for further instr
 
 Flaskage is currently a work in progress.  My current outstanding tasks are:
 
-* Improve the way colors are adjusted when using the flaskage command
 * Consider requirements files for each environment
 * Provide the ability to turn off colors when using the flaskage command
 * Improve organisation of assets and resolve multiple registrations during

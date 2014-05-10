@@ -6,7 +6,6 @@ import sys
 import logging
 
 import click
-from painter import paint
 
 import flaskage
 from flaskage.scaffold import Scaffold
@@ -32,7 +31,7 @@ IGNORED_FILES = ['*.pyc']
 
 def configure_logging():
     """Adjust log output formatting"""
-    formatter = ColoredFormatter('%(description)23s : %(destination)s')
+    formatter = ColoredFormatter('<c>%(description)16s<r> : %(destination)s')
     ch = logging.StreamHandler(sys.stdout)
     ch.setLevel(logging.INFO)
     ch.setFormatter(formatter)
@@ -81,7 +80,7 @@ def new(ctx, project_name, mode):
         ctx.fail('You cannot create a new project inside a project directory')
 
     click.echo()
-    click.echo('Generating new project %s:' % paint.bold(name))
+    click.echo('Generating new project %s:' % name)
     click.echo()
     scaffold = Scaffold(
         source_root=os.path.join(TEMPLATE_DIR, 'project'),
@@ -135,7 +134,7 @@ def asset(ctx, name, mode):
         )
 
     click.echo()
-    click.echo('Generating new asset named %s:' % paint.bold(name))
+    click.echo('Generating new asset named %s:' % name)
     click.echo()
     scaffold = Scaffold(
         source_root=os.path.join(TEMPLATE_DIR, 'asset'),
@@ -166,7 +165,7 @@ def blueprint(ctx, name, mode):
         )
 
     click.echo()
-    click.echo('Generating new blueprint named %s:' % paint.bold(name))
+    click.echo('Generating new blueprint named %s:' % name)
     click.echo()
     scaffold = Scaffold(
         source_root=[
@@ -208,7 +207,7 @@ def helper(ctx, name, mode):
         )
 
     click.echo()
-    click.echo('Generating new helper named %s:' % paint.bold(name))
+    click.echo('Generating new helper named %s:' % name)
     click.echo()
     scaffold = Scaffold(
         source_root=os.path.join(TEMPLATE_DIR, 'helper'),
@@ -317,7 +316,7 @@ def model(ctx, name, columns, mode):
             )
 
     click.echo()
-    click.echo('Generating new model named %s:' % paint.bold(name))
+    click.echo('Generating new model named %s:' % name)
     click.echo()
     scaffold = Scaffold(
         source_root=os.path.join(TEMPLATE_DIR, 'model'),
@@ -369,7 +368,7 @@ def library(ctx, name, mode):
         )
 
     click.echo()
-    click.echo('Generating new library named %s:' % paint.bold(name))
+    click.echo('Generating new library named %s:' % name)
     click.echo()
     scaffold = Scaffold(
         source_root=os.path.join(TEMPLATE_DIR, 'lib'),

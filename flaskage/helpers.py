@@ -2,16 +2,27 @@ import os
 import logging
 
 import click
-from painter import paint
 
 from .utils import valid_underscore_name
 
+COLORS = {
+    'black': '\x1b[30;1m',
+    'red': '\x1b[31;1m',
+    'green': '\x1b[32;1m',
+    'yellow': '\x1b[33;1m',
+    'blue': '\x1b[34;1m',
+    'magenta': '\x1b[35;1m',
+    'cyan': '\x1b[36;1m',
+    'white': '\x1b[37;1m',
+}
+COLOR_RESET = '\x1b[0m'
+
 LOGGING_COLOR_MAPPING = {
-    'identical': paint.light_blue,
-    'exist': paint.light_blue,
-    'conflict': paint.light_red,
-    'create': paint.light_green,
-    'update': paint.light_yellow
+    'identical': COLORS['blue'],
+    'exist': COLORS['blue'],
+    'conflict': COLORS['red'],
+    'create': COLORS['green'],
+    'update': COLORS['yellow']
 }
 
 COLUMN_TYPE_MAPPING = {
@@ -135,15 +146,44 @@ def valid_project_directory(directory=os.getcwd()):
 
 
 class ColoredFormatter(logging.Formatter):
-    def __init__(self, msg, use_color=True):
-        logging.Formatter.__init__(self, msg)
-        self.use_color = use_color
+    def __init__(self, *args, **kwargs):
+        self.use_color = kwargs.pop('use_color', True)
+        logging.Formatter.__init__(self, *args, **kwargs)
 
     def format(self, record):
         if self.use_color:
             color = LOGGING_COLOR_MAPPING[record.description]
-            record.description = color(record.description)
-        return logging.Formatter.format(self, record)
+            reset = COLOR_RESET
+
+            # Grab the original format (taking into account API changes to the
+            # logging library in Python 3.x)
+            original_fmt = (
+                self._style._fmt if hasattr(self, '_style') else self._fmt
+            )
+
+            # Replace our color placeholder tags with the appropriate color
+            colored_fmt = (
+                original_fmt.replace('<c>', color).replace('<r>', reset)
+            )
+
+            # Apply color to format string
+            if hasattr(self, '_style'):
+                self._style._fmt = colored_fmt
+            else:
+                self._fmt = colored_fmt
+
+            # Run the regular format function from the parent class
+            formatted = logging.Formatter.format(self, record)
+
+            # Restore the original format string
+            if hasattr(self, '_style'):
+                self._style._fmt = original_fmt
+            else:
+                self._fmt = original_fmt
+
+            return formatted
+        else:
+            return logging.Formatter.format(self, record)
 
 
 class ProjectNameParamType(click.ParamType):
