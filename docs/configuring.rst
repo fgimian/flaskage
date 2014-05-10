@@ -102,7 +102,7 @@ so that it may be used.
     AVAILABLE_CONFIGS = {
         'production': 'config.ProductionConfig',
         'development': 'config.DevelopmentConfig',
-        'testing': 'config.TestingConfig',
+        'test': 'config.TestConfig',
         'staging': 'config.StagingConfig'
     }
 

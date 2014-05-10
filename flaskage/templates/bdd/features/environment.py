@@ -3,7 +3,7 @@ from app import create_app, db
 
 
 def before_feature(context, feature):
-    context.app = create_app('testing')
+    context.app = create_app('test')
     context.client = context.app.test_client()
     context.ctx = context.app.test_request_context()
     context.ctx.push()
