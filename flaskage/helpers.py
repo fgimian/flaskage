@@ -154,36 +154,35 @@ class ColoredFormatter(logging.Formatter):
         if self.use_color:
             color = LOGGING_COLOR_MAPPING[record.description]
             reset = COLOR_RESET
-
-            # Grab the original format (taking into account API changes to the
-            # logging library in Python 3.x)
-            original_fmt = (
-                self._style._fmt if hasattr(self, '_style') else self._fmt
-            )
-
-            # Replace our color placeholder tags with the appropriate color
-            colored_fmt = (
-                original_fmt.replace('<c>', color).replace('<r>', reset)
-            )
-
-            # Apply color to format string
-            if hasattr(self, '_style'):
-                self._style._fmt = colored_fmt
-            else:
-                self._fmt = colored_fmt
-
-            # Run the regular format function from the parent class
-            formatted = logging.Formatter.format(self, record)
-
-            # Restore the original format string
-            if hasattr(self, '_style'):
-                self._style._fmt = original_fmt
-            else:
-                self._fmt = original_fmt
-
-            return formatted
         else:
-            return logging.Formatter.format(self, record)
+            color = ''
+            reset = ''
+
+        # Grab the original format (taking into account API changes to the
+        # logging library in Python 3.x)
+        original_fmt = (
+            self._style._fmt if hasattr(self, '_style') else self._fmt
+        )
+
+        # Replace our color placeholder tags with the appropriate color
+        colored_fmt = original_fmt.replace('<c>', color).replace('<r>', reset)
+
+        # Apply color to format string
+        if hasattr(self, '_style'):
+            self._style._fmt = colored_fmt
+        else:
+            self._fmt = colored_fmt
+
+        # Run the regular format function from the parent class
+        formatted = logging.Formatter.format(self, record)
+
+        # Restore the original format string
+        if hasattr(self, '_style'):
+            self._style._fmt = original_fmt
+        else:
+            self._fmt = original_fmt
+
+        return formatted
 
 
 class ProjectNameParamType(click.ParamType):

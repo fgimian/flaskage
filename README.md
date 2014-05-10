@@ -40,7 +40,6 @@ Flaskage is currently a work in progress.  My current outstanding tasks are...
 
 CLI:
 
-* Provide the ability to turn off colors when using the flaskage command
 * Complete unit tests for the flaskage CLI tool
 * Consider a scaffolding command for BDD and Jade templates
 

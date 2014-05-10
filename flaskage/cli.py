@@ -29,9 +29,11 @@ IGNORED_DIRS = ['__pycache__']
 IGNORED_FILES = ['*.pyc']
 
 
-def configure_logging():
+def configure_logging(use_color=True):
     """Adjust log output formatting"""
-    formatter = ColoredFormatter('<c>%(description)16s<r> : %(destination)s')
+    formatter = ColoredFormatter(
+        '<c>%(description)16s<r> : %(destination)s', use_color=use_color
+    )
     ch = logging.StreamHandler(sys.stdout)
     ch.setLevel(logging.INFO)
     ch.setFormatter(formatter)
@@ -55,10 +57,12 @@ def mode_option(f):
 
 @click.command(add_help_option=False, cls=AliasedGroup)
 @click.help_option('-h', '--help')
-def cli():
+@click.option('--color/--no-color', default=True, help='Use colors in output')
+def cli(color):
     """The Flaskage command provides the ability to generate components of a
     Flaskage web application."""
-    pass
+    # Setup log formatting and display
+    configure_logging(use_color=color)
 
 
 @cli.command(add_help_option=False)
@@ -384,9 +388,6 @@ def library(ctx, name, mode):
     )
     scaffold.render_structure()
     click.echo()
-
-# Setup log formatting and display
-configure_logging()
 
 
 if __name__ == '__main__':
