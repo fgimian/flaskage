@@ -64,8 +64,9 @@ For **SQLite**:
         'sqlite:///' + os.path.join(Config.PROJECT_ROOT, 'dbname.db')
     )
 
-Please ensure that you add any newly installed package in your
-**requirements.txt** file.  You may list your installed packages as follows:
+Please ensure that you add any newly installed package to the
+**requirements/production.txt** file.  You may list your installed packages as
+follows:
 
 .. code-block:: bash
 

@@ -45,7 +45,6 @@ CLI:
 
 Project Structure:
 
-* Consider requirements files for each environment
 * Improve organisation of assets and resolve multiple registrations during
   testing
 * Determine the best way to deal with symbolic link for Twitter Bootstrap fonts

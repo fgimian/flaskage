@@ -61,15 +61,15 @@ Flaskage is structured as shown below::
 
     |-- app
     |   |-- assets
+    |   |-- helpers
     |   |-- models
     |   |-- static
     |   |-- templates
     |   '-- views
     |-- db
     |   '-- migrations
-    |-- features
-    |   '-- steps
     |-- lib
+    |-- requirements
     |-- test
     |   |-- factories
     |   |-- lib
@@ -82,7 +82,6 @@ Flaskage is structured as shown below::
     |-- bower.json
     |-- config.py
     |-- manage.py
-    |-- requirements.txt
     |-- setup.cfg
     '-- wsgi.py
 
@@ -91,6 +90,7 @@ The purpose of each file and directory are as follows:
 - **app**: Main web application directory with app initialisation
 
   - **assets**: Pre-compiled script and stylsheet assets
+  - **helpers**: Helpers specific to your application
   - **models**: Database model definitions
   - **static**: Static files such as CSS, Javascript and images
   - **templates**: Jinja2 templates for presentation
@@ -104,7 +104,11 @@ The purpose of each file and directory are as follows:
 
   - **steps**: Test code which validates that each feature works as expected
 
-- **lib**: Supporting libraries you have developed for your web application
+- **lib**: Generic supporting libraries used by your application but are not
+           application-specific
+
+- **requirements**: Python package requirements for development and production
+
 - **test**: Unit tests for testing your web application
 
   - **factories**: factories created using factory_boy that are used to create
@@ -124,7 +128,6 @@ The purpose of each file and directory are as follows:
 - **config.py**: Configuration for development, production and test
   environments
 - **manage.py**: Management interface and command registrations
-- **requirements.txt**: Python package requirements
 - **setup.cfg**: General package configuration (used for nose)
 - **wsgi.py**: Exposes the production application to your production WSGI
   server
