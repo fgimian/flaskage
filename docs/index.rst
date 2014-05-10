@@ -65,7 +65,7 @@ patterns that you can use as a reference while developing your application.
 .. _Laravel: http://laravel.com/
 .. _overholt: https://github.com/mattupstate/overholt
 .. _flasky: https://github.com/miguelgrinberg/flasky
-.. _flask_website: https://github.com/mitsuhiko/flask/tree/website
+.. _flask_website: https://github.com/mitsuhiko/flask-website
 .. _beancounter: https://bitbucket.org/audriusk/beancounter
 .. _flaskr-bdd: https://github.com/ismaild/flaskr-bdd
 .. _fbone: https://github.com/imwilsonxu/fbone
