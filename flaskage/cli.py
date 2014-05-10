@@ -32,7 +32,7 @@ IGNORED_FILES = ['*.pyc']
 def configure_logging(use_color=True):
     """Adjust log output formatting"""
     formatter = ColoredFormatter(
-        '<c>%(description)16s<r> : %(destination)s', use_color=use_color
+        '<c>%(description)12s<r> : %(destination)s', use_color=use_color
     )
     ch = logging.StreamHandler(sys.stdout)
     ch.setLevel(logging.INFO)
