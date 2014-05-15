@@ -9,7 +9,7 @@ Werkzeug==0.9.4
 Flask-Failsafe==0.2
 
 # Scripting Interface
-Flask-Script==2.0.3
+Flask-Script==0.6.7
 
 # Assets
 Flask-Assets==0.9
