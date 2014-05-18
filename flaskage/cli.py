@@ -109,8 +109,6 @@ def new(ctx, project_name, mode):
     click.echo('  4. Start up the development web server')
     click.echo('     ./manage.py server')
     click.echo()
-    click.echo('  5. Browse to your new site at http://localhost:5000/')
-    click.echo()
 
 
 @cli.command(add_help_option=False, cls=AliasedGroup)

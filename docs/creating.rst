@@ -38,15 +38,7 @@ instructions:
 
     ./manage.py server
 
-This will run the development server on loopback address which will mean that
-it will only be available for viewing by your development server.
-
-If you wish to make the website available to other machines on the same
-network, then start the development server as follows:
-
-.. code-block:: bash
-
-    ./manage.py server -h 0.0.0.0
+This will run the development server which you can access on port 5000.
 
 Generating Scaffolds
 --------------------

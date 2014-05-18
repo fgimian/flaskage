@@ -32,7 +32,7 @@ def _make_context():
 manager.add_option('-c', '--config', dest='config',
                    choices=list(AVAILABLE_CONFIGS), default=DEFAULT_CONFIG)
 manager.add_command('clean', Clean())
-manager.add_command('server', Server())
+manager.add_command('server', Server(host='0.0.0.0'))
 manager.add_command('shell', Shell(make_context=_make_context))
 manager.add_command('urls', ShowUrls())
 manager.add_command('db', MigrateCommand)
