@@ -10,7 +10,7 @@ from flask.ext.assets import ManageAssets
 from factory.alchemy import SQLAlchemyModelFactory
 
 from app import create_app, db, models
-from config import AVAILABLE_CONFIGS, DEFAULT_CONFIG
+from config.application import AVAILABLE_CONFIGS, DEFAULT_CONFIG
 from test import factories
 
 manager = Manager(failsafe(create_app), with_default_commands=False)

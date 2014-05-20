@@ -7,7 +7,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.migrate import Migrate
 from flask.ext.assets import Environment, Bundle
 
-from config import AVAILABLE_CONFIGS
+from config.application import AVAILABLE_CONFIGS
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -15,7 +15,14 @@ assets = Environment()
 
 
 def create_app(config):
-    app = Flask(__name__)
+    instance_path = os.path.abspath(
+        os.path.join(
+            os.path.dirname(os.path.dirname(__file__)), 'config', 'instance'
+        )
+    )
+    app = Flask(
+        __name__, instance_path=instance_path, instance_relative_config=True
+    )
     configure_app(app, config)
     configure_assets()
     configure_extensions(app, db)
@@ -28,6 +35,7 @@ def create_app(config):
 
 def configure_app(app, config):
     app.config.from_object(AVAILABLE_CONFIGS[config])
+    app.config.from_pyfile('application_instance.py', silent=True)
 
 
 def configure_assets():

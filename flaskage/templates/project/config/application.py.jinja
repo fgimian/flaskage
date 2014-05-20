@@ -2,15 +2,15 @@
 import os
 
 AVAILABLE_CONFIGS = {
-    'production': 'config.ProductionConfig',
-    'development': 'config.DevelopmentConfig',
-    'test': 'config.TestConfig'
+    'production': 'config.application.ProductionConfig',
+    'development': 'config.application.DevelopmentConfig',
+    'test': 'config.application.TestConfig'
 }
 DEFAULT_CONFIG = 'development'
 
 
 class Config(object):
-    _basedir = os.path.abspath(os.path.dirname(__file__))
+    _basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
     DEBUG = False
     ASSETS_LOAD_PATH = [
@@ -32,6 +32,7 @@ class Config(object):
 class DevelopmentConfig(Config):
     SECRET_KEY = 'devkey'
     DEBUG = True
+    ASSETS_DEBUG = True
     SQLALCHEMY_DATABASE_URI = (
         'sqlite:///%s' %
         os.path.join(Config._basedir, 'db', '{{{ name }}}.db')
