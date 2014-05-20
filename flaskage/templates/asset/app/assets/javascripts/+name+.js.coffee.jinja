@@ -5,7 +5,7 @@
 # the following code:
 #
 # {% block js %}
-#   {% assets filters="coffeescript,uglifyjs", output="{{{ name }}}.js",
+#   {% assets filters="coffeescript,uglifyjs", output="{{{ name }}}-%(version)s.js",
 #             "coffee/{{{ name }}}.coffee" %}
 #     <script src="{{ ASSET_URL }}"></script>
 #   {% endassets %}

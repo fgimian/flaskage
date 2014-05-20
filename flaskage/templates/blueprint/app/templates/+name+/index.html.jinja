@@ -2,14 +2,14 @@
 {% set title = "Blueprint" %}
 
 {% block js %}
-  {% assets filters="coffeescript,uglifyjs", output="{{{ name }}}.js",
+  {% assets filters="coffeescript,uglifyjs", output="{{{ name }}}-%(version)s.js",
             "javascripts/{{{ name }}}.js.coffee" %}
     <script src="{{ ASSET_URL }}"></script>
   {% endassets %}
 {% endblock %}
 
 {% block css %}
-  {% assets filters="less,cleancss", output="{{{ name }}}.css",
+  {% assets filters="less,cleancss", output="{{{ name }}}-%(version)s.css",
             "stylesheets/{{{ name }}}.css.less" %}
     <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}" />
   {% endassets %}

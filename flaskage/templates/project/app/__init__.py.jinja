@@ -44,9 +44,9 @@ def configure_assets():
         Bundle(
             Bundle(
                 'stylesheets/application.css.less',
-                filters=['less']
+                filters=['less'], output='application-less-%(version)s.css'
             ),
-            filters=['cleancss'], output='application.css'
+            filters=['cleancss'], output='application-%(version)s.css'
         )
     )
     assets.register(
@@ -56,9 +56,10 @@ def configure_assets():
             'bootstrap/dist/js/bootstrap.js',
             Bundle(
                 'javascripts/application.js.coffee',
-                filters=['coffeescript']
+                filters=['coffeescript'],
+                output='application-coffee-%(version)s.js'
             ),
-            filters=['uglifyjs'], output='application.js'
+            filters=['uglifyjs'], output='application-%(version)s.js'
         )
     )
     assets.register(
@@ -66,7 +67,7 @@ def configure_assets():
         Bundle(
             'html5shiv/dist/html5shiv.js',
             'respond/dest/respond.src.js',
-            filters=['uglifyjs'], output='ie8.js'
+            filters=['uglifyjs'], output='ie8-%(version)s.js'
         )
     )
 
