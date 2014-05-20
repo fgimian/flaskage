@@ -5,13 +5,12 @@ import logging
 from flask import Flask, render_template
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.migrate import Migrate
-from flask.ext.assets import Environment, Bundle
 
 from config.application import AVAILABLE_CONFIGS
+from config.assets import assets
 
 db = SQLAlchemy()
 migrate = Migrate()
-assets = Environment()
 
 
 def create_app(config):
@@ -24,7 +23,6 @@ def create_app(config):
         __name__, instance_path=instance_path, instance_relative_config=True
     )
     configure_app(app, config)
-    configure_assets()
     configure_extensions(app, db)
     configure_logging(app)
     configure_hooks(app)
@@ -36,40 +34,6 @@ def create_app(config):
 def configure_app(app, config):
     app.config.from_object(AVAILABLE_CONFIGS[config])
     app.config.from_pyfile('application_instance.py', silent=True)
-
-
-def configure_assets():
-    assets.register(
-        'css_all',
-        Bundle(
-            Bundle(
-                'stylesheets/application.css.less',
-                filters=['less'], output='application-less-%(version)s.css'
-            ),
-            filters=['cleancss'], output='application-%(version)s.css'
-        )
-    )
-    assets.register(
-        'js_all',
-        Bundle(
-            'jquery/dist/jquery.js',
-            'bootstrap/dist/js/bootstrap.js',
-            Bundle(
-                'javascripts/application.js.coffee',
-                filters=['coffeescript'],
-                output='application-coffee-%(version)s.js'
-            ),
-            filters=['uglifyjs'], output='application-%(version)s.js'
-        )
-    )
-    assets.register(
-        'js_ie8',
-        Bundle(
-            'html5shiv/dist/html5shiv.js',
-            'respond/dest/respond.src.js',
-            filters=['uglifyjs'], output='ie8-%(version)s.js'
-        )
-    )
 
 
 def configure_hooks(app):

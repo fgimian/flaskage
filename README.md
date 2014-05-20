@@ -45,11 +45,7 @@ CLI:
 
 Project Structure:
 
-* Improve organisation of assets and resolve multiple registrations during
-  testing
 * Determine the best way to deal with symbolic link for Twitter Bootstrap fonts
-* Consider a better way to store sensitive configuration (e.g. secret keys
-  and database credentials)
 
 Documentation:
 
