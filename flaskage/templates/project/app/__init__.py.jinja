@@ -5,12 +5,14 @@ import logging
 from flask import Flask, render_template
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.migrate import Migrate
+from flask.ext.debugtoolbar import DebugToolbarExtension
 
 from config.application import AVAILABLE_CONFIGS
 from config.assets import assets
 
 db = SQLAlchemy()
 migrate = Migrate()
+toolbar = DebugToolbarExtension()
 
 
 def create_app(config):
@@ -41,6 +43,7 @@ def configure_app(app, config):
 def configure_extensions(app, db):
     db.init_app(app)
     migrate.init_app(app, db, directory=os.path.join('db', 'migrations'))
+    toolbar.init_app(app)
     assets.init_app(app)
 
     # app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
