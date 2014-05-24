@@ -26,6 +26,8 @@ def create_app(config):
     configure_extensions(app, db)
     configure_logging(app)
     configure_hooks(app)
+    configure_template_filters(app)
+    configure_template_globals(app)
     configure_error_handlers(app)
     configure_blueprints(app)
     return app
@@ -34,18 +36,6 @@ def create_app(config):
 def configure_app(app, config):
     app.config.from_object(AVAILABLE_CONFIGS[config])
     app.config.from_pyfile('application_instance.py', silent=True)
-
-
-def configure_hooks(app):
-    # @app.before_request
-    # def before_request():
-    #     pass
-    pass
-
-
-def configure_blueprints(app):
-    from .views import welcome_view
-    app.register_blueprint(welcome_view.mod)
 
 
 def configure_extensions(app, db):
@@ -61,12 +51,30 @@ def configure_logging(app):
     app.logger.setLevel(logging.INFO)
 
 
+def configure_hooks(app):
+    # @app.before_request
+    # def before_request():
+    #     pass
+    pass
+
+
 def configure_template_filters(app):
     # @app.template_filter()
     # def reverse_filter(s):
     #     return s[::-1]
     #
     # app.jinja_env.filters['imported_filter'] = imported_filter
+    pass
+
+
+def configure_template_globals(app):
+    # @app.template_global()
+    # def prepare_url(**kwargs):
+    #     args = request.args.to_dict()
+    #     args.update(kwargs)
+    #     return url_for(request.endpoint, **args)
+    #
+    # app.add_template_global(pformat)
     pass
 
 
@@ -82,3 +90,8 @@ def configure_error_handlers(app):
     @app.errorhandler(500)
     def internal_server_error(error):
         return render_template("500.html"), 500
+
+
+def configure_blueprints(app):
+    from .views import welcome_view
+    app.register_blueprint(welcome_view.mod)
