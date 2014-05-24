@@ -7,7 +7,7 @@ assets.register(
     'css_all',
     Bundle(
         Bundle(
-            'stylesheets/application.css.less',
+            'stylesheets/application.less',
             filters=['less'], output='application-less-%(version)s.css'
         ),
         filters=['cleancss'], output='application-%(version)s.css'
@@ -20,7 +20,7 @@ assets.register(
         'jquery/dist/jquery.js',
         'bootstrap/dist/js/bootstrap.js',
         Bundle(
-            'javascripts/application.js.coffee',
+            'javascripts/application.coffee',
             filters=['coffeescript'],
             output='application-coffee-%(version)s.js'
         ),
