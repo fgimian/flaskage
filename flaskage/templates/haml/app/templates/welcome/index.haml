@@ -3,11 +3,11 @@
 
 - block js
   - assets filters='coffeescript,uglifyjs', output='welcome.js', 'javascripts/welcome.coffee'
-      %script{'src': '={ASSET_URL}'}
+      %script{src: '={ASSET_URL}'}
 
 - block css
   - assets filters='less,cleancss', output='welcome.css', 'stylesheets/welcome.less'
-      %link{'rel': 'stylesheet', 'type': 'text/css', 'href': '={ASSET_URL}'}
+      %link{rel: 'stylesheet', type: 'text/css', href: '={ASSET_URL}'}
 
 - block body
   .site-wrapper
@@ -15,7 +15,7 @@
       .cover-container
         .inner.cover
           %h1.cover-heading Welcome to Flaskage
-          %img#main-logo{'src': '{{ url_for("static", filename="images/flaskage.png") }}'}
+          %img#main-logo{src: '{{ url_for("static", filename="images/flaskage.png") }}'}
           %p.lead
             A complete and carefully designed template for use with the Flask web
             framework
@@ -29,3 +29,6 @@
               , by 
               %a{href: 'https://twitter.com/mdo'}>= ' @mdo'
               \.
+              / :markdown
+              /   Cover template for [Bootstrap](http://getbootstrap.com),
+              /   by [@mdo](https://twitter.com/mdo).
