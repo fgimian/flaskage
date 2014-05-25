@@ -1,0 +1,31 @@
+- extends 'layout.haml'
+- set title = 'Welcome'
+
+- block js
+  - assets filters='coffeescript,uglifyjs', output='welcome.js', 'javascripts/welcome.coffee'
+      %script{'src': '={ASSET_URL}'}
+
+- block css
+  - assets filters='less,cleancss', output='welcome.css', 'stylesheets/welcome.less'
+      %link{'rel': 'stylesheet', 'type': 'text/css', 'href': '={ASSET_URL}'}
+
+- block body
+  .site-wrapper
+    .site-wrapper-inner
+      .cover-container
+        .inner.cover
+          %h1.cover-heading Welcome to Flaskage
+          %img#main-logo{'src': '{{ url_for("static", filename="images/flaskage.png") }}'}
+          %p.lead
+            A complete and carefully designed template for use with the Flask web
+            framework
+          %p.lead
+            %a.btn.btn-lg.btn-default{href: 'https://github.com/fgimian/flaskage'} Learn more
+        .mastfoot
+          .inner
+            %p
+              Cover template for
+              %a{href: 'http://getbootstrap.com'}>= ' Bootstrap'
+              , by 
+              %a{href: 'https://twitter.com/mdo'}>= ' @mdo'
+              \.

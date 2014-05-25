@@ -1,0 +1,30 @@
+!!! 5
+%html{'lang': 'en'}
+  %head
+    %meta{'charset': 'utf-8'}
+    %meta{'http-equiv': 'X-UA-Compatible', 'content': 'IE=edge'}
+    %meta{'name': 'viewport', 'content': 'width=device-width, initial-scale=1'}
+    %title= title
+
+    / Global Stylesheet
+    - assets 'css_all'
+        %link{'rel': 'stylesheet', 'type': 'text/css', 'href': '={ASSET_URL}'}
+
+    / Blueprint Stylesheets
+    - block css
+
+    / HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
+    / WARNING: Respond.js doesn't work if you view the page via file://
+    /[if IE lt 9]
+      - assets 'js_ie8'
+          %script{'src': '={ASSET_URL}'}
+  %body
+    .container-fluid
+      - block body
+
+    / Global Javascript
+    - assets 'js_all'
+        %script{'src': '={ASSET_URL}'}
+
+    / Blueprint Javascripts
+    - block js
