@@ -56,3 +56,4 @@ Long-term goals are as follows:
 * Generation of scaffolding including CRUD
 * Pluggable scaffolding modules
 * Ability to generate foreign keys and relationships via scaffolding
+* Consider supporting a Django-like directory layout
