@@ -17,7 +17,6 @@ class ScaffoldException(Exception):
 
 
 class Scaffold(object):
-
     EXISTING_SKIP = 1
     EXISTING_PROMPT = 2
     EXISTING_OVERWRITE = 3

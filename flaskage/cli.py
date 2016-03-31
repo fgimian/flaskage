@@ -30,7 +30,7 @@ IGNORED_FILES = ['*.pyc']
 
 
 def configure_logging(use_color=True):
-    """Adjust log output formatting"""
+    """Adjust log output formatting."""
     formatter = ColoredFormatter(
         '<c>%(description)12s<r> : %(destination)s', use_color=use_color
     )
@@ -59,8 +59,10 @@ def mode_option(f):
 @click.help_option('-h', '--help')
 @click.option('--color/--no-color', default=True, help='Use colors in output')
 def cli(color):
-    """The Flaskage command provides the ability to generate components of a
-    Flaskage web application."""
+    """
+    The Flaskage command provides the ability to generate components of a
+    Flaskage web application.
+    """
     # Setup log formatting and display
     configure_logging(use_color=color)
 
@@ -231,7 +233,8 @@ def helper(ctx, name, mode):
 @click.argument('columns', nargs=-1, type=MODEL_COLUMN)
 @click.pass_context
 def model(ctx, name, columns, mode):
-    """Generate a database model using a given name. You may also specify the
+    """
+    Generate a database model using a given name. You may also specify the
     columns you need following the model name using the format:
 
     <name>[:<type>[,<length>][:<modifier>,<modifier>...]]
