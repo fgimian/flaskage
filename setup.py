@@ -1,5 +1,9 @@
 from setuptools import setup
 
+# Read the long description from README.rst
+with open('README.rst') as f:
+    long_description = f.read()
+
 
 setup(
     name='flaskage',
@@ -12,6 +16,7 @@ setup(
         'A complete and carefully designed template for use with the Flask '
         'web framework.'
     ),
+    long_description=long_description,
     packages=['flaskage'],
     include_package_data=True,
     entry_points={
