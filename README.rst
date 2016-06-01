@@ -3,7 +3,7 @@ Flaskage
 
 |Build Status| |License|
 
-.. |Build Status| image:: https://travis-ci.org/fgimian/flaskage.png?branch=master
+.. |Build Status| image:: https://travis-ci.org/fgimian/flaskage.svg?branch=master
    :target: https://travis-ci.org/fgimian/flaskage
 .. |License| image:: https://img.shields.io/badge/license-MIT-blue.svg
    :target: https://github.com/fgimian/flaskage/blob/master/LICENSE
