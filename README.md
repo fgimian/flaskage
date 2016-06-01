@@ -3,6 +3,8 @@
 [![Build Status](https://travis-ci.org/fgimian/flaskage.png?branch=master)](https://travis-ci.org/fgimian/flaskage)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/fgimian/flaskage/blob/master/LICENSE)
 
+**Please note that this project is a work in progress**
+
 ![Flaskage Logo](https://raw.githubusercontent.com/fgimian/flaskage/master/docs/_static/flaskage-full.png)
 
 Awesome artwork provided courtesy of
@@ -52,22 +54,20 @@ file for more details.
 
 ## TODO
 
-Flaskage is currently a work in progress.  My current outstanding tasks are...
-
-CLI:
+### CLI
 
 * Complete unit tests for the flaskage CLI tool
 * Consider a scaffolding command for BDD and Jade templates
 
-Project Structure:
+### Project Structure
 
 * Determine the best way to deal with symbolic link for Twitter Bootstrap fonts
 
-Documentation:
+### Documentation
 
 * Complete writing documentation
 
-Long-term goals are as follows:
+### Long-term goals are as follows
 
 * Generation of scaffolding including CRUD
 * Pluggable scaffolding modules
