@@ -1,17 +1,23 @@
-# Flaskage #
-*A complete and carefully designed template for use with the Flask web framework*
+# Flaskage
 
 [![Build Status](https://travis-ci.org/fgimian/flaskage.png?branch=master)](https://travis-ci.org/fgimian/flaskage)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/fgimian/flaskage/blob/master/LICENSE)
 
 ![Flaskage Logo](https://raw.githubusercontent.com/fgimian/flaskage/master/docs/_static/flaskage-full.png)
 
-Awesome artwork provided courtesy of [Open Clip Art Library](http://openclipart.org/detail/168585/knight-sheep-by-dodger2)
+Awesome artwork provided courtesy of
+[Open Clip Art Library](http://openclipart.org/detail/168585/knight-sheep-by-dodger2)
 
-## Documentation ##
+## Introduction
 
-Please check out the [Flaskage documentation at Read the Docs](http://flaskage.readthedocs.org/).
+The Flaskage template attempts to bring together all the best packages and
+integrate them with Flask so you have a full stack MVC (or MTV) structure
+ready-to-use.
 
-## Quick Start ##
+Flaskage takes a lot of inspiration from frameworks like Ruby on Rails, Play
+and Laravel and doesn’t attempt to re-create the Django way of working.
+
+## Quick Start
 
 Install Flaskage in your virtualenv as follows:
 
@@ -34,7 +40,17 @@ cd <project-name>
 
 Refer to the [documentation](http://flaskage.readthedocs.org/) for further instruction.
 
-## TODO ##
+## Documentation
+
+Please check out the [Flaskage documentation at Read the Docs](http://flaskage.readthedocs.org/).
+
+## License
+
+Flaskage is released under the **MIT** license. Please see the
+[LICENSE](https://github.com/fgimian/flaskage/blob/master/LICENSE)
+file for more details.
+
+## TODO
 
 Flaskage is currently a work in progress.  My current outstanding tasks are...
 
