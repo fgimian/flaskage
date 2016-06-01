@@ -5,7 +5,7 @@
 
 **Please note that this project is a work in progress**
 
-![Flaskage Logo](https://raw.githubusercontent.com/fgimian/flaskage/master/docs/_static/flaskage-full.png)
+![Flaskage Logo](https://raw.githubusercontent.com/fgimian/flaskage/master/images/flaskage-logo.png)
 
 Awesome artwork provided courtesy of
 [Open Clip Art Library](http://openclipart.org/detail/168585/knight-sheep-by-dodger2)
