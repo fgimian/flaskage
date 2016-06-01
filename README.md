@@ -7,7 +7,7 @@
 
 ![Flaskage Logo](https://raw.githubusercontent.com/fgimian/flaskage/master/images/flaskage-logo.png)
 
-Awesome artwork provided courtesy of
+Artwork courtesy of
 [Open Clip Art Library](http://openclipart.org/detail/168585/knight-sheep-by-dodger2)
 
 ## Introduction
